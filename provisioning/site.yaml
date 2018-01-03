@@ -1,0 +1,7 @@
+- hosts: dev-machine
+  roles:
+    - generic_dependencies
+    - build_dependencies
+    - checkout_repos
+    - setup_docker
+

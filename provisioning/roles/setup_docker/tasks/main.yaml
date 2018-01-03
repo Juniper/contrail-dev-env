@@ -1,0 +1,19 @@
+- name: Install and run docker on VM
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - docker
+  notify:
+    - Start docker
+
+- name: Start uhttpd container
+  docker:
+    name: mydata
+    image: fnichol/uhttpd
+    state: present
+    expose:
+    - 8080
+    volumes:
+    - /data
+
