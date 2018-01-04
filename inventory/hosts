@@ -1,3 +1,5 @@
-[dev-machine]
+[contrail_sandbox]
+localhost       ansible_connection=local
+[builder]
 localhost       ansible_connection=local
 

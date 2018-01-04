@@ -2,6 +2,5 @@
   roles:
     - generic_dependencies
     - build_dependencies
-    - checkout_repos
     - setup_docker
-
+    - checkout_repos

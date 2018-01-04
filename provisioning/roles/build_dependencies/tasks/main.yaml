@@ -12,6 +12,7 @@
     - kernel-devel
     - rpm-build
     - scons
+    - yum-utils
   become: yes
   become_user: root
 
