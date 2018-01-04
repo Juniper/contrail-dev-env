@@ -4,20 +4,26 @@
     state: present
   with_items:
     - docker
-  notify:
-    - Start docker
+  become: yes
+  become_user: root
+
+- name: Restart docker service
+  service:
+    name: docker
+    state: started
   become: yes
   become_user: root
 
 - name: Start uhttpd container
   docker:
-    name: mydata
+    name: yumrepo
     image: fnichol/uhttpd
-    state: present
+    state: started
+    restart_policy: always
     expose:
-    - 8080
+    - 80
     volumes:
-    - /data
+    - /home/vagrant/rpmbuild/RPMS
   become: yes
   become_user: root
 
