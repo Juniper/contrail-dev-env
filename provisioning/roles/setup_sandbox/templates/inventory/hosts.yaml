@@ -1,0 +1,13 @@
+all:
+  hosts:
+    builder:
+      ansible_connection: local
+  vars:
+    zuul:
+      branch: master
+      change: 10000
+      patchset: 1
+      projects:
+      - short_name: contrail-packages
+        src_dir: src/review.opencontrail.org/Juniper/contrail-packages
+
