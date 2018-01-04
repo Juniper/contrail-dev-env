@@ -2,8 +2,8 @@
   git:
     repo: "https://github.com/{{ item.user }}/{{ item.reponame }}"
     dest: "/home/vagrant/code/{{ item.reponame }}"
-    version: master
+    version: "{{ item.version | default('master') }}"
   with_items:
-    - { user: 'Juniper', reponame: 'contrail-project-config' }
+    - { user: 'jluk-codi', reponame: 'contrail-project-config', version: devenv }
     - { user: 'codilime', reponame: 'zuul-jobs' }
 
