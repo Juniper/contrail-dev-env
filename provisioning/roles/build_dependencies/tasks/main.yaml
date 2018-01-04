@@ -12,4 +12,6 @@
     - kernel-devel
     - rpm-build
     - scons
+  become: yes
+  become_user: root
 

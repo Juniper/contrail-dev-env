@@ -1,17 +1,22 @@
 - name: Install generic dependencies on development VM
   yum:
     name: "{{ item }}"
-    state: latest
+    state: present
   with_items:
     - epel-release
     - git
     - createrepo
     - tree
     - lynx
+    - docker-python
+  become: yes
+  become_user: root
 
 - name: Download Android repo tool
   get_url:
     url: "https://storage.googleapis.com/git-repo-downloads/repo"
     dest: "/usr/bin/repo"
     mode: 0655
+  become: yes
+  become_user: root
 

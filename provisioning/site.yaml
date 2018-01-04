@@ -1,4 +1,4 @@
-- hosts: dev-machine
+- hosts: contrail_sandbox
   roles:
     - generic_dependencies
     - build_dependencies
