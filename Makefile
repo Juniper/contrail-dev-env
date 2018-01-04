@@ -1,8 +1,3 @@
-# README:
-# run "make presetup" once
-# run "make checkout_vnc" if you want to checkout the contrail code
-# run "make all" to start the full pipeline
-
 sandbox_path=/root/contrail-5.0
 
 # this is the first bootstrap of the packages for the tool itself
@@ -11,7 +6,7 @@ presetup:
 	yum install -y epel-release ansible vim
 
 # optional step, used when the sandbox is not mounted from host system
-checkout_vnc:
+checkout_vnc: setup
 	scripts/checkout_vnc.sh $(sandbox_path)
 
 # install all the primary build deps, docker engine etc.
