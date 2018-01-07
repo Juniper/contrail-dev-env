@@ -6,6 +6,17 @@
     owner: vagrant
     group: vagrant
 
+- name: Setup config file for Ansible run inside VM
+  copy:
+    content: |
+      [defaults]
+      roles_path = /home/vagrant/code/contrail-project-config/roles:/home/vagrant/code/zuul-jobs/roles
+    dest: /home/vagrant/.ansible.cfg
+    mode: 0644
+    owner: vagrant
+    group: vagrant
+
+
 - name: Create sandbox dir
   file:
     path: "/home/vagrant/contrail-5.0"
