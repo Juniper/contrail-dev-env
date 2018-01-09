@@ -14,21 +14,38 @@
   become: yes
   become_user: root
 
-- name: Start uhttpd container
-  docker:
+- name: Prepare share volume for HTTP server
+  file:
+    path: "/home/vagrant/rpmbuild/RPMS"
+    state: directory
+    mode: 0755
+    owner: vagrant
+    group: vagrant
+
+- name: Prepare config directory for contenaraized HTTP server
+  copy:
+    src: "../templates/lighttpd"
+    dest: "/home/vagrant/"
+    mode: 0644
+    owner: vagrant
+    group: vagrant
+
+- name: Start lighttpd container
+  docker_container:
     name: local_repo
-    image: fnichol/uhttpd
+    image: sebp/lighttpd
     state: started
     restart_policy: always
     expose:
     - 80
     volumes:
-    - /home/vagrant/rpmbuild/RPMS
+    - /home/vagrant/rpmbuild/RPMS:/var/www/localhost/htdocs:Z
+    - /home/vagrant/lighttpd:/etc/lighttpd:Z
   become: yes
   become_user: root
 
 - name: Start local docker registry
-  docker:
+  docker_container:
     name: local_registry
     image: registry
     state: started
