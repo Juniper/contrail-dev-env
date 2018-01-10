@@ -1,0 +1,2 @@
+kernel_version: "{{ ansible_kernel | default('') }}"
+
