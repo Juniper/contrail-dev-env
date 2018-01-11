@@ -31,7 +31,7 @@
   with_items:
     - { option: user.name, value: 'Your Name' }
     - { option: user.email, value: 'you@example.com' }
-    - { option: color.ui, value: 'true' }
+    - { option: color.ui, value: 'false' }
 
 - name: Initialize repo dir
   shell: |
