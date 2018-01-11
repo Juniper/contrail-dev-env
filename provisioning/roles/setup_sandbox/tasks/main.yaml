@@ -1,29 +1,27 @@
 - name: Prepare inventory hosts.yaml used by CI playbooks
   copy:
     src: "../templates/inventory"
-    dest: "/home/vagrant/code"
+    dest: "{{ workdir }}/code"
     mode: 0644
-    owner: vagrant
-    group: vagrant
+    owner: "{{ sandbox_owner }}"
+    group: "{{ sandbox_group }}"
 
 - name: Setup config file for Ansible run inside VM
-  copy:
-    content: |
-      [defaults]
-      roles_path = /home/vagrant/code/contrail-project-config/roles:/home/vagrant/code/zuul-jobs/roles
-    dest: /home/vagrant/.ansible.cfg
+  template:
+    src: "../templates/ansible.cfg.j2"
+    dest: "{{ workdir }}/.ansible.cfg"
     mode: 0644
-    owner: vagrant
-    group: vagrant
+    owner: "{{ sandbox_owner }}"
+    group: "{{ sandbox_group }}"
 
 
 - name: Create sandbox dir
   file:
-    path: "/home/vagrant/contrail-5.0"
+    path: "{{ workdir }}/contrail-5.0"
     state: directory
     mode: 0755
-    owner: vagrant
-    group: vagrant
+    owner: "{{ sandbox_owner }}"
+    group: "{{ sandbox_group }}"
 
 - name: Configure git client
   git_config:
@@ -39,11 +37,11 @@
   shell: |
     repo init --no-clone-bundle -u https://github.com/Juniper/contrail-vnc -b master
   args:
-    chdir: /home/vagrant/contrail-5.0
+    chdir: "{{ workdir }}/contrail-5.0"
 
 - name: Sychronize repo dir with upstream
   shell: |
     repo sync --no-clone-bundle -j 4
   args:
-    chdir: /home/vagrant/contrail-5.0
+    chdir: "{{ workdir }}/contrail-5.0"
 

@@ -1,8 +1,8 @@
 - name: Checkout CI jobs repos
   git:
     repo: "https://github.com/{{ item.user }}/{{ item.reponame }}"
-    dest: "/home/vagrant/code/{{ item.reponame }}"
-    version: "{{ item.version | default('master') }}"
+    dest: "{{ workdir }}/code/{{ item.reponame }}"
+    version: master
   with_items:
     - { user: 'jluk-codi', reponame: 'contrail-project-config', version: devenv }
     - { user: 'codilime', reponame: 'zuul-jobs' }

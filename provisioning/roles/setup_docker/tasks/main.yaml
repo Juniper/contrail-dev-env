@@ -16,19 +16,19 @@
 
 - name: Prepare share volume for HTTP server
   file:
-    path: "/home/vagrant/rpmbuild/RPMS"
+    path: "{{ workdir }}/rpmbuild/RPMS"
     state: directory
     mode: 0755
-    owner: vagrant
-    group: vagrant
+    owner: "{{ sandbox_owner }}"
+    group: "{{ sandbox_group }}"
 
 - name: Prepare config directory for contenaraized HTTP server
   copy:
     src: "../templates/lighttpd"
-    dest: "/home/vagrant/"
+    dest: "{{ workdir }}/"
     mode: 0644
-    owner: vagrant
-    group: vagrant
+    owner: "{{ sandbox_owner }}"
+    group: "{{ sandbox_group }}"
 
 - name: Start lighttpd container
   docker_container:
@@ -39,8 +39,8 @@
     expose:
     - 80
     volumes:
-    - /home/vagrant/rpmbuild/RPMS:/var/www/localhost/htdocs:Z
-    - /home/vagrant/lighttpd:/etc/lighttpd:Z
+      - "{{ workdir }}/rpmbuild/RPMS:/var/www/localhost/htdocs:Z"
+      - "{{ workdir }}/lighttpd:/etc/lighttpd:Z"
   become: yes
   become_user: root
 

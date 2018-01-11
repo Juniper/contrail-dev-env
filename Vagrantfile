@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
       contrail_sandbox_config.vm.provision "ansible" do |ansible|
          ansible.playbook = "provisioning/site.yaml"
-         #ansible.verbose = "vvv"
+         ansible.verbose = "v"
       end
    end
 end
