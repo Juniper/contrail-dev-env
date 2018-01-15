@@ -1,0 +1,30 @@
+- name: Create sandbox dir
+  file:
+    path: "{{ workdir }}/contrail-5.0"
+    state: directory
+    mode: 0755
+    owner: "{{ sandbox_owner }}"
+    group: "{{ sandbox_group }}"
+
+- name: Configure git client
+  git_config:
+    name: "{{ item.option }}"
+    value: "{{ item.value }}"
+    scope: global
+  with_items:
+    - { option: user.name, value: 'Your Name' }
+    - { option: user.email, value: 'you@example.com' }
+    - { option: color.ui, value: 'false' }
+
+- name: Initialize repo dir
+  shell: |
+    repo init --no-clone-bundle -u https://github.com/Juniper/contrail-vnc -b master
+  args:
+    chdir: "{{ workdir }}/contrail-5.0"
+
+- name: Sychronize repo dir with upstream
+  shell: |
+    repo sync --no-clone-bundle -j 4
+  args:
+    chdir: "{{ workdir }}/contrail-5.0"
+
