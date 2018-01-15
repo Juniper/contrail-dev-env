@@ -1,4 +1,4 @@
-sandbox_path=/root/contrail-5.0
+sandbox_path=$(HOME)/contrail-5.0
 
 # this is the first bootstrap of the packages for the tool itself
 # not a part of the "all" target, should be invoked manually
@@ -11,7 +11,7 @@ checkout_vnc: setup
 
 # install all the primary build deps, docker engine etc.
 setup:
-	ansible-playbook -i inventory provisioning/site.yaml
+	ansible-playbook -i inventory --extra-vars @dev_config.yaml provisioning/site.yaml
 
 build:
 	echo "Not implemented yet"

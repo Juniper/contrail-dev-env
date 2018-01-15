@@ -1,9 +1,4 @@
 - hosts: contrail_sandbox
-  vars:
-    workdir: '/home/vagrant'
-    sandbox_owner: 'vagrant'
-    sandbox_group: 'vagrant'
-  remote_user: vagrant
   roles:
     - role: generic_dependencies
     - role: build_dependencies

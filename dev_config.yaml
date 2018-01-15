@@ -1,1 +1,4 @@
+workdir: /home/vagrant
+sandbox_owner: vagrant
+sandbox_group: vagrant
 scons_tasks: 4
