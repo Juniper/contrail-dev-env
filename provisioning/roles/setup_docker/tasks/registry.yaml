@@ -10,19 +10,11 @@
   become: yes
   become_user: root
 
-- name: Get registry container IP address
-  shell: |
-    docker inspect --format '{''{ .NetworkSettings.IPAddress }''}' local_registry
-  register: local_registry_ip
-  when: local_registry_deployed.changed
-  become: yes
-  become_user: root
-
 - name: Configure insecure local registry
   copy:
     content: |
       {
-        "insecure-registries": ["{{ local_registry_ip.stdout }}:5000"]
+        "insecure-registries": ["{{ docker_container.NetworkSettings.IPAddress }}:5000"]
       }
     dest: /etc/docker/daemon.json
   notify:
