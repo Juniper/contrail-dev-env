@@ -1,0 +1,30 @@
+- name: Prepare share volume for HTTP server
+  file:
+    path: "{{ workdir }}/rpmbuild/RPMS"
+    state: directory
+    mode: 0755
+    owner: "{{ sandbox_owner }}"
+    group: "{{ sandbox_group }}"
+
+- name: Prepare config directory for contenaraized HTTP server
+  copy:
+    src: "../templates/lighttpd"
+    dest: "{{ workdir }}/"
+    mode: 0644
+    owner: "{{ sandbox_owner }}"
+    group: "{{ sandbox_group }}"
+
+- name: Start lighttpd container
+  docker_container:
+    name: local_repo
+    image: sebp/lighttpd
+    state: started
+    restart_policy: always
+    expose:
+    - 80
+    volumes:
+      - "{{ workdir }}/rpmbuild/RPMS:/var/www/localhost/htdocs:Z"
+      - "{{ workdir }}/lighttpd:/etc/lighttpd:Z"
+  become: yes
+  become_user: root
+

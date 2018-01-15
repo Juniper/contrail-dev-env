@@ -4,83 +4,14 @@
     state: present
   with_items:
     - docker
+  notify:
+    - Restart docker service
   become: yes
   become_user: root
 
-- name: Restart docker service
-  service:
-    name: docker
-    state: started
-  become: yes
-  become_user: root
+- meta: flush_handlers
 
-- name: Prepare share volume for HTTP server
-  file:
-    path: "{{ workdir }}/rpmbuild/RPMS"
-    state: directory
-    mode: 0755
-    owner: "{{ sandbox_owner }}"
-    group: "{{ sandbox_group }}"
+- import_tasks: lighttpd.yaml
 
-- name: Prepare config directory for contenaraized HTTP server
-  copy:
-    src: "../templates/lighttpd"
-    dest: "{{ workdir }}/"
-    mode: 0644
-    owner: "{{ sandbox_owner }}"
-    group: "{{ sandbox_group }}"
-
-- name: Start lighttpd container
-  docker_container:
-    name: local_repo
-    image: sebp/lighttpd
-    state: started
-    restart_policy: always
-    expose:
-    - 80
-    volumes:
-      - "{{ workdir }}/rpmbuild/RPMS:/var/www/localhost/htdocs:Z"
-      - "{{ workdir }}/lighttpd:/etc/lighttpd:Z"
-  become: yes
-  become_user: root
-
-- name: Start local docker registry
-  docker_container:
-    name: local_registry
-    image: registry
-    state: started
-    restart_policy: always
-    expose:
-    - 5000
-  register: local_registry_deployed
-  become: yes
-  become_user: root
-
-- name: Get registry container IP address
-  shell: |
-    docker inspect --format '{''{ .NetworkSettings.IPAddress }''}' local_registry
-  register: local_registry_ip
-  when: local_registry_deployed.changed
-  become: yes
-  become_user: root
-
-- name: Configure insecure local registry
-  copy:
-    content: |
-      {
-        "insecure-registries": ["{{ local_registry_ip.stdout }}:5000"]
-      }
-    dest: /etc/docker/daemon.json
-  register: docker_restart
-  when: local_registry_deployed.changed
-  become: yes
-  become_user: root
-
-- name: Restart docker service
-  service:
-    name: docker
-    state: restarted
-  when: docker_restart.changed
-  become: yes
-  become_user: root
+- import_tasks: registry.yaml
 
