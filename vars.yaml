@@ -5,12 +5,6 @@ zuul:
   projects:
   - short_name: contrail-packages
     src_dir: src/review.opencontrail.org/Juniper/contrail-packages
-  executor:
-    hostname: localhost
-    log_root: /var/lib/zuul/builds/4ec0cd1fd2074a3ea9233bcfc065d1e0/work/logs
-    result_data_file: /var/lib/zuul/builds/4ec0cd1fd2074a3ea9233bcfc065d1e0/work/results.json
-    src_root: /var/lib/zuul/builds/4ec0cd1fd2074a3ea9233bcfc065d1e0/work/src
-    work_root: /var/lib/zuul/builds/4ec0cd1fd2074a3ea9233bcfc065d1e0/work
 docker_registry:
   fqdn: localhost
   port: '5000'
