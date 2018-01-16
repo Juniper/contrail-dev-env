@@ -2,4 +2,5 @@
 localhost       ansible_connection=local
 [builder]
 localhost       ansible_connection=local
-
+[container_hosts]
+localhost       ansible_connection=local

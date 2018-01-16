@@ -6,4 +6,5 @@
   with_items:
     - { user: 'codilime', reponame: 'contrail-project-config' }
     - { user: 'codilime', reponame: 'zuul-jobs' }
+    - { user: 'Juniper', reponame: 'contrail-ansible-deployer' }
 

@@ -1,8 +1,7 @@
-- hosts: contrail_sandbox
+- hosts: all
   roles:
     - role: generic_dependencies
     - role: build_dependencies
-    - role: checkout_repos
     - role: setup_sandbox
-    - role: setup_docker
+    - role: checkout_repos
 
