@@ -8,13 +8,13 @@ mkdir -p "$SANDBOX_ROOT"
 cd "$SANDBOX_ROOT"
 
 # setup git config for sandbox repository
-git config --local user.email "you@example.com"
-git config --local user.name "Your Name"
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
 
 # XXX: repo not asking interactively for color settings and
 # prevents build playbook from fail due to building scripts
 # are colorless sensible 
-git config --local color.ui false
+git config --global color.ui false
 
 # download manifest.xml
 repo init --no-clone-bundle -u https://github.com/Juniper/contrail-vnc -b $CONTRAIL_BRANCH
