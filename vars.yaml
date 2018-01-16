@@ -9,5 +9,5 @@ docker_registry:
   fqdn: localhost
   port: '5000'
 site_pulp:
-  fqdn: localhost
+  fqdn: 148.251.5.90
   registry_port: '5000'
