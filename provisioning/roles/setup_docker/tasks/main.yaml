@@ -9,6 +9,11 @@
   become: yes
   become_user: root
 
+- name: start docker
+  service:
+    name: docker
+    state: started
+
 - meta: flush_handlers
 
 - import_tasks: lighttpd.yaml
