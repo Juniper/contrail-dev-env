@@ -4,6 +4,8 @@
     image: registry
     state: started
     restart_policy: always
+  published_ports:
+    - 6666:5000
   register: local_registry_deployed
   become: yes
   become_user: root

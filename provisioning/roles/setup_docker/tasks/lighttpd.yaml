@@ -20,8 +20,8 @@
     image: sebp/lighttpd
     state: started
     restart_policy: always
-    expose:
-    - 80
+    published_ports:
+      - 6667:80
     volumes:
       - "{{ workdir }}/rpmbuild/RPMS:/var/www/localhost/htdocs:Z"
       - "{{ workdir }}/lighttpd:/etc/lighttpd:Z"
