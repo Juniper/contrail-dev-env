@@ -1,4 +1,7 @@
 sandbox_path=$(HOME)/contrail-5.0
+ansible_playbook=ansible-playbook -i inventory --extra-vars @vars.yaml --extra-vars @dev_config.yaml
+
+.PHONY: presetup checkout_vnc setup build rpm containers deploy unittest sanity all
 
 # this is the first bootstrap of the packages for the tool itself
 # not a part of the "all" target, should be invoked manually
@@ -16,19 +19,23 @@ setup:
 build:
 	echo "Not implemented yet"
 
-rpm:
-	ansible-playbook -i inventory --extra-vars @vars.yaml --extra-vars @dev_config.yaml code/contrail-project-config/playbooks/packaging/contrail-vnc-el.yaml
+rpm: setup
+	$(ansible_playbook) code/contrail-project-config/playbooks/packaging/contrail-vnc-el.yaml
 
-containers:
+containers: rpm
 	echo "Not implemented yet"
 
-deploy:
+deploy: containers
+	$(ansible_playbook) code/contrail-project-config/playbooks/kolla/centos74-provision-kolla.yaml
+
+# temp target without dependencies for independent testing
+deploy2:
+	$(ansible_playbook) code/contrail-project-config/playbooks/kolla/centos74-provision-kolla.yaml
+
+unittests: build
 	echo "Not implemented yet"
 
-unittests:
+sanity: deploy
 	echo "Not implemented yet"
 
-sanity:
-	echo "Not implemented yet"
-
-all: setup build rpm containers deploy 
+all: sanity
