@@ -4,6 +4,6 @@
     dest: "{{ workdir }}/code/{{ item.reponame }}"
     version: master
   with_items:
-    - { user: 'jluk-codi', reponame: 'contrail-project-config', version: devenv }
+    - { user: 'codilime', reponame: 'contrail-project-config' }
     - { user: 'codilime', reponame: 'zuul-jobs' }
 
