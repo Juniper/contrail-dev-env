@@ -14,9 +14,9 @@ checkout_vnc: setup
 
 # install all the primary build deps, docker engine etc.
 setup:
-	ansible-playbook -i inventory --extra-vars @dev_config.yaml provisioning/setup1.yaml
+	$(ansible_playbook) provisioning/setup1.yaml
 	ansible-playbook -e '{"CREATE_CONTAINERS":false, "CONTAINER_VM_CONFIG": {"network": {"ntpserver":"127.0.0.1"}}, "CONTAINER_REGISTRY": "", "CONFIGURE_VMS":true, "roles": {"localhost":[]}}' -i inventory -c local  code/contrail-ansible-deployer/playbooks/deploy.yml
-	ansible-playbook -i inventory --extra-vars @dev_config.yaml provisioning/setup2.yaml
+	$(ansible_playbook) provisioning/setup2.yaml
 
 build:
 	echo "Not implemented yet"
