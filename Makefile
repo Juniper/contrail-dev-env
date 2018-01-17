@@ -23,9 +23,10 @@ build:
 
 rpm: setup
 	$(ansible_playbook) code/contrail-project-config/playbooks/packaging/contrail-vnc-el.yaml
+	createrepo $(HOME)/rpmbuild/RPMS/
 
 containers: rpm
-	echo "Not implemented yet"
+	$(ansible_playbook) code/contrail-project-config/playbooks/docker/centos74.yaml
 
 deploy: containers
 	$(ansible_playbook) code/contrail-project-config/playbooks/kolla/centos74-provision-kolla.yaml

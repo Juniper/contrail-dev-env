@@ -4,9 +4,9 @@
     image: registry
     state: started
     restart_policy: always
-  published_ports:
-    - 6666:5000
-  register: local_registry_deployed
+    published_ports:
+      - 6666:5000
+#  register: local_registry_deployed
   become: yes
   become_user: root
 
@@ -23,5 +23,5 @@
 #  become: yes
 #  become_user: root
 
-- meta: flush_handlers
+#- meta: flush_handlers
 
