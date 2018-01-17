@@ -1,0 +1,11 @@
+- name: Setup Contrail Third Party Cache
+  yum_repository:
+    name: contrail-tpc
+    description: Contrail Third Party dependencies
+    file: contrail_tpc
+    baseurl: "http://{{ site_pulp.fqdn }}/tpc/"
+    enabled: yes
+    gpgcheck: 0
+  become: yes
+  become_user: root
+
