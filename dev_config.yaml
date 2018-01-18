@@ -3,3 +3,4 @@ sandbox_owner: vagrant
 sandbox_group: vagrant
 # The number of threads to use for building Contrail
 scons_tasks: 4
+contrail_package_repository: http://148.251.5.90/38978-1/
