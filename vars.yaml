@@ -7,7 +7,7 @@ zuul:
     src_dir: src/review.opencontrail.org/Juniper/contrail-packages
 docker_registry:
   fqdn: 172.17.0.1
-  port: 6666
+  port: '6666'
 site_pulp:
   fqdn: 148.251.5.90
   registry_port: 5000
