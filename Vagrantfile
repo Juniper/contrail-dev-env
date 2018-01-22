@@ -17,10 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
          vb.memory = 8192
          vb.cpus = 4
       end
-      contrail_sandbox_config.vm.provision "shell", inline: <<-SCRIPT
-         yum install epel-release -y
-         yum install ansible -y
-         yum install vim -y
-      SCRIPT
+      contrail_sandbox_config.vm.provision "shell", name: "run presetup",
+        inline: "make -f /home/vagrant/contrail-dev-sandbox/Makefile presetup"
    end
 end
