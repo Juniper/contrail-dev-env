@@ -28,11 +28,14 @@ rpm: setup
 containers: rpm
 	$(ansible_playbook) code/contrail-project-config/playbooks/docker/centos74.yaml
 
+containers2: setup
+	$(ansible_playbook) code/contrail-project-config/playbooks/docker/centos74.yaml
+
 deploy: containers
 	$(ansible_playbook) code/contrail-project-config/playbooks/kolla/centos74-provision-kolla.yaml
 
 # temp target without dependencies for independent testing
-deploy2: setup
+deploy2:
 	$(ansible_playbook) code/contrail-project-config/playbooks/kolla/centos74-provision-kolla.yaml
 
 unittests: build
