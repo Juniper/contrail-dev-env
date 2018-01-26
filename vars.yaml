@@ -5,6 +5,8 @@ zuul:
   projects:
   - short_name: contrail-packages
     src_dir: src/review.opencontrail.org/Juniper/contrail-packages
+  executor:
+    work_root: /tmp
 docker_registry:
   fqdn: 172.17.0.1
   port: '6666'
