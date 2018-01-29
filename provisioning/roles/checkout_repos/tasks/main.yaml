@@ -1,7 +1,7 @@
 - name: Checkout CI jobs repos
   git:
     repo: "https://github.com/{{ item.user }}/{{ item.reponame }}"
-    dest: "{{ workdir }}/code/{{ item.reponame }}"
+    dest: "{{ workdir }}/contrail-dev-env/code/{{ item.reponame }}"
     version: master
   with_items:
     - { user: 'codilime', reponame: 'contrail-project-config' }
