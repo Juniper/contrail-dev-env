@@ -28,8 +28,11 @@ rpm: setup
 containers: rpm
 	$(ansible_playbook) code/contrail-project-config/playbooks/docker/centos74.yaml
 
-deploy: containers
+deploy_contrail_kolla: containers
 	$(ansible_playbook) code/contrail-project-config/playbooks/kolla/centos74-provision-kolla.yaml
+
+deploy_contrail_k8s: containers
+	$(ansible_playbook) code/contrail-project-config/playbooks/docker/centos74-systest-kubernetes.yaml
 
 unittests: build
 	echo "Not implemented yet"
