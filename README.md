@@ -28,17 +28,51 @@ $ make checkout_vnc
 
 ___
 
-To start full pipeline, run (on VM):
+To build RPMs run `make rpm` once on your virtual machine:
 ```
-$ cd ~/contrail-dev-sandbox
-$ make all
+$ cd ~/contrail-dev-env
+$ make rpm
 ```
 
 ___
 
+If you want build containers run `make containers` target 
+once it will prepare VM, after build RPM packages and containers:
+```
+$ cd ~/contrail-dev-env
+$ make containers
+```
+
+___
+
+To start full pipeline, run (on VM):
+```
+$ cd ~/contrail-dev-env
+$ make all
+```
+
 See the Makefile for intermediate targets that can be executed if you don't 
 want to run the full pipeline.
 
-Configuration is made through the dev_config.yaml file, it is passed to most 
+___
+
+Artifacts from build targets (RPMs, containers) will be uploaded locally 
+on virtual-machine. Local HTTP server and local registry run as containers 
+locally on VM.  
+
+After successful build packages are hosted on HTTP server accessible on 
+host port, you can check it out with:
+```
+$ lynx http://172.17.0.1:6667/
+```
+
+Docker containers are hosted in local registry accessible on port 6666:
+```
+$ curl -s http://172.17.0.1:6666/v2/_catalog | python -m json.tool
+```
+
+___
+
+Configuration is made through the `dev_config.yaml` file, it is passed to most 
 of the ansible playbooks as a variable file. The configuration options are 
 documented in comments.
