@@ -22,6 +22,7 @@ build:
 	echo "Not implemented yet"
 
 rpm: setup
+	scripts/setup_build_logging.sh
 	$(ansible_playbook) code/contrail-project-config/playbooks/packaging/contrail-vnc-el.yaml
 	createrepo $(HOME)/rpmbuild/RPMS/
 
