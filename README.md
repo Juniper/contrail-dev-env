@@ -76,3 +76,13 @@ ___
 Configuration is made through the `dev_config.yaml` file, it is passed to most 
 of the ansible playbooks as a variable file. The configuration options are 
 documented in comments.
+
+## Known issues
+
+### Non-vagrant deployment
+
+* docker selinux deployment error
+You can get it conflicted with `container-selinux.noarch` package if it's installed in your CentOS. Remove it with yum.
+
+* sudo root password
+If you're not root you'll have to add `ansible_become_pass: mypass` into `dev_config.yaml` file
