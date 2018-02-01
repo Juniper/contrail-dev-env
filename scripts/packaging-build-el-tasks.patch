@@ -6,7 +6,7 @@
        --define "_srcVer {{ packaging.version.upstream }}" \
 -      -ba tools/packages/rpm/contrail/contrail.spec
 +      -ba tools/packages/rpm/contrail/contrail.spec \
-+      |& tee {{ ansible_env.HOME }}/contrail-build-logs/contrail-vnc_$(date "+%Y%m%d_%H%M%S").log
++      |& tee {{ ansible_env.HOME }}/contrail-build-logs/contrail-logs/contrail-vnc_$(date "+%Y%m%d_%H%M%S").log
    args:
      chdir: "{{ ansible_env.HOME }}/{{ packaging.target_dir }}"
    environment:
@@ -16,7 +16,7 @@
        --define "_srcVer {{ packaging.version.upstream }}" \
 -      -ba {{ ansible_env.HOME }}/{{ packaging.target_dir }}/tools/packaging/common/rpm/contrail-nodemgr.spec
 +      -ba {{ ansible_env.HOME }}/{{ packaging.target_dir }}/tools/packaging/common/rpm/contrail-nodemgr.spec \
-+      |& tee {{ ansible_env.HOME }}/contrail-build-logs/contrail-nodemgr_$(date "+%Y%m%d_%H%M%S").log
++      |& tee {{ ansible_env.HOME }}/contrail-build-logs/contrail-logs/contrail-nodemgr_$(date "+%Y%m%d_%H%M%S").log
    args:
      chdir: "{{ ansible_env.HOME }}/{{ packaging.target_dir }}/controller"
  
@@ -26,7 +26,7 @@
        --define "_builddir {{ ansible_env.HOME }}/{{ packaging.target_dir }}/controller" \
 -      -bb {{ ansible_env.HOME }}/{{ packaging.target_dir }}/tools/packaging/common/rpm/contrail-setup.spec
 +      -bb {{ ansible_env.HOME }}/{{ packaging.target_dir }}/tools/packaging/common/rpm/contrail-setup.spec \
-+      |& tee {{ ansible_env.HOME }}/contrail-build-logs/contrail-setup_$(date "+%Y%m%d_%H%M%S").log
++      |& tee {{ ansible_env.HOME }}/contrail-build-logs/contrail-logs/contrail-setup_$(date "+%Y%m%d_%H%M%S").log
    args:
      chdir: "{{ ansible_env.HOME }}/{{ packaging.target_dir }}/controller"
  
@@ -36,7 +36,7 @@
        --define "_srcVer {{ packaging.version.upstream }}" \
 -      --bb {{ ansible_env.HOME }}/{{ packaging.target_dir }}/tools/packaging/common/rpm/{{ item }}.spec
 +      --bb {{ ansible_env.HOME }}/{{ packaging.target_dir }}/tools/packaging/common/rpm/{{ item }}.spec \
-+      |& tee {{ ansible_env.HOME }}/contrail-build-logs/{{ item }}_$(date "+%Y%m%d_%H%M%S").log
++      |& tee {{ ansible_env.HOME }}/contrail-build-logs/contrail-logs/{{ item }}_$(date "+%Y%m%d_%H%M%S").log
    args:
      chdir: "{{ ansible_env.HOME }}/{{ packaging.target_dir }}/contrail-web-core"
    with_items:

@@ -2,12 +2,12 @@
 set -u
 
 if [ ! -d $HOME/contrail-build-logs ]; then
-   mkdir -p $HOME/contrail-build-logs
+   mkdir -p $HOME/contrail-build-logs/contrail-logs
 fi
 
-TASK_DIR=$(pwd)/code/contrail-project-config/roles/packaging-build-el/tasks
-PATCH_DIR=$(pwd)/scripts
+task_dir=$(pwd)/code/contrail-project-config/roles/packaging-build-el/tasks
+patch_dir=$(pwd)/scripts
 
-if ! patch -R -p0 -s -f --dry-run ${TASK_DIR}/main.yaml < ${PATCH_DIR}/packaging-build-el-tasks.patch; then
-  patch -p0 ${TASK_DIR}/main.yaml < ${PATCH_DIR}/packaging-build-el-tasks.patch
+if ! patch -R -p0 -s -f --dry-run ${task_dir}/main.yaml < ${patch_dir}/packaging-build-el-tasks.patch; then
+  patch -p0 ${task_dir}/main.yaml < ${patch_dir}/packaging-build-el-tasks.patch
 fi
