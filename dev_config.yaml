@@ -1,6 +1,6 @@
-workdir: /home/vagrant
-sandbox_owner: vagrant
-sandbox_group: vagrant
+workdir: /root
+sandbox_owner: root
+sandbox_group: root
 # The number of threads to use for building Contrail
 scons_tasks: 4
 contrail_package_repository: http://172.17.0.1:6667/

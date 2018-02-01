@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 VAGRANTFILE_API_VERSION = "2"
-DEV_ENV_DIR="/home/vagrant/contrail-dev-env"
+DEV_ENV_DIR="/root/contrail-dev-env"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
@@ -12,6 +12,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       contrail_sandbox_config.vm.network "private_network", ip: "192.168.60.200"
       contrail_sandbox_config.vm.synced_folder ".", DEV_ENV_DIR
       contrail_sandbox_config.ssh.forward_agent = true
+      contrail_sandbox_config.ssh.insert_key = 'true'
+      contrail_sandbox_config.ssh.username = 'root'
+      contrail_sandbox_config.ssh.password = 'vagrant'
 
       contrail_sandbox_config.vm.provider "virtualbox" do |vb|
          vb.memory = 8192
