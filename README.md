@@ -9,7 +9,9 @@ code locally. It can be used to debug problems found in
 
 ## How to use this repository
  
-### Setup build VM
+### Setup Build Machine
+
+Option 1: Vagrant Centos VM 
 
 If you want to use Vagrant to build Contrail clone this repository on your dev machine 
 and run:
@@ -18,6 +20,8 @@ and run:
 $ vagrant up
 $ vagrant ssh
 ```
+
+Option 2: Any other Centos VM/Physical Machine
 
 If you want to use your own CentOS VM instead Vagrant box, you should clone this 
 repository into root home directory and first run `make presetup` target. This step 
@@ -112,6 +116,17 @@ You can get it conflicted with `container-selinux.noarch` package if it's instal
 
 * sudo root password
 If you're not root you'll have to add `ansible_become_pass: mypass` into `dev_config.yaml` file
+
+* container build error due to internet access inside Centos Docker Image
+If your make containers step fails with errors pointing to access issues when pulling manifest files or packages from internet repos please try to run the following steps:
+
+```
+$ sysctl -w net.ipv4.ip_forward=1
+$ systemctl restart docker
+$ docker run centos:7.4.1708 ping -c 4 google.com
+```
+
+If the ping command is successful, please re-run `make containers` command.
 
 ## TODO
 
