@@ -7,26 +7,27 @@ developer's machine. Contrail contributors can use it to build and test their
 code locally. It can be used to debug problems found in 
 [Zuulv3](http://zuulv3.opencontrail.org) CI system (eg. failing unit tests).
 
-## How to use this repository
  
-### Setup build VM
+### 1. Setup build VM
+With vagrant or your own VM
 
-If you want to use Vagrant to build Contrail clone this repository on your dev machine 
-and run:
+#### 1.1 With vagrant
+If you want to use Vagrant to build Contrail clone this repository on your dev machine and run:
 
 ```
 $ vagrant up
 $ vagrant ssh
 ```
 
-If you want to use your own CentOS VM instead Vagrant box, you should clone this 
-repository into root home directory and first run `make presetup` target. This step 
-will prepare you VM the environment for further tasks.
+#### 1.2 Bring your own Centos VM
+```
+Login to your Centos VM
+git clone https://github.com/Juniper/contrail-dev-env.git
+cd contrail-dev-env
+make presetup
+```
 
-Described step is not necessary on Vagrant box, because it will already call 
-`make presetup` in provision phase.
-
-### Checkout source code
+### 2. Checkout source code
 
 To checkout Contrail source code, on dev VM run following target:
 
@@ -43,7 +44,7 @@ steps are executed during checkout phase check `checkout_vnc.sh` script under
 If you want to build packages and containers with your code patches you have to apply those
 by yourself on top of Contrail repo sandbox.  
 
-### Build RPM packages
+### 3. Build RPM packages
 
 This step requires `make checkout_vnc` to be run first or manually setup sandbox directory 
 with Contrail code.  
@@ -65,7 +66,7 @@ container run on dev VM. Those can be accessed using following URL:
 $ lynx http://172.17.0.1:6667/
 ```
 
-### Build containers
+### 4. Build containers
 
 If you want to build containers run `make containers` target. This target will run intermediate 
 targets to: prepare VM, build RPM packages and finally  build containers. You can run with:
@@ -85,7 +86,7 @@ dev VM. Containers can be accessed on following registry:
 $ curl -s http://172.17.0.1:6666/v2/_catalog | python -m json.tool
 ```
 
-### Full CI pipeline
+### 5. Full CI pipeline
 
 To start full pipeline on dev VM run:
 
