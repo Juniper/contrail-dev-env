@@ -11,12 +11,13 @@ code locally. It can be used to debug problems found in
 ### 1. Setup build VM
 With vagrant or your own VM
 
-#### 1.1 With vagrant
-If you want to use Vagrant to build Contrail clone this repository on your dev machine and run:
-
+#### 1.1 With vagrant [mac or a physical server]
+- Install vagrant and Virtualbox as needed for mac
+- Install vagrant on physical server 
 ```
-$ vagrant up
-$ vagrant ssh
+git clone https://github.com/Juniper/contrail-dev-env.git
+vagrant up
+vagrant ssh
 ```
 
 #### 1.2 Bring your own Centos VM
