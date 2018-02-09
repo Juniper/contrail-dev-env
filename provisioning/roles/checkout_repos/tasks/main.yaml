@@ -2,8 +2,9 @@
   git:
     repo: "https://github.com/{{ item.user }}/{{ item.reponame }}"
     dest: "{{ workdir }}/contrail-dev-env/code/{{ item.reponame }}"
-    version: master
-    force: yes
+    version: "{{ branch | default('master') }}"
+    update: "{{ update_repos | default('no') }}"
+    force: "{{ override_repos | default('no') }}"
   with_items:
     - { user: 'codilime', reponame: 'contrail-project-config' }
     - { user: 'codilime', reponame: 'zuul-jobs' }
