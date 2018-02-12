@@ -1,8 +1,8 @@
---- code/contrail-project-config/roles/packaging-build-el/tasks/main.yaml	2018-02-01 08:28:29.997194231 +0000
-+++ main.yaml.new	2018-02-01 08:28:16.613354996 +0000
+--- main.yaml.orig	2018-02-12 13:42:46.830173553 +0000
++++ main.yaml	2018-02-12 13:47:38.719011505 +0000
 @@ -22,7 +22,8 @@
        --define "_kVers {{ kver.stdout }}" \
-       --define "_buildTag {{ zuul.change }}.{{ zuul.patchset }}" \
+       --define "_buildTag {{ packaging.version.distrib }}" \
        --define "_srcVer {{ packaging.version.upstream }}" \
 -      -ba tools/packages/rpm/contrail/contrail.spec
 +      -ba tools/packages/rpm/contrail/contrail.spec \
@@ -12,7 +12,7 @@
    environment:
 @@ -35,7 +36,8 @@
        --define '_builddir {{ ansible_env.HOME }}/{{ packaging.target_dir }}/controller' \
-       --define "_buildTag {{ zuul.change }}.{{ zuul.patchset }}" \
+       --define "_buildTag {{ packaging.version.distrib }}" \
        --define "_srcVer {{ packaging.version.upstream }}" \
 -      -ba {{ ansible_env.HOME }}/{{ packaging.target_dir }}/tools/packaging/common/rpm/contrail-nodemgr.spec
 +      -ba {{ ansible_env.HOME }}/{{ packaging.target_dir }}/tools/packaging/common/rpm/contrail-nodemgr.spec \
@@ -32,11 +32,11 @@
  
 @@ -78,7 +81,8 @@
        --define "_builddir {{ ansible_env.HOME }}/{{ packaging.target_dir }}/BUILD" \
-       --define "_buildTag {{ zuul.change }}.{{ zuul.patchset }}" \
+       --define "_buildTag {{ packaging.version.distrib }}" \
        --define "_srcVer {{ packaging.version.upstream }}" \
--      --bb {{ ansible_env.HOME }}/{{ packaging.target_dir }}/tools/packaging/common/rpm/{{ item }}.spec
-+      --bb {{ ansible_env.HOME }}/{{ packaging.target_dir }}/tools/packaging/common/rpm/{{ item }}.spec \
-+      |& tee {{ ansible_env.HOME }}/contrail-build-logs/contrail-logs/{{ item }}_$(date "+%Y%m%d_%H%M%S").log
+-      --bb {{ ansible_env.HOME }}/{{ packaging.target_dir }}/tools/packaging/common/rpm/{{ item.name }}.spec
++      --bb {{ ansible_env.HOME }}/{{ packaging.target_dir }}/tools/packaging/common/rpm/{{ item.name }}.spec \
++      |& tee {{ ansible_env.HOME }}/contrail-build-logs/contrail-logs/{{ item.name }}_$(date "+%Y%m%d_%H%M%S").log
    args:
      chdir: "{{ ansible_env.HOME }}/{{ packaging.target_dir }}/contrail-web-core"
    with_items:

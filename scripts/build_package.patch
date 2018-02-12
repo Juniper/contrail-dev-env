@@ -1,0 +1,11 @@
+--- build_package.yaml.orig	2018-02-12 13:42:54.150293579 +0000
++++ build_package.yaml	2018-02-12 13:48:42.860086032 +0000
+@@ -6,7 +6,8 @@
+       --define "_srcVer {{ packaging.version.upstream }}" \
+       --define "_skuTag mitaka" \
+       {{ item.extra|default('') }} \
+-      -bb {{ ansible_env.HOME }}/{{ packaging.target_dir }}/tools/packaging/common/rpm/{{ item.name }}.spec
++      -bb {{ ansible_env.HOME }}/{{ packaging.target_dir }}/tools/packaging/common/rpm/{{ item.name }}.spec \
++      |& tee {{ ansible_env.HOME }}/contrail-build-logs/contrail-logs/{{ item.name }}_$(date "+%Y%m%d_%H%M%S").log
+   args:
+     chdir: "{{ ansible_env.HOME }}/{{ packaging.target_dir }}/{{ item.workdir|default('') }}"

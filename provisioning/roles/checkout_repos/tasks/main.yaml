@@ -1,12 +1,24 @@
+- name: Download Android repo tool
+  get_url:
+    url: "https://storage.googleapis.com/git-repo-downloads/repo"
+    dest: "/usr/bin/repo"
+    mode: 0655
+  become: yes
+  become_user: root
+
+- name: Prepare Zuulv3 like dir hierarchy for code
+  file:
+    path: "{{ workdir }}/src/review.opencontrail.org/Juniper/"
+    state: directory
+    owner: "{{ sandbox_owner }}"
+    group: "{{ sandbox_group }}"
+  register: repos_dir
+
 - name: Checkout CI jobs repos
   git:
-    repo: "https://github.com/{{ item.user }}/{{ item.reponame }}"
-    dest: "{{ workdir }}/contrail-dev-env/code/{{ item.reponame }}"
+    repo: "https://github.com/{{ item.repouser }}/{{ item.reponame }}"
+    dest: "{{ repos_dir.path }}//{{ item.reponame }}"
     version: "{{ branch | default('master') }}"
     update: "{{ update_repos | default('no') }}"
     force: "{{ override_repos | default('no') }}"
-  with_items:
-    - { user: 'codilime', reponame: 'contrail-project-config' }
-    - { user: 'codilime', reponame: 'zuul-jobs' }
-    - { user: 'Juniper', reponame: 'contrail-ansible-deployer' }
-
+  with_items: "{{ cloned_repos }}"

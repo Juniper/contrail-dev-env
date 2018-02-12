@@ -2,7 +2,11 @@
 # vi: set ft=ruby :
 
 VAGRANTFILE_API_VERSION = "2"
-DEV_ENV_DIR="/root/contrail-dev-env"
+USER = "root"
+GROUP = "root"
+HOME_DIR = "/root"
+DEV_ENV_DIR = "#{HOME_DIR}/contrail-dev-env"
+REPOS_DIR = "#{HOME_DIR}/src/review.opencontrail.org/Juniper/"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
@@ -10,10 +14,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       contrail_sandbox_config.vm.box = "geerlingguy/centos7"
       contrail_sandbox_config.vm.hostname = "contrail-sandbox"
       contrail_sandbox_config.vm.network "private_network", ip: "192.168.60.200"
-      contrail_sandbox_config.vm.synced_folder ".", DEV_ENV_DIR
+      contrail_sandbox_config.vm.synced_folder "./code", "#{REPOS_DIR}",
+	      owner: "#{USER}", group: "#{GROUP}"
+      contrail_sandbox_config.vm.synced_folder ".", "#{DEV_ENV_DIR}", owner: "#{USER}", group: "#{GROUP}"
       contrail_sandbox_config.ssh.forward_agent = true
-      contrail_sandbox_config.ssh.insert_key = 'true'
-      contrail_sandbox_config.ssh.username = 'root'
+      contrail_sandbox_config.ssh.insert_key = true
+      contrail_sandbox_config.ssh.username = "#{USER}"
       contrail_sandbox_config.ssh.password = 'vagrant'
 
       contrail_sandbox_config.vm.provider "virtualbox" do |vb|
@@ -22,7 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
       contrail_sandbox_config.vm.provision "shell", name: "run presetup" do |presetup|
         presetup.inline = "make -f $1/Makefile presetup"
-        presetup.args = DEV_ENV_DIR
+        presetup.args = "#{DEV_ENV_DIR}"
       end
    end
 end

@@ -3,5 +3,3 @@
     - role: generic_dependencies
     - role: build_dependencies
     - role: setup_sandbox
-    - role: checkout_repos
-
