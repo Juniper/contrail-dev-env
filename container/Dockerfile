@@ -1,4 +1,4 @@
- docker build --tag opencontrail/developer-sandbox:centos-7.4 .
+# docker build --tag opencontrail/developer-sandbox:centos-7.4 .
 # gpasswd -a $USER docker
 # newgrp docker
 FROM centos:7.4.1708
@@ -12,15 +12,33 @@ USER root
 
 RUN yum -y install epel-release
 RUN yum -y update
-RUN yum -y install git python-lxml autoconf libtool unzip wget flex bison libxml2-devel openssl-devel cmake libcurl-devel tcpdump bzip2 patch gcc-c++ boost-devel tbb-devel make vim-common python-virtualenv python-pip scons gmock gtest libuv libuv-devel vim ruby
+
+# contrail-control
+RUN yum -y install git python-lxml autoconf libtool unzip wget flex bison libxml2-devel openssl-devel cmake libcurl-devel tcpdump bzip2 patch gcc-c++ boost-devel tbb-devel make vim-common python-virtualenv python-pip scons gmock gtest libuv libuv-devel vim ruby gdb python-sphinx.noarch
+
+# contrail-analytics
+RUN yum -y install java-1.7.0-openjdk protobuf protobuf-compiler protobuf-devel libevent-devel tokyocabinet-devel librdkafka-devel 
+
+# contrail-kubernetes
 RUN pip install tox
+
 RUN curl -s https://storage.googleapis.com/git-repo-downloads/repo>/usr/bin/repo
 RUN chmod a+x /usr/bin/repo
 
 RUN mkdir -p $RPMS
 WORKDIR $RPMS
-RUN wget -q http://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.2.0/cassandra-cpp-driver-2.2.0-1.el7.centos.x86_64.rpm
-RUN wget -q http://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.2.0/cassandra-cpp-driver-devel-2.2.0-1.el7.centos.x86_64.rpm
+RUN wget -q "http://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.2.0/cassandra-cpp-driver-2.2.0-1.el7.centos.x86_64.rpm"
+RUN wget -q "http://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.2.0/cassandra-cpp-driver-devel-2.2.0-1.el7.centos.x86_64.rpm"
+RUN wget -q "http://mirror.centos.org/centos/6/os/x86_64/Packages/lucene-contrib-2.3.1-5.9.el6.noarch.rpm"
+RUN wget -q "http://mirror.centos.org/centos/6/os/x86_64/Packages/lucene-2.3.1-5.9.el6.noarch.rpm"
+RUN wget -q "http://ftp.altlinux.org/pub/distributions/ALTLinux/Sisyphus/noarch/RPMS.classic/swing-layout-1.0.4-alt2_13jpp8.noarch.rpm"
+RUN wget -q "http://dl.fedoraproject.org/pub/epel/6/i386/Packages/o/opengrok-0.9-1.el6.noarch.rpm"
+RUN wget -q "http://vuksan.com/centos/RPMS/x86_64/grok-devel-1.20101030.3088-2.x86_64.rpm"
+
+RUN wget -q "https://builds.midonet.org/misc/testing/el7/x86_64/zookeeper-3.4.8-1.el7.x86_64.rpm"
+RUN wget -q "https://builds.midonet.org/misc/testing/el7/x86_64/libzookeeper-devel-3.4.8-1.el7.x86_64.rpm"
+RUN wget -q "https://builds.midonet.org/misc/testing/el7/x86_64/libzookeeper-3.4.8-1.el7.x86_64.rpm"
+RUN wget -q "https://github.com/rombie/contrail-third-party/blob/libipfix/libipfix-110209-1.el6.x86_64.rpm?raw=true"
 RUN yum -y install $RPMS/*rpm
 
 RUN mkdir -p $CONTRAIL
