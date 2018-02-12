@@ -38,7 +38,7 @@ RUN wget -q "http://vuksan.com/centos/RPMS/x86_64/grok-devel-1.20101030.3088-2.x
 RUN wget -q "https://builds.midonet.org/misc/testing/el7/x86_64/zookeeper-3.4.8-1.el7.x86_64.rpm"
 RUN wget -q "https://builds.midonet.org/misc/testing/el7/x86_64/libzookeeper-devel-3.4.8-1.el7.x86_64.rpm"
 RUN wget -q "https://builds.midonet.org/misc/testing/el7/x86_64/libzookeeper-3.4.8-1.el7.x86_64.rpm"
-RUN wget -q "https://github.com/rombie/contrail-third-party/blob/libipfix/libipfix-110209-1.el6.x86_64.rpm?raw=true"
+RUN wget -q -O libipfix-110209-1.el6.x86_64.rpm  "https://github.com/rombie/contrail-third-party/blob/libipfix/libipfix-110209-1.el6.x86_64.rpm?raw=true"
 RUN yum -y install $RPMS/*rpm
 
 RUN mkdir -p $CONTRAIL
