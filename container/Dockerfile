@@ -10,6 +10,8 @@ ENV RPMS $HOME/rpms
 
 USER root
 
+RUN yum -y install ntp
+RUN systemctl enable ntpd
 RUN yum -y install epel-release
 RUN yum -y update
 
@@ -18,6 +20,8 @@ RUN yum -y install git python-lxml autoconf libtool unzip wget flex bison libxml
 
 # contrail-analytics
 RUN yum -y install java-1.7.0-openjdk protobuf protobuf-compiler protobuf-devel libevent-devel tokyocabinet-devel librdkafka-devel 
+RUN yum -y install cyrus-sasl-devel cyrus-sasl cyrus-sasl-lib
+RUN yum -y install lz4-devel
 
 # contrail-kubernetes
 RUN pip install tox
@@ -27,13 +31,13 @@ RUN chmod a+x /usr/bin/repo
 
 RUN mkdir -p $RPMS
 WORKDIR $RPMS
-RUN wget -q "http://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.2.0/cassandra-cpp-driver-2.2.0-1.el7.centos.x86_64.rpm"
-RUN wget -q "http://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.2.0/cassandra-cpp-driver-devel-2.2.0-1.el7.centos.x86_64.rpm"
+RUN wget -q "https://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.7.0/cassandra-cpp-driver-devel-2.7.0-1.el7.centos.x86_64.rpm"
+RUN wget -q "https://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.7.0/cassandra-cpp-driver-2.7.0-1.el7.centos.x86_64.rpm"
 RUN wget -q "http://mirror.centos.org/centos/6/os/x86_64/Packages/lucene-contrib-2.3.1-5.9.el6.noarch.rpm"
 RUN wget -q "http://mirror.centos.org/centos/6/os/x86_64/Packages/lucene-2.3.1-5.9.el6.noarch.rpm"
 RUN wget -q "http://ftp.altlinux.org/pub/distributions/ALTLinux/Sisyphus/noarch/RPMS.classic/swing-layout-1.0.4-alt2_13jpp8.noarch.rpm"
-RUN wget -q "http://dl.fedoraproject.org/pub/epel/6/i386/Packages/o/opengrok-0.9-1.el6.noarch.rpm"
-RUN wget -q "http://vuksan.com/centos/RPMS/x86_64/grok-devel-1.20101030.3088-2.x86_64.rpm"
+RUN wget -q "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-03092017/grok/grok-1.20110308.1-0contrail0.x86_64.rpm"
+RUN wget -q "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-03092017/grok/grok-devel-1.20110308.1-0contrail0.x86_64.rpm"
 
 RUN wget -q "https://builds.midonet.org/misc/testing/el7/x86_64/zookeeper-3.4.8-1.el7.x86_64.rpm"
 RUN wget -q "https://builds.midonet.org/misc/testing/el7/x86_64/libzookeeper-devel-3.4.8-1.el7.x86_64.rpm"
