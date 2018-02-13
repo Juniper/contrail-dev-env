@@ -1,6 +1,10 @@
 # docker build --tag opencontrail/developer-sandbox:centos-7.4 .
 # gpasswd -a $USER docker
 # newgrp docker
+# 
+# docker run command to pick time from host 
+# docker run -it -v /etc/localtime:/etc/localtime opencontrail/developer-sandbox:centos-7.4
+# 
 FROM centos:7.4.1708
 
 ENV USER root
@@ -10,8 +14,6 @@ ENV RPMS $HOME/rpms
 
 USER root
 
-RUN yum -y install ntp
-RUN systemctl enable ntpd
 RUN yum -y install epel-release
 RUN yum -y update
 
@@ -38,11 +40,11 @@ RUN wget -q "http://mirror.centos.org/centos/6/os/x86_64/Packages/lucene-2.3.1-5
 RUN wget -q "http://ftp.altlinux.org/pub/distributions/ALTLinux/Sisyphus/noarch/RPMS.classic/swing-layout-1.0.4-alt2_13jpp8.noarch.rpm"
 RUN wget -q "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-03092017/grok/grok-1.20110308.1-0contrail0.x86_64.rpm"
 RUN wget -q "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-03092017/grok/grok-devel-1.20110308.1-0contrail0.x86_64.rpm"
+RUN wget -q "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/juno/libipfix-110209-1.el7.centos.x86_64.rpm"
+RUN wget -q "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-06202016/contrail-thirdparty/libzookeeper-3.4.8-0contrail0.el7.centos.x86_64.rpm"
+RUN wget -q "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-06202016/contrail-thirdparty/libzookeeper-devel-3.4.8-0.contrail0.el7.centos.x86_64.rpm"
+RUN wget -q "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-06202016/contrail-thirdparty/zookeeper-3.4.8-0.contrail1.el7.centos.x86_64.rpm"
 
-RUN wget -q "https://builds.midonet.org/misc/testing/el7/x86_64/zookeeper-3.4.8-1.el7.x86_64.rpm"
-RUN wget -q "https://builds.midonet.org/misc/testing/el7/x86_64/libzookeeper-devel-3.4.8-1.el7.x86_64.rpm"
-RUN wget -q "https://builds.midonet.org/misc/testing/el7/x86_64/libzookeeper-3.4.8-1.el7.x86_64.rpm"
-RUN wget -q -O libipfix-110209-1.el6.x86_64.rpm  "https://github.com/rombie/contrail-third-party/blob/libipfix/libipfix-110209-1.el6.x86_64.rpm?raw=true"
 RUN yum -y install $RPMS/*rpm
 
 RUN mkdir -p $CONTRAIL
