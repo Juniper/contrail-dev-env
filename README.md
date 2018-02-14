@@ -6,6 +6,8 @@ Begin with:
 
 Make sure that your docker engine supports images bigger than 10GB. For instructions,
 see here: https://stackoverflow.com/questions/37100065/resize-disk-usage-of-a-docker-container
+Make sure, that there is TCP connectivity allowed between the containers in the default docker bridge network,
+so, for example disable firewall.
 
 Execute this script to start up all the required containers:
 `./startup.sh`
