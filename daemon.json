@@ -1,1 +1,4 @@
-{ "insecure-registries": ["172.17.0.1:6667"] }
+{
+  "insecure-registries": ["172.17.0.1:6667"],
+  "storage-opts": ["dm.basesize=30G"]
+}
