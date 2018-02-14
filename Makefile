@@ -30,7 +30,7 @@ rpm: setup
 	$(ansible_playbook) $(repos_dir)/contrail-project-config/playbooks/packaging/contrail-vnc-el.yaml
 	createrepo $(HOME)/rpmbuild/RPMS/
 
-containers: rpm
+containers:
 	scripts/build-containers.sh
 
 deploy_contrail_kolla: containers
