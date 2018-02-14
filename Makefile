@@ -7,17 +7,19 @@ ansible_playbook=ansible-playbook -i inventory --extra-vars @vars.yaml --extra-v
 # this is the first bootstrap of the packages for the tool itself
 # not a part of the "all" target, should be invoked manually
 presetup:
+	ln -s /root/contrail /root/contrail-5.0 || true
 	yum install -y epel-release ansible git vim
 
 # optional step, used when the sandbox is not mounted from host system
-checkout_repos:
-	$(ansible_playbook) provisioning/checkout_repos.yaml
-	scripts/checkout_vnc.sh $(sandbox_path)
+checkout_repos: presetup
+	scripts/checkout_repos.sh
+	#$(ansible_playbook) provisioning/checkout_repos.yaml
+	#scripts/checkout_vnc.sh $(sandbox_path)
 
 # install all the primary build deps, docker engine etc.
 setup: checkout_repos
 	$(ansible_playbook) provisioning/setup_vm.yaml
-	sudo ansible-playbook -e '{"CREATE_CONTAINERS":false, "CONTAINER_VM_CONFIG": {"network": {"ntpserver":"127.0.0.1"}}, "contrail_configuration": {"CONTAINER_REGISTRY": "172.17.0.1:6666"}, "REGISTRY_PRIVATE_INSECURE": true, "CONFIGURE_VMS":true, "roles": {"localhost":[]}}' -i inventory -c local  $(repos_dir)/contrail-ansible-deployer/playbooks/deploy.yml
+	#sudo ansible-playbook -e '{"CREATE_CONTAINERS":false, "CONTAINER_VM_CONFIG": {"network": {"ntpserver":"127.0.0.1"}}, "contrail_configuration": {"CONTAINER_REGISTRY": "172.17.0.1:6666"}, "REGISTRY_PRIVATE_INSECURE": true, "CONFIGURE_VMS":true, "roles": {"localhost":[]}}' -i inventory -c local  $(repos_dir)/contrail-ansible-deployer/playbooks/deploy.yml
 	$(ansible_playbook) provisioning/complete_vm_config.yaml
 
 build:

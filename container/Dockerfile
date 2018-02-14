@@ -16,6 +16,7 @@ USER root
 
 RUN yum -y install epel-release
 RUN yum -y update
+RUN yum -y install docker
 
 # contrail-control
 RUN yum -y install git python-lxml autoconf libtool unzip wget flex bison libxml2-devel openssl-devel cmake libcurl-devel tcpdump bzip2 patch gcc-c++ boost-devel tbb-devel make vim-common python-virtualenv python-pip scons gmock gtest libuv libuv-devel vim ruby gdb python-sphinx.noarch
