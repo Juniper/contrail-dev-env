@@ -8,7 +8,7 @@ ansible_playbook=ansible-playbook -i inventory --extra-vars @vars.yaml --extra-v
 # not a part of the "all" target, should be invoked manually
 presetup:
 	ln -s /root/contrail /root/contrail-5.0 || true
-	yum install -y epel-release ansible git vim
+	yum install -y epel-release ansible git vim docker
 
 # optional step, used when the sandbox is not mounted from host system
 checkout_repos: presetup
@@ -30,8 +30,8 @@ rpm: setup
 	$(ansible_playbook) $(repos_dir)/contrail-project-config/playbooks/packaging/contrail-vnc-el.yaml
 	createrepo $(HOME)/rpmbuild/RPMS/
 
-containers: rpm
-	$(ansible_playbook) $(repos_dir)/contrail-project-config/playbooks/docker/centos74.yaml
+containers:
+	scripts/build-containers.sh
 
 deploy_contrail_kolla: containers
 	$(ansible_playbook) $(repos_dir)/contrail-project-config/playbooks/kolla/centos74-provision-kolla.yaml
