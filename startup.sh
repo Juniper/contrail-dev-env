@@ -3,7 +3,14 @@
 mydir=$(dirname "$0")
 cd "$mydir"
 
-diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && systemctl restart docker)
+distro=$(cat /etc/*release | egrep '^ID=' | awk -F[\"\'] '{print $2}')
+echo Distro detected: $distro
+if [ x"$distro" == x"centos" ]; then
+   yum install -y docker
+   systemctl stop firewalld
+   sed -i 's/DOCKER_STORAGE_OPTIONS="/DOCKER_STORAGE_OPTIONS="--storage-opt dm.basesize=20G /g' /etc/sysconfig/docker-storage
+   diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && systemctl restart docker)
+fi
 
 docker volume create --name contrail-dev-env-rpms
 docker run --name contrail-dev-env-rpm-repo -d -v contrail-dev-env-rpm-volume:/var/www/localhost/htdocs -p 6667:80 sebp/lighttpd || docker start contrail-dev-env-rpm-repo
