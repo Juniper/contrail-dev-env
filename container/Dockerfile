@@ -21,12 +21,10 @@ RUN yum -y update
 RUN yum -y install git python-lxml autoconf libtool unzip wget flex bison libxml2-devel openssl-devel cmake libcurl-devel tcpdump bzip2 patch gcc-c++ boost-devel tbb-devel make vim-common python-virtualenv python-pip scons gmock gtest libuv libuv-devel vim ruby gdb python-sphinx.noarch
 
 # contrail-analytics
-RUN yum -y install java-1.7.0-openjdk protobuf protobuf-compiler protobuf-devel libevent-devel tokyocabinet-devel librdkafka-devel 
-RUN yum -y install cyrus-sasl-devel cyrus-sasl cyrus-sasl-lib
-RUN yum -y install lz4-devel
+RUN yum -y install java-1.7.0-openjdk protobuf protobuf-compiler protobuf-devel libevent-devel tokyocabinet-devel librdkafka-devel cyrus-sasl-devel cyrus-sasl cyrus-sasl-lib lz4-devel
 
-# contrail-kubernetes
-RUN pip install tox
+# contrail-kubernetes and contrail-config
+RUN pip install tox geventhttpclient setuptools requests
 
 RUN curl -s https://storage.googleapis.com/git-repo-downloads/repo>/usr/bin/repo
 RUN chmod a+x /usr/bin/repo
