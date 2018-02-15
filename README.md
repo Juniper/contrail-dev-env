@@ -23,7 +23,7 @@ cd contrail-dev-env
 ./startup.sh
 ```
 
-# docker ps -a should show these 3 containers #
+##### docker ps -a should show these 3 containers #####
 ```
 * contrail-developer sandbox [For running scons, unit-tests etc]
 * registry container         [Registry for contrail containers after they are built]
