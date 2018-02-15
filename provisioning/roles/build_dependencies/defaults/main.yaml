@@ -1,2 +1,2 @@
-kernel_version: "{{ ansible_kernel | default('') }}"
+kernel_version: "3.10.0-693.el7.x86_64"
 
