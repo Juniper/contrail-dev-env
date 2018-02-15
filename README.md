@@ -16,6 +16,7 @@ so, for example disable firewall.
 ```
 git clone https://github.com/Juniper/contrail-dev-env
 cd contrail-dev-env
+git checkout -b docker_rework origin/docker_rework
 ```
 
 ### 3. Execute script to start 3 containers
