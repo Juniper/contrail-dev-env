@@ -31,18 +31,7 @@ RUN chmod a+x /usr/bin/repo
 
 RUN mkdir -p $RPMS
 WORKDIR $RPMS
-RUN wget -q "https://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.7.0/cassandra-cpp-driver-devel-2.7.0-1.el7.centos.x86_64.rpm"
-RUN wget -q "https://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.7.0/cassandra-cpp-driver-2.7.0-1.el7.centos.x86_64.rpm"
-RUN wget -q "http://mirror.centos.org/centos/6/os/x86_64/Packages/lucene-contrib-2.3.1-5.9.el6.noarch.rpm"
-RUN wget -q "http://mirror.centos.org/centos/6/os/x86_64/Packages/lucene-2.3.1-5.9.el6.noarch.rpm"
-RUN wget -q "http://ftp.altlinux.org/pub/distributions/ALTLinux/Sisyphus/noarch/RPMS.classic/swing-layout-1.0.4-alt2_13jpp8.noarch.rpm"
-RUN wget -q "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-03092017/grok/grok-1.20110308.1-0contrail0.x86_64.rpm"
-RUN wget -q "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-03092017/grok/grok-devel-1.20110308.1-0contrail0.x86_64.rpm"
-RUN wget -q "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/juno/libipfix-110209-1.el7.centos.x86_64.rpm"
-RUN wget -q "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-06202016/contrail-thirdparty/libzookeeper-3.4.8-0contrail0.el7.centos.x86_64.rpm"
-RUN wget -q "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-06202016/contrail-thirdparty/libzookeeper-devel-3.4.8-0.contrail0.el7.centos.x86_64.rpm"
-RUN wget -q "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-06202016/contrail-thirdparty/zookeeper-3.4.8-0.contrail1.el7.centos.x86_64.rpm"
-
+RUN wget -q "https://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.7.0/cassandra-cpp-driver-devel-2.7.0-1.el7.centos.x86_64.rpm" "https://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.7.0/cassandra-cpp-driver-2.7.0-1.el7.centos.x86_64.rpm" "http://mirror.centos.org/centos/6/os/x86_64/Packages/lucene-contrib-2.3.1-5.9.el6.noarch.rpm" "http://mirror.centos.org/centos/6/os/x86_64/Packages/lucene-2.3.1-5.9.el6.noarch.rpm" "http://ftp.altlinux.org/pub/distributions/ALTLinux/Sisyphus/noarch/RPMS.classic/swing-layout-1.0.4-alt2_13jpp8.noarch.rpm" "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-03092017/grok/grok-1.20110308.1-0contrail0.x86_64.rpm" "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-03092017/grok/grok-devel-1.20110308.1-0contrail0.x86_64.rpm" "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/juno/libipfix-110209-1.el7.centos.x86_64.rpm" "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-06202016/contrail-thirdparty/libzookeeper-3.4.8-0contrail0.el7.centos.x86_64.rpm" "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-06202016/contrail-thirdparty/libzookeeper-devel-3.4.8-0.contrail0.el7.centos.x86_64.rpm" "http://10.84.5.120/cs-shared/builder/cache/centoslinux71/mitaka/snapshot-06202016/contrail-thirdparty/zookeeper-3.4.8-0.contrail1.el7.centos.x86_64.rpm" 
 RUN yum -y install $RPMS/*rpm
 
 RUN mkdir -p $CONTRAIL
