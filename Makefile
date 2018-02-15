@@ -8,7 +8,7 @@ ansible_playbook=ansible-playbook -i inventory --extra-vars @vars.yaml --extra-v
 # not a part of the "all" target, should be invoked manually
 presetup:
 	ln -s /root/contrail /root/contrail-5.0 || true
-	yum install -y epel-release ansible git vim docker
+	yum install -y epel-release ansible vim docker
 
 # optional step, used when the sandbox is not mounted from host system
 checkout_repos: presetup
