@@ -24,7 +24,7 @@ RUN yum -y install git python-lxml autoconf libtool unzip wget flex bison libxml
 RUN yum -y install java-1.7.0-openjdk protobuf protobuf-compiler protobuf-devel libevent-devel tokyocabinet-devel librdkafka-devel cyrus-sasl-devel cyrus-sasl cyrus-sasl-lib lz4-devel
 
 # contrail-kubernetes and contrail-config
-RUN pip install tox geventhttpclient setuptools requests
+RUN pip install --upgrade tox geventhttpclient setuptools requests pip
 
 RUN curl -s https://storage.googleapis.com/git-repo-downloads/repo>/usr/bin/repo
 RUN chmod a+x /usr/bin/repo
