@@ -1,31 +1,48 @@
-Begin with:
+### 1. Install docker
+```
+For mac:          https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac
+```
+```
+For linux host:   yum/apt-get install docker
+```
 
-`git clone https://github.com/Juniper/contrail-dev-env`
-
-`cd contrail-dev-env`
-
+NOTE (only if you hit any issues): 
 Make sure that your docker engine supports images bigger than 10GB. For instructions,
 see here: https://stackoverflow.com/questions/37100065/resize-disk-usage-of-a-docker-container
 Make sure, that there is TCP connectivity allowed between the containers in the default docker bridge network,
 so, for example disable firewall.
 
-Execute this script to start up all the required containers:
-`./startup.sh`
+### 2. Clone dev setup repo
+```
+git clone https://github.com/Juniper/contrail-dev-env
+cd contrail-dev-env
+```
 
-Now, 3 containers are started:
-* contrail-developer sandbox
-* registry container
-* httpd container
+### 3. Execute script to start 3 containers
+```
+./startup.sh
+```
+```
+* contrail-developer sandbox [For running scons, unit-tests etc]
+* registry container         [Registry for contrail containers after they are built]
+* httpd container            [Repo server for contrail RPMs after they are build]
+```
 
-Connect to the developer-sandbox container with:
+### 4. Attach to developer-sandbox container
 
-`docker attach contrail-developer-sandbox`
+```
+docker attach contrail-developer-sandbox
+```
 
-Inside, you can use the standard `scons` commands, and if you want to build rpms or containers,
-execute: 
+### 5. Run scons, UT, make RPMS or make containers
 
-`cd contrail-dev-env`
+```
+cd contrail
+scons, scons test etc
+```
 
-`make rpm`
-
-`make containers`
+```
+cd contrail-dev-env
+make rpm
+make containers
+```
