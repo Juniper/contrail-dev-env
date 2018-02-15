@@ -27,6 +27,9 @@ RUN yum -y install lz4-devel
 
 # contrail-kubernetes
 RUN pip install tox
+RUN pip install geventhttpclient
+RUN pip install --upgrade setuptools
+RUN pip install requests
 
 RUN curl -s https://storage.googleapis.com/git-repo-downloads/repo>/usr/bin/repo
 RUN chmod a+x /usr/bin/repo
