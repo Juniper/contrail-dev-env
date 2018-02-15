@@ -10,6 +10,8 @@ if [ x"$distro" == x"centos" ]; then
    systemctl stop firewalld
    sed -i 's/DOCKER_STORAGE_OPTIONS="/DOCKER_STORAGE_OPTIONS="--storage-opt dm.basesize=20G /g' /etc/sysconfig/docker-storage
    diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && systemctl restart docker)
+elif [ x"$distro" == x"ubuntu" ]; then
+   diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && service docker restart)
 fi
 
 docker volume create --name contrail-dev-env-rpms
