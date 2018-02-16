@@ -40,6 +40,7 @@ docker attach contrail-developer-sandbox
 
 ```
 cd contrail
+repo sync # to get the latest code checked out
 scons, scons test etc
 ```
 
