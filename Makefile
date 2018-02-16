@@ -9,7 +9,9 @@ ansible_playbook=ansible-playbook -i inventory --extra-vars @vars.yaml --extra-v
 presetup:
 	ln -s /root/contrail /root/contrail-5.0 || true
 	pip uninstall -y urllib3 || true
-	yum install -y epel-release ansible vim docker
+	pip uninstall -y setuptools || true
+	yum reinstall -y python-setuptools
+	yum install -y epel-release ansible vim docker rpm-build python-fixtures python-requests
 
 # optional step, used when the sandbox is not mounted from host system
 checkout_repos: presetup

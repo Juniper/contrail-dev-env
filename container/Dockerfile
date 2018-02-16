@@ -20,7 +20,7 @@ RUN yum -y update
 RUN yum -y install docker
 
 # contrail-control
-RUN yum -y install git python-lxml autoconf libtool unzip wget flex bison libxml2-devel openssl-devel cmake libcurl-devel tcpdump bzip2 patch gcc-c++ boost-devel tbb-devel make vim-common python-virtualenv python-pip scons gmock gtest libuv libuv-devel vim ruby gdb python-sphinx.noarch
+RUN yum -y install git python-lxml autoconf libtool unzip wget flex bison libxml2-devel openssl-devel cmake libcurl-devel tcpdump bzip2 patch gcc-c++ boost-devel tbb-devel make vim-common python-virtualenv python-pip scons gmock gtest libuv libuv-devel vim ruby gdb python-sphinx.noarch rpm-build python-fixtures python-requests
 
 # contrail-analytics
 RUN yum -y install java-1.7.0-openjdk protobuf protobuf-compiler protobuf-devel libevent-devel tokyocabinet-devel librdkafka-devel cyrus-sasl-devel cyrus-sasl cyrus-sasl-lib lz4-devel
@@ -56,6 +56,10 @@ RUN python third_party/fetch_packages.py
 RUN echo export CONTRAIL=$CONTRAIL >> $HOME/.bashrc
 RUN echo export LD_LIBRARY_PATH=$CONTRAIL/build/lib >> $HOME/.bashrc
 ADD Dockerfile $HOME/
+
+# setuptools downgrade required by the rpm build process
+RUN pip uninstall -y setuptools
+RUN yum reinstall -y python-setuptools
 
 # RUN NO_HEAPCHECK=TRUE BUILD_ONLY=TRUE scons --optimization=debug -uj32 controller/src/bgp:test controller/src/xmpp:test control-node contrail-vrouter-agent control-node
 # RUN LD_LIBRARY_PATH=$CONTRAIL/build/lib NO_HEAPCHECK=TRUE LOG_DISABLE=TRUE scons -i --optimization=debug -uj32 controller/src/bgp:test controller/src/xmpp:test
