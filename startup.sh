@@ -3,7 +3,7 @@
 mydir=$(dirname "$0")
 cd "$mydir"
 
-distro=$cat /etc/*release | egrep '^ID=' | awk -F= '{print $2}' | tr -d \")
+distro=$(cat /etc/*release | egrep '^ID=' | awk -F= '{print $2}' | tr -d \")
 echo Distro detected: $distro
 if [ x"$distro" == x"centos" ]; then
    yum install -y docker
