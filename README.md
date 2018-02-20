@@ -39,7 +39,9 @@ docker attach contrail-developer-sandbox
 ### 5. Run scons, UT, make RPMS or make containers
 
 ```
-cd contrail
+cd /root/contrail-dev-env
+make setup
+cd /root/contrail
 repo sync # to get the latest code checked out
 scons, scons test etc
 ```
