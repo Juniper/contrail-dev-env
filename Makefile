@@ -7,7 +7,7 @@ ansible_playbook=ansible-playbook -i inventory --extra-vars @vars.yaml --extra-v
 # this is the first bootstrap of the packages for the tool itself
 # not a part of the "all" target, should be invoked manually
 presetup:
-	ln -s /root/contrail /root/contrail-5.0 || true
+	ln -s /root/contrail /root/contrail-5.0.0 || true
 	pip uninstall -y urllib3 || true
 	pip uninstall -y setuptools || true
 	yum reinstall -y python-setuptools
