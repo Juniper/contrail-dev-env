@@ -7,3 +7,5 @@ cloned_repos:
     repouser: 'Juniper'
   - reponame: 'contrail-container-builder'
     repouser: 'Juniper'
+  - reponame: 'contrail-zuul-jobs'
+    repouser: 'Juniper'
