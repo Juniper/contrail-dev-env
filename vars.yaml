@@ -14,3 +14,4 @@ site_pulp:
   fqdn: 148.251.5.90
   registry_port: 5000
 contrail_repo: "http://172.17.0.1:6667"
+zuul_site_mirror_fqdn: "http://148.25.5.90"
