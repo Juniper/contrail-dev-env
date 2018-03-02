@@ -51,3 +51,7 @@ cd contrail-dev-env
 make rpm
 make containers
 ```
+### 6. Testing the deployment
+
+See https://github.com/Juniper/contrail-ansible-deployer/wiki/Contrail-with-Ocata-Kolla---All-in-One .
+Set `CONTAINER_REGISTRY` to `172.17.0.1:6666` to use containers built in step 5.
