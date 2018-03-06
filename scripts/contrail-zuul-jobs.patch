@@ -1,8 +1,14 @@
 diff --git a/roles/packaging-build-el/tasks/build_package.yaml b/roles/packaging-build-el/tasks/build_package.yaml
-index ef32324..6bc95b8 100644
+index ef32324..6f7a9cd 100644
 --- a/roles/packaging-build-el/tasks/build_package.yaml
 +++ b/roles/packaging-build-el/tasks/build_package.yaml
-@@ -6,6 +6,7 @@
+@@ -1,11 +1,12 @@
+ - name: "Build binary package for {{ item.name }}"
+-  command: |
++  shell: |
+     rpmbuild \
+       --define "_buildTag {{ build_tag | default(packaging.version.distrib) }}" \
+       --define "_skuTag mitaka" \
        --define "_srcVer {{ packaging.version.upstream }}" \
        --define "_topdir {{ ansible_env.HOME }}/{{ packaging.target_dir }}/" \
        {{ item.extra|default('') }} \
