@@ -9,6 +9,7 @@ if [ x"$distro" == x"centos" ]; then
    yum install -y docker
    systemctl stop firewalld
    sed -i 's/DOCKER_STORAGE_OPTIONS=/DOCKER_STORAGE_OPTIONS=--storage-opt dm.basesize=20G /g' /etc/sysconfig/docker-storage
+   systemctl start docker
 fi
 
 docker volume create --name contrail-dev-env-rpms
@@ -37,11 +38,10 @@ sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/registry/${registry_ip}/g" dev_config
 sed -e "s/registry/${registry_ip}/g" daemon.json.tmpl > daemon.json
 
 if [ x"$distro" == x"centos" ]; then
-   diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && systemctl restart docker)
+   diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && systemctl restart docker && docker start contrail-dev-env-rpm-repo contrail-dev-env-registry contrail-developer-sandbox)
 elif [ x"$distro" == x"ubuntu" ]; then
-   diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && service docker restart)
+   diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && service docker restart && docker start contrail-dev-env-rpm-repo contrail-dev-env-registry contrail-developer-sandbox)
 fi
 
 echo "You can now connect to the sandbox container by using: $ docker attach contrail-developer-sandbox"
-
 

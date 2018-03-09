@@ -47,7 +47,7 @@ scons, scons test etc
 ```
 
 ```
-cd contrail-dev-env
+cd /root/contrail-dev-env
 make rpm
 make containers
 ```
