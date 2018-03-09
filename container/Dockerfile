@@ -37,9 +37,7 @@ RUN wget -q "https://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.7.0
             "https://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.7.0/cassandra-cpp-driver-2.7.0-1.el7.centos.x86_64.rpm" \
             "http://mirror.centos.org/centos/6/os/x86_64/Packages/lucene-contrib-2.3.1-5.9.el6.noarch.rpm" \
             "http://mirror.centos.org/centos/6/os/x86_64/Packages/lucene-2.3.1-5.9.el6.noarch.rpm" \
-            "http://ftp.altlinux.org/pub/distributions/ALTLinux/Sisyphus/noarch/RPMS.classic/swing-layout-1.0.4-alt2_13jpp8.noarch.rpm" \
-            "http://ftp.gwdg.de/pub/opensuse/repositories/home:/zhonghuaren/Fedora_27/x86_64/liburcu-devel-0.8.0-8.1.x86_64.rpm" \
-            "http://ftp.gwdg.de/pub/opensuse/repositories/home:/zhonghuaren/Fedora_27/x86_64/liburcu-0.8.0-8.1.x86_64.rpm"
+            "http://ftp.altlinux.org/pub/distributions/ALTLinux/Sisyphus/noarch/RPMS.classic/swing-layout-1.0.4-alt2_13jpp8.noarch.rpm"
 RUN wget -q -O libipfix-110209-1.el7.centos.x86_64.rpm "$THIRD_PARTY_CACHE/libipfix-110209-1.el7.centos.x86_64.rpm?raw=true"
 RUN wget -q -O grok-1.20110308.1-0contrail0.x86_64.rpm "$THIRD_PARTY_CACHE/grok-1.20110308.1-0contrail0.x86_64.rpm?raw=true"
 RUN wget -q -O grok-devel-1.20110308.1-0contrail0.x86_64.rpm "$THIRD_PARTY_CACHE/grok-devel-1.20110308.1-0contrail0.x86_64.rpm?raw=true"
@@ -48,9 +46,6 @@ RUN wget -q -O libzookeeper-devel-3.4.8-0.contrail0.el7.centos.x86_64.rpm "$THIR
 RUN wget -q -O zookeeper-3.4.8-0.contrail1.el7.centos.x86_64.rpm "$THIRD_PARTY_CACHE/zookeeper-3.4.8-0.contrail1.el7.centos.x86_64.rpm?raw=true"
 RUN yum -y install $RPMS/*rpm
 #RUN rm -rf $RPMS
-
-# contrail-vrouter
-RUN yum -y install libpcap-devel libnl3 libnl3-cli libnl3-devel
 RUN yum clean all
 
 RUN mkdir -p $CONTRAIL
