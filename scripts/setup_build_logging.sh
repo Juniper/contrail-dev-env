@@ -13,11 +13,11 @@ for repo in "contrail-zuul-jobs"; do
   patch_file=${DIR}/${repo}.patch
 
   pushd ${repo_dir} >/dev/null
-  git apply --check ${patch_file} >/dev/null
+  git apply --check -3 ${patch_file} >/dev/null
   rc=$?
   
   if [[ $rc == "0" ]]; then
-    git apply -v ${patch_file}
+    git apply -v -3 ${patch_file}
     echo "[OK] Applied ${patch_file} on ${repo}"
   else
     echo "[ERROR] Patch ${patch_file} cannot be applied on ${repo}." >&2

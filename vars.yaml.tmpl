@@ -8,10 +8,10 @@ zuul:
   executor:
     work_root: /tmp
 docker_registry:
-  fqdn: 172.17.0.1
-  port: '6666'
+  fqdn: contrail-registry
+  port: '5000'
 site_pulp:
   fqdn: 148.251.5.90
   registry_port: 5000
-contrail_repo: "http://172.17.0.1:6667"
+contrail_repo: "http://rpm-repo/"
 zuul_site_mirror_fqdn: "http://148.25.5.90"

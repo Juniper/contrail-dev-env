@@ -2,8 +2,8 @@
 set -u
 
 SRC_DIR=/root/src/review.opencontrail.org/Juniper/
-c_p_c_rev=c5beff384
-c_z_j_rev=fc62da4a8
+c_p_c_rev=c9524c72199
+c_z_j_rev=22aea96d23
 
 mkdir -p ${SRC_DIR}
 
