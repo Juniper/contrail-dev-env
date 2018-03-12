@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -o nounset
+set -o errexit
+
 mydir=$(dirname "$0")
 cd "$mydir"
 
