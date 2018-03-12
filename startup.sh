@@ -29,8 +29,8 @@ docker run --privileged --name contrail-developer-sandbox \
 -v $(pwd):/root/contrail-dev-env \
 opencontrail/developer-sandbox:centos-7.4 || docker start contrail-developer-sandbox
 
-rpm_repo_ip=$(docker inspect contrail-dev-env-rpm-repo --format '{{ .NetworkSettings.IPAddress }}')
-registry_ip=$(docker inspect contrail-dev-env-registry --format '{{ .NetworkSettings.IPAddress }}')
+rpm_repo_ip=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' contrail-dev-env-rpm-repo)
+registry_ip=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' contrail-dev-env-registry)
 
 sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/registry/${registry_ip}/g" common.env.tmpl > common.env
 sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/contrail-registry/${registry_ip}/g" vars.yaml.tmpl > vars.yaml
