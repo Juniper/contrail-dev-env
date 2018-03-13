@@ -10,7 +10,7 @@ distro=$(cat /etc/*release | egrep '^ID=' | awk -F= '{print $2}' | tr -d \")
 echo Distro detected: $distro
 if [ x"$distro" == x"centos" ]; then
    yum install -y docker
-   systemctl stop firewalld
+   systemctl stop firewalld || true
    sed -i 's/DOCKER_STORAGE_OPTIONS=/DOCKER_STORAGE_OPTIONS=--storage-opt dm.basesize=20G /g' /etc/sysconfig/docker-storage
    systemctl start docker
 fi
