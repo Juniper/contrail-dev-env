@@ -10,7 +10,7 @@ distro=$(cat /etc/*release | egrep '^ID=' | awk -F= '{print $2}' | tr -d \")
 echo Distro detected: $distro
 if [ x"$distro" == x"centos" ]; then
    yum install -y docker
-   systemctl stop firewalld
+   systemctl stop firewalld || true
    sed -i 's/DOCKER_STORAGE_OPTIONS=/DOCKER_STORAGE_OPTIONS=--storage-opt dm.basesize=20G /g' /etc/sysconfig/docker-storage
    systemctl start docker
 fi
@@ -32,8 +32,8 @@ docker run --privileged --name contrail-developer-sandbox \
 -v $(pwd):/root/contrail-dev-env \
 opencontrail/developer-sandbox:centos-7.4 || docker start contrail-developer-sandbox
 
-rpm_repo_ip=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' contrail-dev-env-rpm-repo)
-registry_ip=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' contrail-dev-env-registry)
+rpm_repo_ip=$(docker inspect --format '{{ .NetworkSettings.Gateway }}' contrail-dev-env-rpm-repo)
+registry_ip=$(docker inspect --format '{{ .NetworkSettings.Gateway }}' contrail-dev-env-registry)
 
 sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/registry/${registry_ip}/g" common.env.tmpl > common.env
 sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/contrail-registry/${registry_ip}/g" vars.yaml.tmpl > vars.yaml
@@ -41,9 +41,9 @@ sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/registry/${registry_ip}/g" dev_config
 sed -e "s/registry/${registry_ip}/g" daemon.json.tmpl > daemon.json
 
 if [ x"$distro" == x"centos" ]; then
-   diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && systemctl restart docker && docker start contrail-dev-env-rpm-repo contrail-dev-env-registry contrail-developer-sandbox)
+   diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && systemctl reload docker)
 elif [ x"$distro" == x"ubuntu" ]; then
-   diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && service docker restart && docker start contrail-dev-env-rpm-repo contrail-dev-env-registry contrail-developer-sandbox)
+   diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && service docker reload)
 fi
 
 echo "You can now connect to the sandbox container by using: $ docker attach contrail-developer-sandbox"

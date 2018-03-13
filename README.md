@@ -48,10 +48,13 @@ scons, scons test etc
 
 ```
 cd /root/contrail-dev-env
-make rpm
+make dep # installs all build dependencies
+make rpm # builds all RPMs
+# or
+make rpm-contrail-nodemgr rpm-<pkg_name>... # Builds single RPM for <pkg_name>
 make containers
 ```
 ### 6. Testing the deployment
 
-See https://github.com/Juniper/contrail-ansible-deployer/wiki/Contrail-with-Ocata-Kolla---All-in-One .
+See https://github.com/Juniper/contrail-ansible-deployer/wiki/Contrail-with-Kolla-Ocata .
 Set `CONTAINER_REGISTRY` to `registry:5000` to use containers built in step 5.

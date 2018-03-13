@@ -25,12 +25,22 @@ setup: checkout_repos
 build:
 	echo "Not implemented yet"
 
-rpm: setup
-	@scripts/setup_build_logging.sh $(repos_dir)
-	$(ansible_playbook) $(repos_dir)/contrail-project-config/playbooks/packaging/contrail-vnc-el.yaml
+createrepo:
 	createrepo $(HOME)/rpmbuild/RPMS/
 
-containers:
+rpm:
+	$(MAKE) -C $(HOME)/contrail/tools/packages rpm
+
+rpm-%:
+	$(MAKE) -C $(HOME)/contrail/tools/packages $@
+
+dep:
+	$(MAKE) -C $(HOME)/contrail/tools/packages dep
+
+dep-%:
+	$(MAKE) -C $(HOME)/contrail/tools/packages $@
+
+containers: 
 	scripts/build-containers.sh
 
 deploy_contrail_kolla: containers
