@@ -30,7 +30,7 @@ docker run --privileged --name contrail-developer-sandbox \
 -v /var/run/docker.sock:/var/run/docker.sock \
 -v contrail-dev-env-rpm-volume:/root/rpmbuild/RPMS \
 -v $(pwd):/root/contrail-dev-env \
-opencontrail/developer-sandbox:centos-7.4 || docker start contrail-developer-sandbox
+opencontrail/developer-sandbox:centos-7.4-slim || docker start contrail-developer-sandbox
 
 rpm_repo_ip=$(docker inspect --format '{{ .NetworkSettings.Gateway }}' contrail-dev-env-rpm-repo)
 registry_ip=$(docker inspect --format '{{ .NetworkSettings.Gateway }}' contrail-dev-env-registry)
