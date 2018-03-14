@@ -38,7 +38,7 @@ RUN yum -y install epel-release \
 # Initialize sandbox, get code, install build dependencies
 # and fetch third parties
 RUN repo init -u https://github.com/Juniper/contrail-vnc \
-&&  repo sync -j $(nproc) \
+&&  repo sync contrail-packages contrail-third-party \
 &&  make -f tools/packages/Makefile dep \
 &&  python third_party/fetch_packages.py \
 &&  yum clean all \

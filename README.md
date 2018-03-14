@@ -41,11 +41,10 @@ docker attach contrail-developer-sandbox
 *Required* first steps in the container:
 
 ```
-cd /root/contrail-dev-env
-make setup
 cd /root/contrail
 repo sync # to get the latest code checked out
 cd /root/contrail-dev-env
+make setup
 make dep
 ```
 
@@ -58,6 +57,7 @@ scons # ( or "scons test" etc)
 
 Additional `make` targets provided by `contrail-dev-env/Makefile`:
 
+* `make setup` - initial configuration of image (required to run once)
 * `make dep` - installs all build dependencies
 * `make dep-<pkg_name>` - installs build dependencies for <pkg_name>
 * `make rpm` - builds all RPMs

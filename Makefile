@@ -1,6 +1,8 @@
 repos_dir=$(HOME)/src/review.opencontrail.org/Juniper/
 ansible_playbook=ansible-playbook -i inventory --extra-vars @vars.yaml --extra-vars @dev_config.yaml
 
+-include $(HOME)/contrail/tools/packages/Makefile
+
 .PHONY: presetup checkout_vnc setup build rpm containers deploy unittest sanity all
 
 setup:
@@ -16,18 +18,6 @@ build:
 createrepo:
 	@mkdir -p $(HOME)/rpmbuild/RPMS
 	createrepo $(HOME)/rpmbuild/RPMS/
-
-rpm:
-	$(MAKE) -C $(HOME)/contrail/tools/packages rpm
-
-rpm-%:
-	$(MAKE) -C $(HOME)/contrail/tools/packages $@
-
-dep:
-	$(MAKE) -C $(HOME)/contrail/tools/packages dep
-
-dep-%:
-	$(MAKE) -C $(HOME)/contrail/tools/packages $@
 
 containers: createrepo
 	scripts/build-containers.sh
@@ -46,4 +36,3 @@ sanity: deploy
 
 all: containers
 
--include $(HOME)/contrail/tools/packages/Makefile
