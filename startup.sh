@@ -28,7 +28,7 @@ registry:2 || docker start contrail-dev-env-registry
 docker run --privileged --name contrail-developer-sandbox \
 -w /root -itd \
 -v /var/run/docker.sock:/var/run/docker.sock \
--v contrail-dev-env-rpm-volume:/root/rpmbuild/RPMS \
+-v contrail-dev-env-rpm-volume:/root/contrail/RPMS \
 -v $(pwd):/root/contrail-dev-env \
 opencontrail/developer-sandbox:centos-7.4-slim || docker start contrail-developer-sandbox
 

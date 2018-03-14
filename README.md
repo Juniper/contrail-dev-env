@@ -3,7 +3,9 @@
 For mac:          https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac
 ```
 ```
-For linux host:   yum install docker/apt install docker.io
+For linux host:   
+yum install docker # RHEL/CentOS/Fedora
+apt install docker.io # ubuntu/debian
 ```
 
 NOTE (only if you hit any issues): 
@@ -20,7 +22,7 @@ cd contrail-dev-env
 
 ### 3. Execute script to start 3 containers
 ```
-./startup.sh
+sudo ./startup.sh
 ```
 
 ##### docker ps -a should show these 3 containers #####

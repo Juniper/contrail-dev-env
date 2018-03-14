@@ -16,8 +16,8 @@ build:
 	echo "Not implemented yet"
 
 createrepo:
-	@mkdir -p $(HOME)/rpmbuild/RPMS
-	createrepo $(HOME)/rpmbuild/RPMS/
+	@mkdir -p $(HOME)/contrail/RPMS
+	createrepo $(HOME)/contrail/RPMS/
 
 containers: createrepo
 	scripts/build-containers.sh
