@@ -46,4 +46,4 @@ sanity: deploy
 
 all: containers
 
-include $(HOME)/contrail/tools/packages/Makefile
+-include $(HOME)/contrail/tools/packages/Makefile
