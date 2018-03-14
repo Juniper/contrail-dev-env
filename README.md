@@ -38,22 +38,32 @@ docker attach contrail-developer-sandbox
 
 ### 5. Run scons, UT, make RPMS or make containers
 
+*Required* first steps in the container:
+
 ```
 cd /root/contrail-dev-env
 make setup
 cd /root/contrail
 repo sync # to get the latest code checked out
-scons, scons test etc
+cd /root/contrail-dev-env
+make dep
 ```
 
+Now you can run any commands using the source code sandbox, e.g.
+
 ```
-cd /root/contrail-dev-env
-make dep # installs all build dependencies
-make rpm # builds all RPMs
-# or
-make rpm-contrail-nodemgr rpm-<pkg_name>... # Builds single RPM for <pkg_name>
-make containers
+cd /root/contrail
+scons # ( or "scons test" etc)
 ```
+
+Additional `make` targets provided by `contrail-dev-env/Makefile`:
+
+* `make dep` - installs all build dependencies
+* `make dep-<pkg_name>` - installs build dependencies for <pkg_name>
+* `make rpm` - builds all RPMs
+* `make rpm-<pkg_name>` - builds single RPM for <pkg_name>
+* `make containers` - builds all containers, requires RPM packages in /root/contrail/RPMS
+
 ### 6. Testing the deployment
 
 See https://github.com/Juniper/contrail-ansible-deployer/wiki/Contrail-with-Kolla-Ocata .

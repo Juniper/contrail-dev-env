@@ -1,8 +1,0 @@
-- name: Setup config file for Ansible run inside VM
-  template:
-    src: "../templates/ansible.cfg.j2"
-    dest: "{{ workdir }}/contrail-dev-env/ansible.cfg"
-    mode: 0644
-    owner: "{{ sandbox_owner }}"
-    group: "{{ sandbox_group }}"
-

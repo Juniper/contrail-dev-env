@@ -12,9 +12,9 @@ function checkout() {
   local rev=${2:-master}
   local repopath=${SRC_DIR}/${repo}
 
-  test -d ${repopath} || git clone https://github.com/Juniper/${repo} ${repopath}
+  test -d ${repopath} || git clone https://github.com/Juniper/${repo} ${repopath} >/dev/null 2>&1
   pushd ${repopath} >/dev/null
-  git fetch origin
+  git fetch origin >/dev/null
   echo -n "${repo}: "
   git checkout -B dev-env ${rev} >/dev/null
   git reset --hard >/dev/null

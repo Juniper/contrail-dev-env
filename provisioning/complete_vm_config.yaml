@@ -1,4 +1,0 @@
-- hosts: all
-  roles:
-#    - role: setup_docker
-    - role: yum_repos
