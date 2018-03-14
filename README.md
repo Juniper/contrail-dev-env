@@ -42,7 +42,7 @@ docker attach contrail-developer-sandbox
 
 ```
 cd /root/contrail
-repo sync # to get the latest code checked out
+repo sync -j $(nproc) # to get the latest code checked out
 cd /root/contrail-dev-env
 make setup
 make dep

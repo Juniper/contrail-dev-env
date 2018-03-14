@@ -7,7 +7,7 @@ ansible_playbook=ansible-playbook -i inventory --extra-vars @vars.yaml --extra-v
 
 setup:
 	@test -e /root/contrail-5.0.0 || ln -s /root/contrail /root/contrail-5.0.0
-	@pip -q list | grep urlib3 && pip uninstall -y urllib3 || true
+	@pip list | grep urllib3 >/dev/null && pip uninstall -y urllib3 || true
 	@pip -q uninstall -y setuptools || true
 	@yum -q reinstall -y python-setuptools
 	@scripts/checkout_repos.sh
