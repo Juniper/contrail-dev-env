@@ -3,7 +3,7 @@ ansible_playbook=ansible-playbook -i inventory --extra-vars @vars.yaml --extra-v
 
 -include $(HOME)/contrail/tools/packages/Makefile
 
-.PHONY: presetup checkout_vnc setup build rpm containers deploy unittest sanity all
+.PHONY: setup build containers createrepo unittests ut sanity all
 
 setup:
 	@test -e /root/contrail-5.0.0 || ln -s /root/contrail /root/contrail-5.0.0
@@ -12,27 +12,27 @@ setup:
 	@yum -q reinstall -y python-setuptools
 	@scripts/checkout_repos.sh
 
-build:
-	echo "Not implemented yet"
+build deploy:
+	@echo "$@: not implemented"
 
 createrepo:
 	@mkdir -p $(HOME)/contrail/RPMS
-	createrepo $(HOME)/contrail/RPMS/
+	@createrepo $(HOME)/contrail/RPMS/
 
 containers: createrepo
-	scripts/build-containers.sh
+	@scripts/build-containers.sh
 
 deploy_contrail_kolla: containers
-	$(ansible_playbook) $(repos_dir)/contrail-project-config/playbooks/kolla/centos74-provision-kolla.yaml
+	@$(ansible_playbook) $(repos_dir)/contrail-project-config/playbooks/kolla/centos74-provision-kolla.yaml
 
 deploy_contrail_k8s: containers
-	$(ansible_playbook) $(repos_dir)/contrail-project-config/playbooks/docker/centos74-systest-kubernetes.yaml
+	@$(ansible_playbook) $(repos_dir)/contrail-project-config/playbooks/docker/centos74-systest-kubernetes.yaml
 
-unittests: build
-	echo "Not implemented yet"
+unittests ut: build
+	@echo "$@: not implemented"
 
 sanity: deploy
-	echo "Not implemented yet"
+	@echo "$@: not implemented"
 
 all: containers
 
