@@ -1,59 +1,38 @@
-sandbox_path=$(HOME)/contrail-5.0
 repos_dir=$(HOME)/src/review.opencontrail.org/Juniper/
 ansible_playbook=ansible-playbook -i inventory --extra-vars @vars.yaml --extra-vars @dev_config.yaml
 
-.PHONY: presetup checkout_vnc setup build rpm containers deploy unittest sanity all
+-include $(HOME)/contrail/tools/packages/Makefile
 
-# this is the first bootstrap of the packages for the tool itself
-# not a part of the "all" target, should be invoked manually
-presetup:
+.PHONY: setup build containers createrepo unittests ut sanity all
+
+setup:
 	@test -e /root/contrail-5.0.0 || ln -s /root/contrail /root/contrail-5.0.0
-	@pip list --format=legacy | grep 'urllib3' >/dev/null && pip uninstall -y urllib3 || true
-	@pip list --format=legacy | grep 'setuptools' >/dev/null && pip uninstall -y setuptools || true
+	@pip list | grep urllib3 >/dev/null && pip uninstall -y urllib3 || true
+	@pip -q uninstall -y setuptools || true
 	@yum -q reinstall -y python-setuptools
-	@yum -q install -y epel-release ansible vim docker rpm-build python-fixtures python-requests
-
-# optional step, used when the sandbox is not mounted from host system
-checkout_repos: presetup
 	@scripts/checkout_repos.sh
 
-# install all the primary build deps, docker engine etc.
-setup: checkout_repos
-	$(ansible_playbook) provisioning/setup_vm.yaml
-	$(ansible_playbook) provisioning/complete_vm_config.yaml
-
-build:
-	echo "Not implemented yet"
+build deploy:
+	@echo "$@: not implemented"
 
 createrepo:
-	createrepo $(HOME)/rpmbuild/RPMS/
+	@mkdir -p $(HOME)/contrail/RPMS
+	@createrepo $(HOME)/contrail/RPMS/
 
-rpm:
-	$(MAKE) -C $(HOME)/contrail/tools/packages rpm
-
-rpm-%:
-	$(MAKE) -C $(HOME)/contrail/tools/packages $@
-
-dep:
-	$(MAKE) -C $(HOME)/contrail/tools/packages dep
-
-dep-%:
-	$(MAKE) -C $(HOME)/contrail/tools/packages $@
-
-containers: 
-	scripts/build-containers.sh
+containers: createrepo
+	@scripts/build-containers.sh
 
 deploy_contrail_kolla: containers
-	$(ansible_playbook) $(repos_dir)/contrail-project-config/playbooks/kolla/centos74-provision-kolla.yaml
+	@$(ansible_playbook) $(repos_dir)/contrail-project-config/playbooks/kolla/centos74-provision-kolla.yaml
 
 deploy_contrail_k8s: containers
-	$(ansible_playbook) $(repos_dir)/contrail-project-config/playbooks/docker/centos74-systest-kubernetes.yaml
+	@$(ansible_playbook) $(repos_dir)/contrail-project-config/playbooks/docker/centos74-systest-kubernetes.yaml
 
-unittests: build
-	echo "Not implemented yet"
+unittests ut: build
+	@echo "$@: not implemented"
 
 sanity: deploy
-	echo "Not implemented yet"
+	@echo "$@: not implemented"
 
 all: containers
 
