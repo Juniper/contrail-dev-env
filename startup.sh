@@ -36,10 +36,13 @@ distro=$(cat /etc/*release | egrep '^ID=' | awk -F= '{print $2}' | tr -d \")
 echo $distro detected.
 if [ x"$distro" == x"centos" ]; then
    yum install -y docker
+   systemctl start docker
    systemctl stop firewalld || true
    systemctl start docker
    grep 'dm.basesize=20G' /etc/sysconfig/docker-storage || sed -i 's/DOCKER_STORAGE_OPTIONS=/DOCKER_STORAGE_OPTIONS=--storage-opt dm.basesize=20G /g' /etc/sysconfig/docker-storage
    systemctl restart docker
+elif [ x"$distro" == x"ubuntu" ]; then
+   which docker || apt install -y docker.io
 fi
 
 test "$setup_only" -eq 1 && exit
