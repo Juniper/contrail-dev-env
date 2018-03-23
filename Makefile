@@ -5,7 +5,10 @@ ansible_playbook=ansible-playbook -i inventory --extra-vars @vars.yaml --extra-v
 
 .PHONY: setup build containers createrepo unittests ut sanity all
 
-setup:
+fetch_packages:
+	@cd $(HOME)/contrail/third_party && python -u fetch_packages.py 2>&1 | grep -Ei 'Processing|patching'
+
+setup: fetch_packages
 	@test -e /root/contrail-5.0.0 || ln -s /root/contrail /root/contrail-5.0.0
 	@pip list | grep urllib3 >/dev/null && pip uninstall -y urllib3 || true
 	@pip -q uninstall -y setuptools || true
