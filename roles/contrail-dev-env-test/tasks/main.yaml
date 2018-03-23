@@ -1,0 +1,44 @@
+- name: install packages
+  package:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - python-docker
+
+- name: build image
+  command: ./build.sh ci-test
+  args:
+    chdir: "{{ ansible_env.HOME }}/src/review.opencontrail.org/Juniper/contrail-dev-env/container"
+  become: true
+
+- name: startup
+  command: ./startup.sh ci-test
+  args:
+    chdir: "{{ ansible_env.HOME }}/src/review.opencontrail.org/Juniper/contrail-dev-env"
+  become: true
+
+- name: Test contrail-dev-env
+  include: docker_exec.yaml
+  with_items:
+    - chdir: /root/contrail
+      command: repo sync -j $(nproc) --no-clone-bundle -q
+    - chdir: /root/contrail-dev-env
+      command: make setup
+    - chdir: /root/contrail-dev-env
+      command: make dep
+    - chdir: /root/contrail-dev-env
+      command: make list
+    - chdir: /root/contrail-dev-env
+      command: make rpm
+    - chdir: /root/contrail-dev-env
+      command: make containers
+    - name: list packages
+      chdir: /root/contrail/RPMS
+      command: ls -la *
+
+- name: cleanup
+  command: ./cleanup.sh -v
+  args:
+    chdir: "{{ ansible_env.HOME }}/src/review.opencontrail.org/Juniper/contrail-dev-env"
+  become: true

@@ -6,6 +6,8 @@ set -o errexit
 scriptdir=$(dirname "$0")
 cd "$scriptdir"
 
+DEVENVTAG=${1:-centos-7.4}
+
 function is_created () {
   local container=$1
   docker ps -a --format '{{ .Names }}' | grep "$container" > /dev/null
@@ -27,13 +29,14 @@ echo $distro detected.
 if [ x"$distro" == x"centos" ]; then
    yum install -y docker
    systemctl stop firewalld || true
-   sed -i 's/DOCKER_STORAGE_OPTIONS=/DOCKER_STORAGE_OPTIONS=--storage-opt dm.basesize=20G /g' /etc/sysconfig/docker-storage
    systemctl start docker
+   sed -i 's/DOCKER_STORAGE_OPTIONS=/DOCKER_STORAGE_OPTIONS=--storage-opt dm.basesize=20G /g' /etc/sysconfig/docker-storage
+   systemctl restart docker
 fi
 
 echo
 echo '[environment setup]'
-echo "volume $(docker volume create --name contrail-dev-env-rpms) created."
+echo "volume $(docker volume create --name contrail-dev-env-rpm-volume) created."
 
 if ! is_created "contrail-dev-env-rpm-repo"; then
   docker run --privileged --name contrail-dev-env-rpm-repo \
@@ -63,13 +66,15 @@ else
 fi
 
 if ! is_created "contrail-developer-sandbox"; then
-  docker pull opencontrail/developer-sandbox:centos-7.4 > /dev/null
+  if [[ x"$DEVENVTAG" == x"centos-7.4" ]]; then
+    docker pull opencontrail/developer-sandbox:${DEVENVTAG}
+  fi
   docker run --privileged --name contrail-developer-sandbox \
   -w /root -itd \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v contrail-dev-env-rpm-volume:/root/contrail/RPMS \
   -v $(pwd):/root/contrail-dev-env \
-  opencontrail/developer-sandbox:centos-7.4 >/dev/null
+  opencontrail/developer-sandbox:${DEVENVTAG} >/dev/null
   echo contrail-developer-sandbox created.
 else
   if is_up "contrail-developer-sandbox"; then
@@ -90,7 +95,11 @@ sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/registry/${registry_ip}/g" dev_config
 sed -e "s/registry/${registry_ip}/g" daemon.json.tmpl > daemon.json
 
 if [ x"$distro" == x"centos" ]; then
-   diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && systemctl reload docker)
+   if ! diff daemon.json /etc/docker/daemon.json; then 
+     cp daemon.json /etc/docker/daemon.json
+     systemctl restart docker
+     docker start contrail-dev-env-rpm-repo contrail-dev-env-registry contrail-developer-sandbox
+   fi
 elif [ x"$distro" == x"ubuntu" ]; then
    diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && service docker reload)
 fi
