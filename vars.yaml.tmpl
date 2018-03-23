@@ -1,0 +1,17 @@
+zuul:
+  branch: master
+  change: 10000
+  patchset: 1
+  projects:
+  - short_name: contrail-packages
+    src_dir: src/review.opencontrail.org/Juniper/contrail-packages
+  executor:
+    work_root: /tmp
+docker_registry:
+  fqdn: contrail-registry
+  port: '6666'
+site_pulp:
+  fqdn: 148.251.5.90
+  registry_port: 5000
+contrail_repo: "http://rpm-repo/"
+zuul_site_mirror_fqdn: "http://148.25.5.90"

@@ -1,0 +1,1 @@
+cd /root/contrail && rpmbuild --define '_sbtop /root/contrail' --define “"kVers 3.10.0-693.el7.x86_64" --define "_buildTag ci39823.2" --define "_srcVer 5.0" -ba tools/packages/rpm/contrail/contrail.spec
