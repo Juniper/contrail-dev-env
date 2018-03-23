@@ -1,0 +1,28 @@
+- project:
+    name: Juniper/contrail-zuul-jobs
+    check:
+      jobs:
+        - contrail-infra-base-integration-centos-7
+        - contrail-infra-base-integration-ubuntu-xenial
+        - contrail-infra-contrail-base-integration-centos-7
+        - contrail-infra-contrail-base-integration-ubuntu-xenial
+        - contrail-infra-packaging-integration-centos-7
+        - contrail-infra-packaging-integration-ubuntu-xenial
+        - zuul-jobs-linters
+        - contrail-dev-env-test
+    gate:
+      jobs:
+        - contrail-infra-base-integration-centos-7
+        - contrail-infra-base-integration-ubuntu-xenial
+        - contrail-infra-contrail-base-integration-centos-7
+        - contrail-infra-contrail-base-integration-ubuntu-xenial
+        - contrail-infra-packaging-integration-centos-7
+        - contrail-infra-packaging-integration-ubuntu-xenial
+        - zuul-jobs-linters
+        - contrail-dev-env-test
+
+- job:
+    name: contrail-dev-env-test
+    parent: contrail-src-base
+    run: playbooks/contrail-dev-env/run-test
+    nodeset: builder-ubuntu-xenial
