@@ -42,6 +42,9 @@
       command: make setup
 
     - chdir: /root/contrail-dev-env
+      command: make fetch_packages
+
+    - chdir: /root/contrail-dev-env
       command: make dep
 
     - chdir: /root/contrail-dev-env
