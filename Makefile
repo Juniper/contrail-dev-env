@@ -1,17 +1,20 @@
-repos_dir=$(HOME)/src/review.opencontrail.org/Juniper/
-container_builder_dir=$(repos_dir)contrail-container-builder
+DE_DIR 	:= $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+DE_TOP  := $(abspath $(DE_DIR)/../)/
+
+# include RPM-building targets
+-include $(DE_TOP)contrail/tools/packages/Makefile
+
+repos_dir=$(DE_TOP)src/review.opencontrail.org/Juniper/
+container_builder_dir=$(repos_dir)contrail-container-builder/
 ansible_playbook=ansible-playbook -i inventory --extra-vars @vars.yaml --extra-vars @dev_config.yaml
 
 all: dep rpm containers
 
-# include RPM-building targets
--include $(HOME)/contrail/tools/packages/Makefile
-
 list-containers: prepare-containers
-	@$(container_builder_dir)/containers/build.sh list | grep -v INFO | sed -e 's,/,_,g' -e 's/^/container-/'
+	@$(container_builder_dir)containers/build.sh list | grep -v INFO | sed -e 's,/,_,g' -e 's/^/container-/'
 
 fetch_packages:
-	@cd $(HOME)/contrail/third_party && python -u fetch_packages.py 2>&1 | grep -Ei 'Processing|patching'
+	@cd $(DE_TOP)contrail/third_party && python -u fetch_packages.py 2>&1 | grep -Ei 'Processing|patching'
 
 setup: fetch_packages
 	@test -e /root/contrail-5.0.0 || ln -s /root/contrail /root/contrail-5.0.0
@@ -21,16 +24,16 @@ setup: fetch_packages
 	@scripts/checkout_repos.sh
 
 container-%: prepare-containers createrepo
-	@$(container_builder_dir)/containers/build.sh $(patsubst container-%,%,$(subst _,/,$(@)))
+	@$(container_builder_dir)containers/build.sh $(patsubst container-%,%,$(subst _,/,$(@)))
 
 containers: create-repo prepare-containers
-	@$(container_builder_dir)/containers/build.sh
+	@$(container_builder_dir)containers/build.sh
 
 deploy_contrail_kolla: containers
-	@$(ansible_playbook) $(repos_dir)/contrail-project-config/playbooks/kolla/centos74-provision-kolla.yaml
+	@$(ansible_playbook) $(repos_dir)contrail-project-config/playbooks/kolla/centos74-provision-kolla.yaml
 
 deploy_contrail_k8s: containers
-	@$(ansible_playbook) $(repos_dir)/contrail-project-config/playbooks/docker/centos74-systest-kubernetes.yaml
+	@$(ansible_playbook) $(repos_dir)contrail-project-config/playbooks/docker/centos74-systest-kubernetes.yaml
 
 unittests ut: build
 	@echo "$@: not implemented"
@@ -43,28 +46,33 @@ build deploy:
 
 # utility targets
 sync:
-	@cd $(HOME)/contrail && repo sync -q --no-clone-bundle -j $(shell nproc)
+	@cd $(DE_TOP)contrail && repo sync -q --no-clone-bundle -j $(shell nproc)
 
-$(repos_dir)contrail-container-builder/.git:
-	@scripts/prepare-containers.sh
+$(container_builder_dir).git:
+	@$(DE_DIR)scripts/prepare-containers.sh
 
-prepare-containers: $(container_builder_dir)/.git
+prepare-containers: $(container_builder_dir).git
 
 create-repo:
-	@mkdir -p $(HOME)/contrail/RPMS
-	@createrepo -C $(HOME)/contrail/RPMS/
+	@mkdir -p $(DE_TOP)contrail/RPMS
+	@createrepo -C $(DE_TOP)contrail/RPMS/
 
 # Clean targets
 clean-containers:
-	@test -d $(container_builder_dir) && rm -rf $(repos_dir)contrail-container-builder || true
+	@test -d $(container_builder_dir) && rm -rf $(container_builder_dir) || true
 
 clean-repo:
-	@test -d $(HOME)/contrail/RPMS/repodata && rm -rf $(HOME)/contrail/RPMS/repodata || true
+	@test -d $(DE_TOP)contrail/RPMS/repodata && rm -rf $(DE_TOP)contrail/RPMS/repodata || true
 
 clean-rpm:
-	@test -d $(HOME)/contrail/RPMS && rm -rf $(HOME)/contrail/RPMS/* || true
+	@test -d $(DE_TOP)contrail/RPMS && rm -rf $(DE_TOP)contrail/RPMS/* || true
 
 clean: clean-containers clean-repo clean-rpm
 	@true
+
+dbg:
+	@echo $(DE_TOP)
+	@echo $(DE_DIR)
+	@echo $(SB_TOP)
 
 .PHONY: clean-containers clean-repo clean-rpm setup build containers createrepo unittests ut sanity all

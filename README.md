@@ -1,3 +1,7 @@
+# contrail-dev-env: Contrail Developer Environment
+
+## Container-based (standard)
+
 ### 1. Install docker
 ```
 For mac:          https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac
@@ -77,3 +81,9 @@ Additional `make` targets provided by `contrail-dev-env/Makefile`:
 
 See https://github.com/Juniper/contrail-ansible-deployer/wiki/Contrail-with-Kolla-Ocata .
 Set `CONTAINER_REGISTRY` to `registry:5000` to use containers built in step 5.
+
+## Bring-your-own-VM (experimental)
+
+1. clone this repository to a directory on a VM
+2. run `vm-dev-env/init.sh` (you might be asked for your password as some steps require the use of sudo)
+3. you can use the same Makefile targets as in the container
