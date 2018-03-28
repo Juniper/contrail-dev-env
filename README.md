@@ -1,17 +1,21 @@
+# contrail-dev-env: Contrail Developer Environment
+
+## Container-based (standard)
+
 ### 1. Install docker
 ```
 For mac:          https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac
 ```
-For CentOS/RHEL/Fedora linux host:   
+For CentOS/RHEL/Fedora linux host:
 ```
 yum install docker
 ```
-For Ubuntu linux host:   
+For Ubuntu linux host:
 ```
-apt install docker.io 
+apt install docker.io
 ```
 
-NOTE (only if you hit any issues): 
+NOTE (only if you hit any issues):
 Make sure that your docker engine supports images bigger than 10GB. For instructions,
 see here: https://stackoverflow.com/questions/37100065/resize-disk-usage-of-a-docker-container
 Make sure that there is TCP connectivity allowed between the containers in the default docker bridge network,
@@ -77,3 +81,14 @@ Additional `make` targets provided by `contrail-dev-env/Makefile`:
 
 See https://github.com/Juniper/contrail-ansible-deployer/wiki/Contrail-with-Kolla-Ocata .
 Set `CONTAINER_REGISTRY` to `registry:5000` to use containers built in step 5.
+
+## Bring-your-own-VM (experimental)
+
+*Note:* only RedHat 7 and CentOS 7 are supported at this time!
+
+1. Clone this repository to a directory on a VM.
+2. Run `vm-dev-env/init.sh` (you might be asked for your password as some steps require the use of sudo).
+  a. You can also run `vm-dev-env/init.sh -n` if you don't want to clone work directory on a VM. Then you have to mount sandbox to directory named `contrail` next to `contrail-dev-env`.
+3. Run `make fetch_packages` to pull dependencies to `contrail/third_party`
+4. Run `sudo ./startup.sh -b` to start required containers.
+4. You can use the Makefile targets described above to build contrail.
