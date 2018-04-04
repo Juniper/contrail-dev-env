@@ -50,11 +50,11 @@ docker attach contrail-developer-sandbox
 *Required* first steps in the container:
 
 ```
-cd /root/contrail
-repo sync -j $(nproc) # to get the latest code checked out
 cd /root/contrail-dev-env
-make setup
-make dep
+make sync           # get latest code using repo tool
+make fetch_packages # pull third_party dependencies
+make setup          # set up docker container
+make dep            # install dependencies
 ```
 
 Now you can run any commands using the source code sandbox, e.g.
@@ -64,9 +64,11 @@ cd /root/contrail
 scons # ( or "scons test" etc)
 ```
 
-Additional `make` targets provided by `contrail-dev-env/Makefile`:
+Or use any of additional `make` targets provided by `contrail-dev-env/Makefile`:
 
 * `make setup` - initial configuration of image (required to run once)
+* `make sync` - sync code in `contrail` directory using `repo` tool
+* `make fetch_packages` - pull third_party dependencies (after code checkout)
 * `make dep` - installs all build dependencies
 * `make dep-<pkg_name>` - installs build dependencies for <pkg_name>
 * `make list` - lists all available rpm targets

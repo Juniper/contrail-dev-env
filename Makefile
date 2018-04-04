@@ -16,7 +16,7 @@ list-containers: prepare-containers
 fetch_packages:
 	@cd $(DE_TOP)contrail/third_party && python -u fetch_packages.py 2>&1 | grep -Ei 'Processing|patching'
 
-setup: fetch_packages
+setup:
 	@test -e /root/contrail-5.0.0 || ln -s /root/contrail /root/contrail-5.0.0
 	@pip list | grep urllib3 >/dev/null && pip uninstall -y urllib3 || true
 	@pip -q uninstall -y setuptools || true
