@@ -131,5 +131,5 @@ fi
 
 echo
 echo '[READY]'
-test "$own_vm" -eq 0 && echo "You can now connect to the sandbox container by using: $ docker attach contrail-developer-sandbox"
+(test "$own_vm" -eq 0 && echo "You can now connect to the sandbox container by using: $ docker attach contrail-developer-sandbox") || true
 
