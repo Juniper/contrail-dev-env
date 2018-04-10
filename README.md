@@ -1,5 +1,14 @@
 # contrail-dev-env: Contrail Developer Environment
 
+## Problems? Need Help?
+
+This repository is actively maintained via [Gerrit] so please let us know about
+any problems you find. You can ask for help on [Slack] but if no one replies
+right away, go ahead and open a bug on [Launchpad] and tag the bug with the
+tag "dev-env" and it will get looked at soon. You can also post to the new
+[Google Group] if you're having trouble but don't know if the problem is a bug
+or a mistake on your part.
+
 ## Container-based (standard)
 
 ### 1. Install docker
@@ -76,7 +85,7 @@ Or use any of additional `make` targets provided by `contrail-dev-env/Makefile`:
 * `make rpm-<pkg_name>` - builds single RPM for <pkg_name>
 * `make list-containers` - lists all container targets
 * `make containers` - builds all containers, requires RPM packages in /root/contrail/RPMS
-* `make container-<container_name>` - builds single container as a taret, with all docker dependencies
+* `make container-<container_name>` - builds single container as a target, with all docker dependencies
 * `make clean{-containers,-repo,-rpm}` - artifacts cleanup
 
 ### 6. Testing the deployment
@@ -94,3 +103,8 @@ Set `CONTAINER_REGISTRY` to `registry:5000` to use containers built in step 5.
 3. Run `make fetch_packages` to pull dependencies to `contrail/third_party`
 4. Run `sudo ./startup.sh -b` to start required containers.
 4. You can use the Makefile targets described above to build contrail.
+
+[Gerrit]: https://review.opencontrail.org/#/admin/projects/Juniper/contrail-dev-env
+[Slack]: https://tungstenfabric.slack.com/messages/C0DQ23SJF/
+[Launchpad]: https://bugs.launchpad.net/opencontrail/+filebug
+[Google Group]: https://groups.google.com/forum/#!forum/tungsten-dev
