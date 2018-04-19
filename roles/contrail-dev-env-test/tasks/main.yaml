@@ -17,7 +17,7 @@
   become: true
 
 - name: build image
-  command: ./build.sh {{ container_tag }}
+  command: ./build.sh -b {{ zuul.branch }} {{ container_tag }}
   args:
     chdir: "{{ ansible_env.HOME }}/src/review.opencontrail.org/Juniper/contrail-dev-env/container"
   become: true
