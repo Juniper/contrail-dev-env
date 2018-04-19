@@ -3,8 +3,8 @@ FROM centos:7.4.1708
 ENV USER root
 ENV HOME /root/
 ENV CONTRAIL $HOME/contrail
+ARG BRANCH=master
 
-RUN mkdir -p $CONTRAIL
 WORKDIR $CONTRAIL
 
 # Install android repo
@@ -37,7 +37,7 @@ RUN yum -y install epel-release \
 
 # Initialize sandbox, get code, install build dependencies
 # and fetch third parties
-RUN repo init --no-clone-bundle -q -u https://github.com/Juniper/contrail-vnc \
+RUN repo init --no-clone-bundle -q -u https://github.com/Juniper/contrail-vnc -b $BRANCH \
 &&  repo sync --no-clone-bundle -q contrail-packages contrail-third-party \
 &&  make -f tools/packages/Makefile dep \
 &&  python third_party/fetch_packages.py \
