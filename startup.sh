@@ -129,6 +129,11 @@ elif [ x"$distro" == x"ubuntu" ]; then
   diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && service docker reload)
 fi
 
+scripts/pass-proxy-to-sandbox.py # Copies from host environment to files in contrail-dev-env
+# Copies proxy config from contrail-dev-env to ~/.m2/settings.xml and
+# /etc/environment inside container
+docker exec contrail-developer-sandbox contrail-dev-env/scripts/copy-proxy-inside-sandbox.sh
+
 echo
 echo '[READY]'
 test "$own_vm" -eq 0 && echo "You can now connect to the sandbox container by using: $ docker attach contrail-developer-sandbox"
