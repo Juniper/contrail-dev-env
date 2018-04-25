@@ -50,6 +50,28 @@ fi
 test "$setup_only" -eq 1 && exit
 
 echo
+echo '[Gathering Proxy Info]'
+scripts/pass-proxy-to-sandbox.py # Copies from host environment to files in contrail-dev-env
+
+if [ ! -d /root/.docker ];
+    then mkdir /root/.docker;
+fi
+
+if [ -f config.json ] && [ ! -f /root/.docker/config.json ];
+    then cp config.json /root/.docker/config.json;
+fi
+
+if [ ! -d /etc/systemd/system/docker.service.d ];
+    then mkdir /etc/systemd/system/docker.service.d;
+fi
+
+if [ -f http-proxy.conf ] && [ ! -f /etc/systemd/system/docker.service.d/http-proxy.conf ];
+    then cp http-proxy.conf /etc/systemd/system/docker.service.d/http-proxy.conf;
+    systemctl daemon-reload;
+    service docker restart;
+fi
+
+echo
 echo '[environment setup]'
 if [[ "$own_vm" -eq 0 ]]; then
   rpm_source=$(docker volume create --name contrail-dev-env-rpm-volume) 
@@ -97,6 +119,12 @@ if [[ "$own_vm" -eq 0 ]]; then
       -v /var/run/docker.sock:/var/run/docker.sock \
       -v ${rpm_source}:/root/contrail/RPMS \
       -v $(pwd):/root/contrail-dev-env \
+      --env HTTP_PROXY="$HTTP_PROXY" \
+      --env HTTPS_PROXY="$HTTPS_PROXY" \
+      --env NO_PROXY="$NO_PROXY" \
+      --env http_proxy="$http_proxy" \
+      --env https_proxy="$https_proxy" \
+      --env no_proxy="$no_proxy" \
       opencontrail/developer-sandbox:${DEVENVTAG} >/dev/null
     echo contrail-developer-sandbox created.
   else
@@ -128,6 +156,10 @@ if [ x"$distro" == x"centos" ]; then
 elif [ x"$distro" == x"ubuntu" ]; then
   diff daemon.json /etc/docker/daemon.json || (cp daemon.json /etc/docker/daemon.json && service docker reload)
 fi
+
+# Copies proxy config from contrail-dev-env to ~/.m2/settings.xml and
+# /etc/environment inside container
+docker exec contrail-developer-sandbox contrail-dev-env/scripts/copy-proxy-inside-sandbox.sh
 
 echo
 echo '[READY]'
