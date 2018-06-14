@@ -66,6 +66,16 @@ make setup          # set up docker container
 make dep            # install dependencies
 ```
 
+*Optional*: if you want to work on other version of code, e.g. `R5.0`, start with following steps
+*before* the "Required" part:
+
+```
+cd /root/contrail
+git config --global user.name "Your Name"
+git config --global user.email "your@e-mail.com"
+repo init -b R5.0
+```
+
 Now you can run any commands using the source code sandbox, e.g.
 
 ```
