@@ -9,6 +9,14 @@ tag "dev-env" and it will get looked at soon. You can also post to the new
 [Google Group] if you're having trouble but don't know if the problem is a bug
 or a mistake on your part.
 
+## Documentation for dev-env components
+
+Since dev-env uses generally available contrail components, please refer to following documentation pages:
+
+1. for packages generation: [contrail-packages](https://github.com/Juniper/contrail-packages/blob/master/README.md)
+2. for building containers: [contrail-container-builder](https://github.com/Juniper/contrail-container-builder/blob/master/README.md)
+3. for deployments: [contrail-ansible-deployer](https://github.com/Juniper/contrail-ansible-deployer/blob/master/README.md)
+
 ## Container-based (standard)
 
 ### 1. Install docker
