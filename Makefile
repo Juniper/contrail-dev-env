@@ -21,7 +21,7 @@ setup:
 	@pip -q uninstall -y setuptools || true
 	@yum -q reinstall -y python-setuptools
 
-container-%: prepare-containers createrepo
+container-%: prepare-containers create-repo
 	@$(container_builder_dir)containers/build.sh $(patsubst container-%,%,$(subst _,/,$(@)))
 
 containers: create-repo prepare-containers

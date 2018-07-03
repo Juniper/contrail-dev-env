@@ -81,7 +81,8 @@ make dep            # install dependencies
 cd /root/contrail
 git config --global user.name "Your Name"
 git config --global user.email "your@e-mail.com"
-repo init -b R5.0
+export SB_BRANCH=R5.0
+repo init -b $SB_BRANCH
 ```
 
 Now you can run any commands using the source code sandbox, e.g.
