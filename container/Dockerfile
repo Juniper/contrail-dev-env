@@ -1,4 +1,4 @@
-FROM centos:7.4.1708
+FROM centos:7.5.1804
 
 ENV USER root
 ENV HOME /root/
@@ -38,8 +38,8 @@ RUN yum -y install epel-release \
 
 # Initialize sandbox, get code, install build dependencies
 # and fetch third parties
-RUN echo "Initializing repo from $BRANCH"
-RUN repo init --no-clone-bundle -q -u https://github.com/Juniper/contrail-vnc -b $BRANCH \
+RUN echo "Initializing repo from $BRANCH" \
+&&  repo init --no-clone-bundle -q -u https://github.com/Juniper/contrail-vnc -b $BRANCH \
 &&  repo sync --no-clone-bundle -q contrail-packages contrail-third-party \
 &&  make -f tools/packages/Makefile dep \
 &&  python third_party/fetch_packages.py \
