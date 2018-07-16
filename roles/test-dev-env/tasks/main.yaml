@@ -1,31 +1,7 @@
-- name: set variables
-  set_fact:
-    container_tag: "{{ zuul.change }}-{{ zuul.patchset }}-{{ zuul.buildset[0:9] }}"
-
-- name: install packages
-  package:
-    name: "{{ item }}"
-    state: present
-  become: true
-  with_items:
-    - python-docker
-
-- name: install and configure docker
-  command: ./startup.sh -s
-  args:
-    chdir: "{{ ansible_env.HOME }}/src/review.opencontrail.org/Juniper/contrail-dev-env"
-  become: true
-
-- name: build image
-  command: ./build.sh -b {{ zuul.branch }} {{ container_tag }}
-  args:
-    chdir: "{{ ansible_env.HOME }}/src/review.opencontrail.org/Juniper/contrail-dev-env/container"
-  become: true
-
 - name: startup
   command: ./startup.sh -t {{ container_tag }}
   args:
-    chdir: "{{ ansible_env.HOME }}/src/review.opencontrail.org/Juniper/contrail-dev-env"
+    chdir: "{{ zuul.project.src_dir }}"
   become: true
 
 - name: show running containers
@@ -69,5 +45,5 @@
 - name: cleanup
   command: ./cleanup.sh -v
   args:
-    chdir: "{{ ansible_env.HOME }}/src/review.opencontrail.org/Juniper/contrail-dev-env"
+    chdir: "{{ zuul.project.src_dir }}"
   become: true
