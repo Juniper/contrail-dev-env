@@ -1,0 +1,20 @@
+- name: install packages
+  package:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - python-docker
+
+- name: install and configure docker
+  command: ./startup.sh -s
+  args:
+    chdir: "{{ zuul.project.src_dir }}"
+  become: true
+
+- name: build image
+  command: ./build.sh -b "{{ sandbox_branch }}" "{{ container_tag }}"
+  args:
+    chdir: "{{ zuul.project.src_dir }}/container"
+  become: true
+
