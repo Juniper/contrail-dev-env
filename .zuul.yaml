@@ -2,7 +2,7 @@
     name: Juniper/contrail-dev-env
     check:
       jobs:
-        - contrail-dev-env-test:
+        - test-dev-env:
             irrelevant-files:
               - README.md
         - noop:
@@ -10,15 +10,25 @@
               - README.md
     gate:
       jobs:
-        - contrail-dev-env-test:
+        - test-dev-env:
             irrelevant-files:
               - README.md
         - noop:
             files:
               - README.md
 
-- job:
-    name: contrail-dev-env-test
+- job: 
+    name: dev-env-base
+    description: |
+      Base job used to work on dev-env. Contains build as a pre step.
     parent: contrail-src-base
-    run: playbooks/contrail-dev-env/run-test
+    pre-run: playbooks/contrail-dev-env/pre
     nodeset: builder-centos-7
+
+- job:
+    name: test-dev-env
+    description: |
+      Test job for contrail-dev-env. 
+      Runs a set of steps to build RPMs and containers.
+    parent: dev-env-base
+    run: playbooks/contrail-dev-env/test/run

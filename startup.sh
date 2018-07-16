@@ -9,12 +9,21 @@ setup_only=0
 own_vm=0
 DEVENVTAG=centos-7.4
 
-while getopts ":t:s:b" opt; do
+while getopts ":t:sb" opt; do
   case $opt in
-    t) DEVENVTAG=$OPTARG ;;
-    s) setup_only=1 ;;
-    b) own_vm=1 ;;
-    \?) echo "Invalid option: $opt"; exit 1;;
+    t)
+      DEVENVTAG=$OPTARG
+      ;;
+    s)
+      setup_only=1
+      ;;
+    b)
+      own_vm=1
+      ;;
+    \?)
+      echo "Invalid option: $opt"
+      exit 1
+      ;;
   esac
 done
 
