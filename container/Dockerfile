@@ -11,6 +11,9 @@ WORKDIR $CONTRAIL
 RUN curl -s https://storage.googleapis.com/git-repo-downloads/repo > /usr/bin/repo \
 &&  chmod a+x /usr/bin/repo
 
+# Remove Centos default repo in order to freeze version 7.4.1708
+RUN rm -f /etc/yum.repos.d/*.repo
+
 # Inject repositories that we might need
 COPY *.repo /etc/yum.repos.d
 
@@ -37,7 +40,7 @@ RUN yum -y install epel-release \
 
 # Initialize sandbox, get code, install build dependencies
 # and fetch third parties
-RUN repo init --no-clone-bundle -q -u https://github.com/Juniper/contrail-vnc \
+RUN repo init --no-clone-bundle -q -u https://github.com/Juniper/contrail-vnc -b r5.0 \
 &&  repo sync --no-clone-bundle -q contrail-packages contrail-third-party \
 &&  make -f tools/packages/Makefile dep \
 &&  python third_party/fetch_packages.py \

@@ -6,7 +6,7 @@ set -o errexit
 scriptdir=$(dirname "$0")
 cd "$scriptdir"
 setup_only=0
-DEVENVTAG=centos-7.4
+DEVENVTAG=centos-7.4-r5.0
 
 while getopts ":t:s" opt; do
   case $opt in
@@ -79,7 +79,7 @@ else
 fi
 
 if ! is_created "contrail-developer-sandbox"; then
-  if [[ x"$DEVENVTAG" == x"centos-7.4" ]]; then
+  if [[ x"$DEVENVTAG" == x"centos-7.4-r5.0" ]]; then
     docker pull opencontrail/developer-sandbox:${DEVENVTAG}
   fi
   docker run --privileged --name contrail-developer-sandbox \
