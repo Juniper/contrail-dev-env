@@ -1,0 +1,2 @@
+container_tag: "{{ zuul.change }}-{{ zuul.patchset }}-{{ zuul.buildset[0:9] }}"
+sandbox_branch: "{{ zuul.branch }}"

@@ -1,6 +1,5 @@
 - name: "Run in dev-env: {{ item.name|default(item.command) }}"
   command: >
     docker exec contrail-developer-sandbox
-    bash -c "cd {{ item.chdir }}; {{ item.command }}"
-  become: yes
-  become_user: root
+    bash -c "cd {{ item.chdir|default('/root/contrail-dev-env') }}; {{ item.command }}"
+  become: true
