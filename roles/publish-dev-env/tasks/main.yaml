@@ -1,0 +1,12 @@
+---
+
+- name: Retag developer-sandbox
+  command: >
+    docker tag {{ container_name }}:{{ container_tag }}
+    {{ container_target }}:{{ sandbox_branch }}
+  become: true
+
+- name: Push developer-sandbox
+  command: >
+    docker push {{ container_target }}:{{ sandbox_branch }}
+  become: true
