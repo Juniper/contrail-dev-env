@@ -1,3 +1,4 @@
 container_tag: "{{ zuul.change }}-{{ zuul.patchset }}-{{ zuul.buildset[0:9] }}"
 container_name: "opencontrail/developer-sandbox"
+registry: ""
 sandbox_branch: "{{ zuul.branch }}"
