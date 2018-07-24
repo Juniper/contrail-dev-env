@@ -1,1 +1,2 @@
-container_tag: "{{ zuul.change }}-{{ zuul.patchset }}-{{ zuul.buildset[0:9] }}"
+image_tag: "{{ packaging.docker_version }}"
+image_name: "opencontrailnightly/developer-sandbox"

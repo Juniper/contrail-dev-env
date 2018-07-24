@@ -7,10 +7,14 @@ scriptdir=$(dirname "$0")
 cd "$scriptdir"
 setup_only=0
 own_vm=0
-DEVENVTAG=centos-7.4
+DEVENVTAG=latest
+IMAGE=opencontrailnightly/developer-sandbox
 
-while getopts ":t:sb" opt; do
+while getopts ":t:i:sb" opt; do
   case $opt in
+    i)
+      IMAGE=$OPTARG
+      ;;
     t)
       DEVENVTAG=$OPTARG
       ;;
@@ -98,15 +102,15 @@ fi
 
 if [[ "$own_vm" -eq 0 ]]; then
   if ! is_created "contrail-developer-sandbox"; then
-    if [[ x"$DEVENVTAG" == x"centos-7.4" ]]; then
-      docker pull opencontrail/developer-sandbox:${DEVENVTAG}
+    if [[ x"$DEVENVTAG" == x"latest" ]]; then
+      docker pull ${IMAGE}:${DEVENVTAG}
     fi
     docker run --privileged --name contrail-developer-sandbox \
       -w /root -itd \
       -v /var/run/docker.sock:/var/run/docker.sock \
       -v ${rpm_source}:/root/contrail/RPMS \
       -v $(pwd):/root/contrail-dev-env \
-      opencontrail/developer-sandbox:${DEVENVTAG} >/dev/null
+      ${IMAGE}:${DEVENVTAG} >/dev/null
     echo contrail-developer-sandbox created.
   else
     if is_up "contrail-developer-sandbox"; then
