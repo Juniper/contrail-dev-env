@@ -13,7 +13,7 @@
   become: true
 
 - name: build image
-  command: ./build.sh -b "{{ sandbox_branch }}" "{{ container_tag }}"
+  command: ./build.sh -b "{{ sandbox_branch }}" -i "{{ image_name }}" "{{ image_tag }}"
   args:
     chdir: "{{ zuul.project.src_dir }}/container"
   become: true
