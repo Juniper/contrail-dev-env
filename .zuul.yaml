@@ -32,3 +32,10 @@
       Runs a set of steps to build RPMs and containers.
     parent: dev-env-base
     run: playbooks/test-dev-env/run
+
+- job:
+    name: publish-dev-env
+    description: |
+      This job builds and publishes developer-sandbox container.
+    parent: dev-env-base
+    run: playbooks/publish-dev-env/run
