@@ -22,6 +22,8 @@
     description: |
       Base job used to work on dev-env. Contains build as a pre step.
     parent: contrail-base2
+    required-projects:
+      - Juniper/contrail-dev-env
     pre-run: playbooks/dev-env-base/pre
     nodeset: builder-centos-7
 
