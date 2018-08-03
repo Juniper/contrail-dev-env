@@ -1,4 +1,0 @@
-image_tag: "{{ packaging.docker_version }}"
-image_name: "opencontrailnightly/developer-sandbox"
-image_target: "opencontrail/developer-sandbox"
-sandbox_branch: "{{ zuul.branch }}"

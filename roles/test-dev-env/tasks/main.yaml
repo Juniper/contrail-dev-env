@@ -1,7 +1,7 @@
 - name: startup
   command: ./startup.sh -i "{{ image_name }}" -t "{{ image_tag }}"
   args:
-    chdir: "{{ zuul.project.src_dir }}"
+    chdir: "{{ workdir }}"
   become: true
 
 - name: show running containers
@@ -38,5 +38,5 @@
 - name: cleanup
   command: ./cleanup.sh -v
   args:
-    chdir: "{{ zuul.project.src_dir }}"
+    chdir: "{{ workdir }}"
   become: true
