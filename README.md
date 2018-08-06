@@ -19,6 +19,14 @@ Since dev-env uses generally available contrail components, please refer to foll
 
 ## Container-based (standard)
 
+There are 2 official sources of containers for dev-env:
+
+1. Released images on docker hub [opencontrail](https://hub.docker.com/r/opencontrail/developer-sandbox/), tagged with released version.
+2. Nightly images on docker hub [opencontrailnightly](https://hub.docker.com/r/opencontrailnightly/developer-sandbox/), tagged with corresponding development branch.
+   *Note:* tag `latest` points to `master` branch.
+   
+You can also use your own image, built using `container/build.sh` script.
+
 ### 1. Install docker
 ```
 For mac:          https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac
@@ -49,6 +57,12 @@ cd contrail-dev-env
 sudo ./startup.sh
 ```
 
+**Note:** This command runs container `opencontrailnightly/developer-sandbox:master` from [opencontrailnightly docker hub](https://hub.docker.com/r/opencontrailnightly/developer-sandbox/) by
+default. You can specify different image and/or tag using flags, e.g.
+
+1. to develop on nightly R5.0 container use: `sudo ./startup.sh -t R5.0`
+2. to develop code based on a tagged `r5.0` release, use: `sudo ./startup.sh -i opencontrail/developer-sandbox -t r5.0`
+
 ##### docker ps -a should show these 3 containers #####
 ```
 contrail-developer-sandbox [For running scons, unit-tests etc]
@@ -72,17 +86,6 @@ make sync           # get latest code using repo tool
 make fetch_packages # pull third_party dependencies
 make setup          # set up docker container
 make dep            # install dependencies
-```
-
-*Optional*: if you want to work on other version of code, e.g. `R5.0`, start with following steps
-*before* the "Required" part:
-
-```
-cd /root/contrail
-git config --global user.name "Your Name"
-git config --global user.email "your@e-mail.com"
-export SB_BRANCH=R5.0
-repo init -b $SB_BRANCH
 ```
 
 Now you can run any commands using the source code sandbox, e.g.
