@@ -41,4 +41,6 @@
       This job builds and publishes developer-sandbox container.
     parent: dev-env-base
     run: playbooks/publish-dev-env/run
+    vars:
+      setup_docker_registry: True
 
