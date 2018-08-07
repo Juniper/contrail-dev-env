@@ -3,10 +3,8 @@
     - zuul-include-vars
     - role: add-insecure-registry
       new_registry: "{{ contrail_docker_registry }}"
-
-- hosts: all
-  name: Publish containers to the internal registry
-  roles:
+    - role: build-dev-env
+      image_tag: "{{ packaging.docker_version }}"
     - role: publish-container-images
       registry: "{{ contrail_docker_registry }}"
       tag: "{{ packaging.docker_version }}"
