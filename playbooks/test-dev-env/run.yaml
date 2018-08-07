@@ -1,3 +1,6 @@
 - hosts: all
   roles:
-    - test-dev-env
+    - role: build-dev-env
+      image_tag: "{{ packaging.docker_version }}"
+    - role: test-dev-env
+      image_tag: "{{ packaging.docker_version }}"

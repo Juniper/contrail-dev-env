@@ -20,17 +20,16 @@
 - job: 
     name: dev-env-base
     description: |
-      Base job used to work on dev-env. Contains build as a pre step.
+      Base job used to work on dev-env.
     parent: contrail-base2
     required-projects:
       - Juniper/contrail-dev-env
-    pre-run: playbooks/dev-env-base/pre
     nodeset: builder-centos-7
 
 - job:
     name: test-dev-env
     description: |
-      Test job for contrail-dev-env. 
+      Test job for contrail-dev-env.
       Runs a set of steps to build RPMs and containers.
     parent: dev-env-base
     run: playbooks/test-dev-env/run
