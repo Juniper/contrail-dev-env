@@ -10,5 +10,5 @@
       tag: "{{ packaging.docker_version }}"
       images:
         - name: "{{ image_name }}"
-          tag: "{{ image_tag }}"
+          tag: "{{ packaging.docker_version }}"
 
