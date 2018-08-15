@@ -23,7 +23,8 @@
       Base job used to work on dev-env.
     parent: contrail-base2
     required-projects:
-      - Juniper/contrail-dev-env
+      - name: Juniper/contrail-dev-env
+        override-checkout: master
     nodeset: builder-centos-7
 
 - job:
