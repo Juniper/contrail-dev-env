@@ -1,4 +1,6 @@
 - hosts: all
+  vars:
+    image_name: developer-sandbox
   roles:
     - zuul-include-vars
     - role: build-dev-env
