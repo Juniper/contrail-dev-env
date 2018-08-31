@@ -112,7 +112,7 @@ Or use any of additional `make` targets provided by `contrail-dev-env/Makefile`:
 
 ### 6. Testing the deployment
 
-See https://github.com/Juniper/contrail-ansible-deployer/wiki/Contrail-with-Kolla-Ocata .
+See https://github.com/Juniper/contrail-ansible-deployer/wiki/Contrail-with-Openstack-Kolla .
 Set `CONTAINER_REGISTRY` to `registry:5000` to use containers built in step 5.
 
 ## Bring-your-own-VM (experimental)
