@@ -2,17 +2,17 @@
     name: Juniper/contrail-dev-env
     check:
       jobs:
-        #        - test-dev-env:
-        #    irrelevant-files:
-        #      - README.md
-        - noop
-          #    files:
-          #    - README.md
+        - test-dev-env:
+            irrelevant-files:
+              - README.md
+        - noop:
+            files:
+              - README.md
     gate:
       jobs:
-        #- test-dev-env:
-        #    irrelevant-files:
-        #      - README.md
-        - noop
-          #    files:
-          #    - README.md
+        - test-dev-env:
+            irrelevant-files:
+              - README.md
+        - noop:
+            files:
+              - README.md
