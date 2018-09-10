@@ -2,45 +2,17 @@
     name: Juniper/contrail-dev-env
     check:
       jobs:
-        - test-dev-env:
-            irrelevant-files:
-              - README.md
-        - noop:
-            files:
-              - README.md
+        #        - test-dev-env:
+        #    irrelevant-files:
+        #      - README.md
+        - noop
+          #    files:
+          #    - README.md
     gate:
       jobs:
-        - test-dev-env:
-            irrelevant-files:
-              - README.md
-        - noop:
-            files:
-              - README.md
-
-- job: 
-    name: dev-env-base
-    description: |
-      Base job used to work on dev-env.
-    parent: contrail-base2
-    required-projects:
-      - name: Juniper/contrail-dev-env
-        override-checkout: master
-    nodeset: builder-centos-7
-
-- job:
-    name: test-dev-env
-    description: |
-      Test job for contrail-dev-env.
-      Runs a set of steps to build RPMs and containers.
-    parent: dev-env-base
-    run: playbooks/test-dev-env/run
-
-- job:
-    name: publish-dev-env
-    description: |
-      This job builds and publishes developer-sandbox container.
-    parent: dev-env-base
-    run: playbooks/publish-dev-env/run
-    vars:
-      setup_docker_registry: True
-
+        #- test-dev-env:
+        #    irrelevant-files:
+        #      - README.md
+        - noop
+          #    files:
+          #    - README.md
