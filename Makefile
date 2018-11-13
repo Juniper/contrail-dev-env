@@ -6,12 +6,16 @@ DE_TOP  := $(abspath $(DE_DIR)/../)/
 
 repos_dir=$(DE_TOP)src/review.opencontrail.org/Juniper/
 container_builder_dir=$(repos_dir)contrail-container-builder/
+deployers_builder_dir=$(repos_dir)contrail-deployers-containers/
 ansible_playbook=ansible-playbook -i inventory --extra-vars @vars.yaml --extra-vars @dev_config.yaml
 
 all: dep rpm containers
 
 list-containers: prepare-containers
 	@$(container_builder_dir)containers/build.sh list | grep -v INFO | sed -e 's,/,_,g' -e 's/^/container-/'
+
+list-deployers: prepare-deployers
+	@$(deployers_builder_dir)containers/build.sh list | grep -v INFO | sed -e 's,/,_,g' -e 's/^/container-/'
 
 fetch_packages:
 	@cd $(DE_TOP)contrail/third_party && python -u fetch_packages.py 2>&1 | grep -Ei 'Processing|patching'
@@ -24,12 +28,20 @@ setup:
 container-%: prepare-containers create-repo
 	@$(container_builder_dir)containers/build.sh $(patsubst container-%,%,$(subst _,/,$(@)))
 
+deployer-%: prepare-deployers create-repo
+	@$(deployers_builder_dir)containers/build.sh $(patsubst container-%,%,$(subst _,/,$(@)))
+
 containers: create-repo prepare-containers
 	@$(container_builder_dir)containers/build.sh
 
+deployers: create-repo prepare-deployers
+	@$(deployers_builder_dir)containers/build.sh
+
+# TODO: switch next job to using deployers
 deploy_contrail_kolla: containers
 	@$(ansible_playbook) $(repos_dir)contrail-project-config/playbooks/kolla/centos74-provision-kolla.yaml
 
+# TODO: think about switch next job to deployers
 deploy_contrail_k8s: containers
 	@$(ansible_playbook) $(repos_dir)contrail-project-config/playbooks/docker/centos74-systest-kubernetes.yaml
 
@@ -49,7 +61,12 @@ sync:
 $(container_builder_dir).git:
 	@$(DE_DIR)scripts/prepare-containers.sh
 
+$(deployers_builder_dir).git:
+	@$(DE_DIR)scripts/prepare-deployers.sh
+
 prepare-containers: $(container_builder_dir).git
+
+prepare-deployers: $(deployers_builder_dir).git
 
 create-repo:
 	@mkdir -p $(DE_TOP)contrail/RPMS
@@ -59,13 +76,16 @@ create-repo:
 clean-containers:
 	@test -d $(container_builder_dir) && rm -rf $(container_builder_dir) || true
 
+clean-deployers:
+	@test -d $(deployers_builder_dir) && rm -rf $(deployers_builder_dir) || true
+
 clean-repo:
 	@test -d $(DE_TOP)contrail/RPMS/repodata && rm -rf $(DE_TOP)contrail/RPMS/repodata || true
 
 clean-rpm:
 	@test -d $(DE_TOP)contrail/RPMS && rm -rf $(DE_TOP)contrail/RPMS/* || true
 
-clean: clean-containers clean-repo clean-rpm
+clean: clean-deployers clean-containers clean-repo clean-rpm
 	@true
 
 dbg:
@@ -73,4 +93,4 @@ dbg:
 	@echo $(DE_DIR)
 	@echo $(SB_TOP)
 
-.PHONY: clean-containers clean-repo clean-rpm setup build containers createrepo unittests ut sanity all
+.PHONY: clean-deployers clean-containers clean-repo clean-rpm setup build containers deployers createrepo unittests ut sanity all
