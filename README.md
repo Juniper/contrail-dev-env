@@ -14,8 +14,8 @@ or a mistake on your part.
 Since dev-env uses generally available contrail components, please refer to following documentation pages:
 
 1. for packages generation: [contrail-packages](https://github.com/Juniper/contrail-packages/blob/master/README.md)
-2. for building containers: [contrail-container-builder](https://github.com/Juniper/contrail-container-builder/blob/master/README.md)
-3. for deployments: [contrail-ansible-deployer](https://github.com/Juniper/contrail-ansible-deployer/blob/master/README.md)
+2. for building containers: [contrail-container-builder](https://github.com/Juniper/contrail-container-builder/blob/master/README.md) and [contrail--deployers-containers](https://github.com/Juniper/contrail-deployers-containers/blob/master/README.md)
+3 for deployments: [contrail-ansible-deployer](https://github.com/Juniper/contrail-ansible-deployer/blob/master/README.md)
 
 ## Container-based (standard)
 
@@ -108,7 +108,10 @@ Or use any of additional `make` targets provided by `contrail-dev-env/Makefile`:
 * `make list-containers` - lists all container targets
 * `make containers` - builds all containers, requires RPM packages in /root/contrail/RPMS
 * `make container-<container_name>` - builds single container as a target, with all docker dependencies
-* `make clean{-containers,-repo,-rpm}` - artifacts cleanup
+* `make list-deployers` - lists all deployers container targets
+* `make deployers` - builds all deployers
+* `make deployer-<container_name>` - builds single deployer as a target, with all docker dependencies
+* `make clean{-containers,-deployers,-repo,-rpm}` - artifacts cleanup
 
 ### 6. Testing the deployment
 
