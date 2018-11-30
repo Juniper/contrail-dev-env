@@ -104,7 +104,7 @@ Or use any of additional `make` targets provided by `contrail-dev-env/Makefile`:
 * `make dep-<pkg_name>` - installs build dependencies for <pkg_name>
 * `make list` - lists all available rpm targets
 * `make rpm` - builds all RPMs
-* `make rpm-<pkg_name>` - builds single RPM for <pkg_name>
+* `make rpm <pkg_name>` - builds single RPM for <pkg_name>
 * `make list-containers` - lists all container targets
 * `make containers` - builds all containers, requires RPM packages in /root/contrail/RPMS
 * `make container-<container_name>` - builds single container as a target, with all docker dependencies
