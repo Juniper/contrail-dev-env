@@ -95,6 +95,36 @@ cd /root/contrail
 scons # ( or "scons test" etc)
 ```
 
+NOTE:
+Above example will try to build whole TungstenFabric modules with default kernel headers,
+which are headers for running kernel (`uname -r`). Take a look at below examples to customize
+your manual build.
+
+In case you want to compile TungstenFabric with latest or custom kernel headers installed
+in `contrail-developer-sanbox` container, then you have to run scons with extra arguments:
+
+```
+RTE_KERNELDIR=/path/to/custom_kernel_headers scons --kernel-dir=/path/to/custom_kernel_headers
+```
+
+To alter default behaviour and build TF without support for DPDK provide `--without-dpdk` flag:
+
+```
+scons --kernel-dir=/path/to/custom_kernel_headers --without-dpdk
+```
+
+To build specific module like `vrouter`:
+
+```
+scons --kernel-dir=/path/to/custom_kernel_headers vrouter
+```
+
+To run build and run unit test targets:
+
+```
+RTE_KERNELDIR=/path/to/custom_kernel_headers scons --kernel-dir=/path/to/custom_kernel_headers test
+```
+
 Or use any of additional `make` targets provided by `contrail-dev-env/Makefile`:
 
 * `make setup` - initial configuration of image (required to run once)
