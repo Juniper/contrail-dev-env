@@ -52,6 +52,16 @@ git clone https://github.com/Juniper/contrail-dev-env
 cd contrail-dev-env
 ```
 
+**Note:** If you want to build a 5.0 Tungsten Fabric you may want to clone or
+checkout the R5.0 branch of the contrail-dev-env repository. This is distinct
+from and in addition to the R5.0 or r5.0 Docker image tags mentioned in the
+next section.
+
+```
+git clone https://github.com/Juniper/contrail-dev-env -b R5.0
+cd contrail-dev-env
+```
+
 ### 3. Execute script to start 3 containers
 ```
 sudo ./startup.sh
@@ -76,6 +86,11 @@ contrail-dev-env-registry  [Registry for contrail containers after they are buil
 docker attach contrail-developer-sandbox
 ```
 
+**Note:** When using "docker attach" the container will terminate when you exit
+the shell. You can simply run `sudo ./startup.sh` again to relaunch the
+container. Alternatively you can use `docker exec -it contrail-developer-sandbox bash`
+to launch an additional shell in the same container.
+
 ### 5. Run scons, UT, make RPMS or make containers
 
 *Required* first steps in the container:
@@ -88,7 +103,17 @@ make setup          # set up docker container
 make dep            # install dependencies
 ```
 
-Now you can run any commands using the source code sandbox, e.g.
+Now you can run a full build using the source code sandbox, e.g.
+
+```
+make rpm
+make containers
+```
+
+If all of the above is successful, you should be able to use `docker image ls`
+to see all the containers necessary to move on to section 6 and deploy from
+your new build. Alternatively you can use some of the commands below depending
+on what development you're doing. e.g.
 
 ```
 cd /root/contrail
@@ -148,6 +173,12 @@ Or use any of additional `make` targets provided by `contrail-dev-env/Makefile`:
 
 See https://github.com/Juniper/contrail-ansible-deployer/wiki/Contrail-with-Openstack-Kolla .
 Set `CONTAINER_REGISTRY` to `registry:5000` to use containers built in step 5.
+
+Or, if you prefer Helm, see
+https://github.com/Juniper/contrail-helm-deployer/blob/master/doc/contrail-osh-aio-install.md
+
+Of course, you may also push the containers you built to Docker Hub or to a
+private container image repository.
 
 ## Bring-your-own-VM (experimental)
 
