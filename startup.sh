@@ -10,6 +10,10 @@ own_vm=0
 DEVENVTAG=latest
 IMAGE=opencontrailnightly/developer-sandbox
 
+# variables that can be redefined outside
+REGISTRY_PORT=${REGISTRY_PORT:-6666}
+REGISTRY_IP=${REGISTRY_IP:-}
+
 while getopts ":t:i:sb" opt; do
   case $opt in
     i)
@@ -89,7 +93,7 @@ fi
 
 if ! is_created "contrail-dev-env-registry"; then
   docker run --privileged --name contrail-dev-env-registry \
-    -d -p 6666:5000 \
+    -d -p $REGISTRY_PORT:5000 \
     registry:2 >/dev/null
   echo contrail-dev-env-registry created.
 else
@@ -124,12 +128,15 @@ fi
 echo
 echo '[configuration update]'
 rpm_repo_ip=$(docker inspect --format '{{ .NetworkSettings.Gateway }}' contrail-dev-env-rpm-repo)
-registry_ip=$(docker inspect --format '{{ .NetworkSettings.Gateway }}' contrail-dev-env-registry)
+registry_ip=${REGISTRY_IP}
+if [ -z $registry_ip ]; then
+  registry_ip=$(docker inspect --format '{{ .NetworkSettings.Gateway }}' contrail-dev-env-registry)
+fi
 
-sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/registry/${registry_ip}/g" common.env.tmpl > common.env
-sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/contrail-registry/${registry_ip}/g" vars.yaml.tmpl > vars.yaml
+sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/registry/${registry_ip}/g" -e "s/6666/${REGISTRY_PORT}/g" common.env.tmpl > common.env
+sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/contrail-registry/${registry_ip}/g" -e "s/6666/${REGISTRY_PORT}/g" vars.yaml.tmpl > vars.yaml
 sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/registry/${registry_ip}/g" dev_config.yaml.tmpl > dev_config.yaml
-sed -e "s/registry/${registry_ip}/g" daemon.json.tmpl > daemon.json
+sed -e "s/registry/${registry_ip}/g" -e "s/6666/${REGISTRY_PORT}/g" daemon.json.tmpl > daemon.json
 
 if [ x"$distro" == x"centos" ]; then
   if ! diff daemon.json /etc/docker/daemon.json; then 
