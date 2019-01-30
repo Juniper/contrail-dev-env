@@ -4,8 +4,8 @@
 
 This repository is actively maintained via [Gerrit] so please let us know about
 any problems you find. You can ask for help on [Slack] but if no one replies
-right away, go ahead and open a bug on [Launchpad] and tag the bug with the
-tag "dev-env" and it will get looked at soon. You can also post to the new
+right away, go ahead and open a bug on [JIRA] and label the bug with the
+label "dev-env" and it will get looked at soon. You can also post to the new
 [Google Group] if you're having trouble but don't know if the problem is a bug
 or a mistake on your part.
 
@@ -128,5 +128,5 @@ Set `CONTAINER_REGISTRY` to `registry:5000` to use containers built in step 5.
 
 [Gerrit]: https://review.opencontrail.org/#/admin/projects/Juniper/contrail-dev-env
 [Slack]: https://tungstenfabric.slack.com/messages/C0DQ23SJF/
-[Launchpad]: https://bugs.launchpad.net/opencontrail/+filebug
+[JIRA]: https://jira.tungsten.io/secure/Dashboard.jspa
 [Google Group]: https://groups.google.com/forum/#!forum/tungsten-dev
