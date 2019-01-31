@@ -39,8 +39,8 @@ RUN yum -y install epel-release \
 # Initialize sandbox, get code, install build dependencies
 # and fetch third parties
 RUN echo "Initializing repo from $BRANCH" \
-&&  repo init --no-clone-bundle -q -u https://github.com/Juniper/contrail-vnc -b $BRANCH \
-&&  repo sync --no-clone-bundle -q contrail-packages contrail-third-party \
+&&  repo init --no-clone-bundle -q -u https://github.com/tungstenfabric-preview/vnc -b $BRANCH \
+&&  repo sync --no-clone-bundle -q packages third-party \
 &&  make -f tools/packages/Makefile dep \
 &&  python third_party/fetch_packages.py \
 &&  yum clean all \
