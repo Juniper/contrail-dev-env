@@ -76,19 +76,58 @@ contrail-dev-env-registry  [Registry for contrail containers after they are buil
 docker attach contrail-developer-sandbox
 ```
 
-### 5. Run scons, UT, make RPMS or make containers
+### 5. Prepare developer-sandbox container
 
-*Required* first steps in the container:
+Required first steps in the container:
 
 ```
 cd /root/contrail-dev-env
-make sync           # get latest code using repo tool
+make sync           # get latest code
 make fetch_packages # pull third_party dependencies
 make setup          # set up docker container
-make dep            # install dependencies
+make dep            # install build dependencies
 ```
 
-Now you can run any commands using the source code sandbox, e.g.
+The `make` targets provided by `contrail-dev-env/Makefile` are:
+
+* `make sync` - sync code in `./contrail` directory using `repo` tool
+* `make fetch_packages` - pull `./third_party` dependencies (after code checkout)
+* `make setup` - initial configuration of image (required to run once)
+* `make dep` - installs all build dependencies
+* `make dep-<pkg_name>` - installs build dependencies for <pkg_name>
+
+### 5. Make artifacts
+
+#### RPM packages
+
+* `make list` - lists all available RPM targets
+* `make rpm` - builds all RPMs
+* `make rpm-<pkg_name>` - builds single RPM for <pkg_name>
+
+#### Container images
+
+* `make list-containers` - lists all container targets
+* `make containers` - builds all containers' images, requires RPM packages in /root/contrail/RPMS
+* `make container-<container_name>` - builds single container as a target, with all docker dependencies
+
+#### Deployers
+
+* `make list-deployers` - lists all deployers container targets
+* `make deployers` - builds all deployers
+* `make deployer-<container_name>` - builds single deployer as a target, with all docker dependencies
+
+#### Clean
+
+* `make clean{-containers,-deployers,-repo,-rpm}` - delete artifacts
+
+### 6. Testing the deployment
+
+See https://github.com/Juniper/contrail-ansible-deployer/wiki/Contrail-with-Openstack-Kolla .
+Set `CONTAINER_REGISTRY` to `registry:5000` to use containers built in step 5.
+
+### Alternate build methods
+
+Instead of step 5 above (which runs `scons` inside `make`), you can use `scons` directly. The steps 1-4 are still required. 
 
 ```
 cd /root/contrail
@@ -125,29 +164,6 @@ To build and run unit test against your code:
 RTE_KERNELDIR=/path/to/custom_kernel_headers scons --kernel-dir=/path/to/custom_kernel_headers test
 ```
 
-
-Or use any of additional `make` targets provided by `contrail-dev-env/Makefile`:
-
-* `make setup` - initial configuration of image (required to run once)
-* `make sync` - sync code in `contrail` directory using `repo` tool
-* `make fetch_packages` - pull third_party dependencies (after code checkout)
-* `make dep` - installs all build dependencies
-* `make dep-<pkg_name>` - installs build dependencies for <pkg_name>
-* `make list` - lists all available rpm targets
-* `make rpm` - builds all RPMs
-* `make rpm-<pkg_name>` - builds single RPM for <pkg_name>
-* `make list-containers` - lists all container targets
-* `make containers` - builds all containers, requires RPM packages in /root/contrail/RPMS
-* `make container-<container_name>` - builds single container as a target, with all docker dependencies
-* `make list-deployers` - lists all deployers container targets
-* `make deployers` - builds all deployers
-* `make deployer-<container_name>` - builds single deployer as a target, with all docker dependencies
-* `make clean{-containers,-deployers,-repo,-rpm}` - artifacts cleanup
-
-### 6. Testing the deployment
-
-See https://github.com/Juniper/contrail-ansible-deployer/wiki/Contrail-with-Openstack-Kolla .
-Set `CONTAINER_REGISTRY` to `registry:5000` to use containers built in step 5.
 
 ## Bring-your-own-VM (experimental)
 
