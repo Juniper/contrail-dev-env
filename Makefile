@@ -18,7 +18,7 @@ list-deployers: prepare-deployers
 	@$(deployers_builder_dir)containers/build.sh list | grep -v INFO | sed -e 's,/,_,g' -e 's/^/container-/'
 
 fetch_packages:
-	@cd $(DE_TOP)contrail/third_party && python -u fetch_packages.py 2>&1 | grep -Ei 'Processing|patching'
+	@cd $(DE_TOP)contrail/third_party && python3 -u fetch_packages.py 2>&1 | grep -Ei 'Processing|patching'
 
 setup:
 	@pip list | grep urllib3 >/dev/null && pip uninstall -y urllib3 || true
