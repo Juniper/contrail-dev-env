@@ -29,6 +29,7 @@ RUN yum -y install epel-release \
     make \
     python-devel \
     python-pip \
+    python36 \
     rpm-build \
     vim \
     wget \
@@ -42,7 +43,7 @@ RUN echo "Initializing repo from $BRANCH" \
 &&  repo init --no-clone-bundle -q -u https://github.com/Juniper/contrail-vnc -b $BRANCH \
 &&  repo sync --no-clone-bundle -q contrail-packages contrail-third-party \
 &&  make -f tools/packages/Makefile dep \
-&&  python third_party/fetch_packages.py \
+&&  ./third_party/fetch_packages.py \
 &&  yum clean all \
 &&  rm -rf /var/cache/yum
 
