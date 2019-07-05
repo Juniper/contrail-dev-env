@@ -34,6 +34,7 @@ RUN yum -y install epel-release \
     vim \
     wget \
     yum-utils \
+&&  yum -y remove git-review \
 &&  yum clean all \
 &&  rm -rf /var/cache/yum
 
@@ -49,7 +50,8 @@ RUN echo "Initializing repo from $BRANCH" \
 
 # DEVELOPMENT ENVIRONMENT TWEAKS
 # contrail-kubernetes and contrail-config
-RUN pip install --upgrade tox geventhttpclient
+RUN pip install --upgrade tox geventhttpclient 
+RUN pip install git-review
 
 RUN echo export CONTRAIL=$CONTRAIL >> $HOME/.bashrc \
 &&  echo export LD_LIBRARY_PATH=$CONTRAIL/build/lib >> $HOME/.bashrc
