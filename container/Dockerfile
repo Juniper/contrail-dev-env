@@ -38,7 +38,7 @@ RUN yum -y install epel-release \
 &&  rm -rf /var/cache/yum
 
 # Initialize sandbox, get code, install build dependencies
-# and fetch third parties
+# and fetch third parties 
 RUN echo "Initializing repo from $BRANCH" \
 &&  repo init --no-clone-bundle -q -u https://github.com/Juniper/contrail-vnc -b $BRANCH \
 &&  repo sync --no-clone-bundle -q contrail-packages contrail-third-party \
