@@ -69,7 +69,7 @@ test "$setup_only" -eq 1 && exit
 echo
 echo '[environment setup]'
 if [[ "$own_vm" -eq 0 ]]; then
-  rpm_source=$(docker volume create --name contrail-dev-env-rpm-volume) 
+  rpm_source=$(docker volume create --name contrail-dev-env-rpm-volume)
 else
   contrail_dir=$(realpath ${scriptdir}/../contrail)
   rpm_source=${contrail_dir}/RPMS
@@ -78,10 +78,10 @@ fi
 echo "${rpm_source} created."
 
 if ! is_created "contrail-dev-env-rpm-repo"; then
-  docker run --privileged --name contrail-dev-env-rpm-repo \
+  docker run -t --privileged --name contrail-dev-env-rpm-repo \
     -d -p 6667:80 \
     -v ${rpm_source}:/var/www/localhost/htdocs \
-    sebp/lighttpd >/dev/null
+    m4rcu5/lighttpd >/dev/null
   echo contrail-dev-env-rpm-repo created.
 else
   if is_up "contrail-dev-env-rpm-repo"; then
@@ -127,11 +127,26 @@ fi
 
 echo
 echo '[configuration update]'
-rpm_repo_ip=$(docker inspect --format '{{ .NetworkSettings.Gateway }}' contrail-dev-env-rpm-repo)
+for ((i=0; i<3; ++i)); do
+  rpm_repo_ip=$(docker inspect --format '{{ .NetworkSettings.Gateway }}' contrail-dev-env-rpm-repo)
+  if [[ -n "$rpm_repo_ip" ]]; then
+    break
+  fi
+  sleep 10
+done
+if [[ -z "$rpm_repo_ip" ]]; then
+  echo "ERROR: failed to obtain IP of local RPM repository"
+  docker ps -a
+  docker logs contrail-dev-env-rpm-repo
+  exit 1
+fi
+echo "INFO: rpm_repo_ip = ${rpm_repo_ip}"
+
 registry_ip=${REGISTRY_IP}
 if [ -z $registry_ip ]; then
   registry_ip=$(docker inspect --format '{{ .NetworkSettings.Gateway }}' contrail-dev-env-registry)
 fi
+echo "INFO: registry_ip = ${registry_ip}"
 
 sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/registry/${registry_ip}/g" -e "s/6666/${REGISTRY_PORT}/g" common.env.tmpl > common.env
 sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/contrail-registry/${registry_ip}/g" -e "s/6666/${REGISTRY_PORT}/g" vars.yaml.tmpl > vars.yaml
@@ -139,7 +154,7 @@ sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/registry/${registry_ip}/g" dev_config
 sed -e "s/registry/${registry_ip}/g" -e "s/6666/${REGISTRY_PORT}/g" daemon.json.tmpl > daemon.json
 
 if [ x"$distro" == x"centos" ]; then
-  if ! diff daemon.json /etc/docker/daemon.json; then 
+  if ! diff daemon.json /etc/docker/daemon.json; then
     cp daemon.json /etc/docker/daemon.json
     systemctl restart docker
     docker start contrail-dev-env-rpm-repo contrail-dev-env-registry
