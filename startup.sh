@@ -78,7 +78,7 @@ fi
 echo "${rpm_source} created."
 
 if ! is_created "contrail-dev-env-rpm-repo"; then
-  docker run --privileged --name contrail-dev-env-rpm-repo \
+  docker run -t --name contrail-dev-env-rpm-repo \
     -d -p 6667:80 \
     -v ${rpm_source}:/var/www/localhost/htdocs \
     sebp/lighttpd >/dev/null
@@ -127,10 +127,19 @@ fi
 
 echo
 echo '[configuration update]'
-rpm_repo_ip=$(docker inspect --format '{{ .NetworkSettings.Gateway }}' contrail-dev-env-rpm-repo)
+for ((i=0; i<3; ++i)); do
+  rpm_repo_ip=$(docker inspect --format '{{ .NetworkSettings.Gateway }}' contrail-dev-env-rpm-repo)
+  if [[ -n "$rpm_repo_ip" ]]; then
+    break
+  fi
+  sleep 10
+done
 registry_ip=${REGISTRY_IP}
-if [ -z $registry_ip ]; then
-  registry_ip=$(docker inspect --format '{{ .NetworkSettings.Gateway }}' contrail-dev-env-registry)
+if [[ -z "$rpm_repo_ip" ]]; then
+  echo "ERROR: failed to obtain IP of local RPM repository"
+  docker ps -a
+  docker logs contrail-dev-env-rpm-repo
+  exit 1
 fi
 
 sed -e "s/rpm-repo/${rpm_repo_ip}/g" -e "s/registry/${registry_ip}/g" -e "s/6666/${REGISTRY_PORT}/g" common.env.tmpl > common.env
