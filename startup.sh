@@ -68,6 +68,10 @@ test "$setup_only" -eq 1 && exit
 
 echo
 echo '[environment setup]'
+
+echo "export DOCKER_CLIENT_TIMEOUT=120" >> /etc/default/docker
+export DOCKER_CLIENT_TIMEOUT=120
+
 if [[ "$own_vm" -eq 0 ]]; then
   rpm_source=$(docker volume create --name contrail-dev-env-rpm-volume) 
 else
@@ -152,4 +156,3 @@ fi
 echo
 echo '[READY]'
 test "$own_vm" -eq 0 && echo "You can now connect to the sandbox container by using: $ docker attach contrail-developer-sandbox"
-
