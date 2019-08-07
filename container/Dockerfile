@@ -25,6 +25,7 @@ COPY *.repo /etc/yum.repos.d
 # Install basic packages
 RUN yum -y install epel-release \
 &&  yum -y update \
+&&  sed -i -e 's/^\(tsflags=nodocs\)/#\1/' /etc/yum.conf \
 &&  yum -y install \
     createrepo \
     docker \
@@ -37,10 +38,16 @@ RUN yum -y install epel-release \
     python-devel \
     python-pip \
     python36 \
+    python36-pip \
     rpm-build \
     vim \
     wget \
     yum-utils \
+    bash-completion \
+    bash-completion-extras \
+    ShellCheck \
+    man-pages \
+    man-db \
 &&  yum clean all \
 &&  rm -rf /var/cache/yum
 
@@ -57,6 +64,9 @@ RUN echo "Initializing repo from $BRANCH" \
 # DEVELOPMENT ENVIRONMENT TWEAKS
 # contrail-kubernetes and contrail-config
 RUN pip install --upgrade tox geventhttpclient
+
+# Adding tools to support conversion to python3
+RUN pip3 install caniusepython3 future
 
 RUN echo export CONTRAIL=$CONTRAIL >> $HOME/.bashrc \
 &&  echo export LD_LIBRARY_PATH=$CONTRAIL/build/lib >> $HOME/.bashrc
