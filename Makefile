@@ -60,7 +60,7 @@ build deploy:
 
 # utility targets
 sync:
-	@cd $(DE_TOP)contrail && repo sync -q --no-clone-bundle -j $(shell nproc)
+	@cd $(DE_TOP)contrail && repo sync --no-clone-bundle -j $(shell nproc)
 
 $(container_builder_dir).git:
 	@$(DE_DIR)scripts/prepare-containers.sh
