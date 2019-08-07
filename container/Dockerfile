@@ -19,12 +19,18 @@ WORKDIR $CONTRAIL
 RUN curl -s https://storage.googleapis.com/git-repo-downloads/repo > /usr/bin/repo \
 &&  chmod a+x /usr/bin/repo
 
+# Add public DNS servers in case default DNS is unreliable.
+RUN echo "nameserver 8.8.8.8" >>/etc/resolv.conf \
+&&  echo "nameserver 8.8.4.4" >>/etc/resolv.conf
+
 # Inject repositories that we might need
 COPY *.repo /etc/yum.repos.d
 
 # Install basic packages
+# Turn off "nodocs" in yum to enable documentation for developers.
 RUN yum -y install epel-release \
 &&  yum -y update \
+&&  sed -i -e 's/^\(tsflags=nodocs\)/#\1/' /etc/yum.conf \
 &&  yum -y install \
     createrepo \
     docker \
@@ -32,15 +38,20 @@ RUN yum -y install epel-release \
     gcc \
     gdb \
     git \
-    kernel \
     make \
     python-devel \
     python-pip \
-    python36 \
+    python36-devel \
+    python36-pip \
     rpm-build \
     vim \
     wget \
     yum-utils \
+    bash-completion \
+    bash-completion-extras \
+    ShellCheck \
+    man-pages \
+    man-db \
 &&  yum clean all \
 &&  rm -rf /var/cache/yum
 
@@ -51,12 +62,15 @@ RUN echo "Initializing repo from $BRANCH" \
 &&  repo sync --no-clone-bundle -q contrail-packages contrail-third-party \
 &&  make -f tools/packages/Makefile dep \
 &&  ./third_party/fetch_packages.py \
-&&  yum clean all \
+&&  yum clean all -y \
 &&  rm -rf /var/cache/yum
 
 # DEVELOPMENT ENVIRONMENT TWEAKS
 # contrail-kubernetes and contrail-config
-RUN pip install --upgrade tox geventhttpclient
+RUN pip install --upgrade future tox geventhttpclient
+
+# Adding tools to support conversion to python3
+RUN pip3 install --upgrade caniusepython3 future tox geventhttpclient
 
 RUN echo export CONTRAIL=$CONTRAIL >> $HOME/.bashrc \
 &&  echo export LD_LIBRARY_PATH=$CONTRAIL/build/lib >> $HOME/.bashrc
