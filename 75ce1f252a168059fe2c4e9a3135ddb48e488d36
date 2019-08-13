@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82532622_fc37fe61",
+        "filename": "scripts/python3-status-check.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 760
+      },
+      "writtenOn": "2019-08-13T08:14:54Z",
+      "side": 1,
+      "message": "Why not \u0027\\n \u003crepo name\u003d\"%s\" path\u003d\"%s\"\u003e\u0027 for clarity? And similarly for the rest of this function.",
+      "range": {
+        "startLine": 217,
+        "startChar": 15,
+        "endLine": 217,
+        "endChar": 51
+      },
+      "revId": "75ce1f252a168059fe2c4e9a3135ddb48e488d36",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2ba418f_7ccc6e3a",
+        "filename": "scripts/python3-status-check.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 760
+      },
+      "writtenOn": "2019-08-13T08:14:54Z",
+      "side": 1,
+      "message": "-v looks like a bug. File setup.py usually contains many unrelated lines not mentioning \u0027Programming Language :: Python :: 3\u0027 \n\nI think:\nif grep -q ... ; then \n  python3_module\u003dyes\nfi",
+      "revId": "75ce1f252a168059fe2c4e9a3135ddb48e488d36",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    }
+  ]
+}
