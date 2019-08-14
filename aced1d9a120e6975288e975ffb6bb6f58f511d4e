@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3e55ea3_c3eba7a3",
+        "filename": "container/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 382
+      },
+      "writtenOn": "2019-08-14T17:13:17Z",
+      "side": 1,
+      "message": "it\u0027s better to remove both...",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 16
+      },
+      "revId": "aced1d9a120e6975288e975ffb6bb6f58f511d4e",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    }
+  ]
+}
