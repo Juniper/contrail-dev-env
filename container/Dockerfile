@@ -35,7 +35,6 @@ RUN yum -y install epel-release \
     gdb \
     git \
     make \
-    python-devel \
     python-pip \
     python36-devel \
     python36-pip \
