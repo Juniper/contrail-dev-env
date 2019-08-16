@@ -12,7 +12,7 @@ IMAGE=opencontrailnightly/developer-sandbox
 
 # variables that can be redefined outside
 REGISTRY_PORT=${REGISTRY_PORT:-6666}
-REGISTRY_IP=${REGISTRY_IP:-}
+REGISTRY_IP=${REGISTRY_IP:-""}
 
 while getopts ":t:i:sb" opt; do
   case $opt in
@@ -51,7 +51,8 @@ echo contrail-dev-env startup
 echo
 echo '[docker setup]'
 
-distro=$(cat /etc/*release | egrep '^ID=' | awk -F= '{print $2}' | tr -d \")
+distro=$(cat /etc/*release 2>/dev/null | egrep '^ID=' | awk -F= '{print $2}' | tr -d \")
+[[ $distro ]] || distro=$(uname)
 echo $distro detected.
 if [ x"$distro" == x"centos" ]; then
   which docker || yum install -y docker
@@ -76,6 +77,14 @@ else
   mkdir -p ${rpm_source}
 fi
 echo "${rpm_source} created."
+
+# The IP through which the containers access the host
+host_ip=$(docker network inspect bridge --format '{{(index .IPAM.Config 0).Gateway}}')
+# Default REGISTRY_IP on Mac is localhost, because docker push to the gateway IP may fail.
+default_registry_ip=$host_ip
+[[ Darwin != "$distro" ]] || default_registry_ip=localhost
+
+REGISTRY_IP=${REGISTRY_IP:-$default_registry_ip}
 
 if ! is_created "contrail-dev-env-rpm-repo"; then
   docker run -t --privileged --name contrail-dev-env-rpm-repo \
@@ -127,24 +136,17 @@ fi
 
 echo
 echo '[configuration update]'
-for ((i=0; i<3; ++i)); do
-  rpm_repo_ip=$(docker inspect --format '{{ .NetworkSettings.Gateway }}' contrail-dev-env-rpm-repo)
-  if [[ -n "$rpm_repo_ip" ]]; then
-    break
-  fi
-  sleep 10
-done
-if [[ -z "$rpm_repo_ip" ]]; then
-  echo "ERROR: failed to obtain IP of local RPM repository"
-  docker ps -a
-  docker logs contrail-dev-env-rpm-repo
+rpm_repo_ip=${host_ip}
+if [[ ! $rpm_repo_ip ]]; then
+  echo "ERROR: RPM repo IP not set.  Is docker installed correctly?"
   exit 1
 fi
 echo "INFO: rpm_repo_ip = ${rpm_repo_ip}"
 
 registry_ip=${REGISTRY_IP}
-if [ -z $registry_ip ]; then
-  registry_ip=$(docker inspect --format '{{ .NetworkSettings.Gateway }}' contrail-dev-env-registry)
+if [[ ! $registry_ip ]]; then
+  echo "ERROR: registry IP not set.  Is docker installed correctly?"
+  exit 1
 fi
 echo "INFO: registry_ip = ${registry_ip}"
 
