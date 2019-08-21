@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d8849c9_fce5fed2",
+        "filename": "tpc.repo.template",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 382
+      },
+      "writtenOn": "2019-08-21T09:01:44Z",
+      "side": 1,
+      "message": "who owns this name? is it permanent name or it must be re-newed each month?",
+      "revId": "658bd918423a8d299c96e3868018917708561a4f",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    }
+  ]
+}
