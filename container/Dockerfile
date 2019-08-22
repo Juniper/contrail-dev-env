@@ -1,4 +1,4 @@
-FROM centos:7.5.1804
+FROM centos:7
 
 ENV USER root
 ENV HOME /root/
@@ -72,4 +72,3 @@ RUN echo export CONTRAIL=$CONTRAIL >> $HOME/.bashrc \
 &&  echo export LD_LIBRARY_PATH=$CONTRAIL/build/lib >> $HOME/.bashrc
 
 ADD Dockerfile $HOME/
-
