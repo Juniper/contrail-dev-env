@@ -72,4 +72,3 @@ RUN echo export CONTRAIL=$CONTRAIL >> $HOME/.bashrc \
 &&  echo export LD_LIBRARY_PATH=$CONTRAIL/build/lib >> $HOME/.bashrc
 
 ADD Dockerfile $HOME/
-
