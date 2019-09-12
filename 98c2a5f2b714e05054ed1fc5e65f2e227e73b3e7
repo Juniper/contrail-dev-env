@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b377fa8_f7804d94",
+        "filename": "startup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 382
+      },
+      "writtenOn": "2019-09-12T10:05:47Z",
+      "side": 1,
+      "message": "REGISTRY_PORT and REGISTRY_IP are like an interface and they was placed in the beginning of the file",
+      "revId": "98c2a5f2b714e05054ed1fc5e65f2e227e73b3e7",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b48f04d1_35e05113",
+        "filename": "startup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 382
+      },
+      "writtenOn": "2019-09-12T10:05:47Z",
+      "side": 1,
+      "message": "what sense to run grep and awk on empty string in case of mac?",
+      "revId": "98c2a5f2b714e05054ed1fc5e65f2e227e73b3e7",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55b5d41e_0d06376c",
+        "filename": "startup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 382
+      },
+      "writtenOn": "2019-09-12T10:05:47Z",
+      "side": 1,
+      "message": "what code will deal with \u0027Darwin\u0027 distro for installing docker?",
+      "revId": "98c2a5f2b714e05054ed1fc5e65f2e227e73b3e7",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "114f46dc_41239522",
+        "filename": "startup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 382
+      },
+      "writtenOn": "2019-09-12T10:05:47Z",
+      "side": 1,
+      "message": "why waiting code was removed?",
+      "revId": "98c2a5f2b714e05054ed1fc5e65f2e227e73b3e7",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    }
+  ]
+}
