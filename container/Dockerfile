@@ -48,6 +48,7 @@ RUN yum -y install epel-release \
     ShellCheck \
     man-pages \
     man-db \
+    kernel-devel \
 &&  yum clean all \
 &&  rm -rf /var/cache/yum
 
@@ -60,6 +61,10 @@ RUN echo "Initializing repo from $BRANCH" \
 &&  ./third_party/fetch_packages.py \
 &&  yum clean all -y \
 &&  rm -rf /var/cache/yum
+
+RUN git config --global user.email "john.doe@juniper.net" \
+&&  git config --global user.name "John Doe" \
+&&  git config --global color.ui true
 
 # DEVELOPMENT ENVIRONMENT TWEAKS
 # contrail-kubernetes and contrail-config
