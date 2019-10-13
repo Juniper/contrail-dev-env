@@ -114,6 +114,7 @@ if [[ "$own_vm" -eq 0 ]]; then
       -v /var/run/docker.sock:/var/run/docker.sock \
       -v ${rpm_source}:/root/contrail/RPMS \
       -v $(pwd):/root/contrail-dev-env \
+      -v /lib/modules:/lib/modules \
       ${IMAGE}:${DEVENVTAG} >/dev/null
     echo contrail-developer-sandbox created.
   else
