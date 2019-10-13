@@ -97,6 +97,21 @@ clean-rpm:
 clean: clean-deployers clean-containers clean-repo clean-rpm
 	@true
 
+# Build contrail-vrouter kernel module and ensure that it loads successfully.
+vrouter-module-test: sync fetch_packages setup
+	yum -y remove python-devel
+	yum -y install kernel-devel
+	mv /lib/modules /lib/modules.orig
+	ln -sf /lib/modules_host /lib/modules
+	scons -C $(DE_TOP)contrail vrouter:test
+	scons -C $(DE_TOP)contrail vrouter || true
+	scons -C $(DE_TOP)contrail vrouter || true
+	insmod $(DE_TOP)contrail/vrouter/vrouter.ko
+	lsmod | grep vrouter | grep -v grep
+	rmmod vrouter
+	rm /lib/modules
+	mv /lib/modules.orig /lib/modules
+
 dbg:
 	@echo $(DE_TOP)
 	@echo $(DE_DIR)
