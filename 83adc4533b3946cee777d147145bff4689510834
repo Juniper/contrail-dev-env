@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e0c5113a_f40bc1b1",
+        "filename": "startup.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-14T21:20:44Z",
+      "side": 1,
+      "message": "https://review.opencontrail.org/c/Juniper/contrail-dev-env/+/53281, macbook",
+      "parentUuid": "256e09d5_3cf811a9",
+      "range": {
+        "startLine": 117,
+        "startChar": 6,
+        "endLine": 117,
+        "endChar": 36
+      },
+      "revId": "83adc4533b3946cee777d147145bff4689510834",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "884344ed_8d4b2bec",
         "filename": "vrouter_build.sh",
         "patchSetId": 3
@@ -141,6 +165,30 @@
       "side": 1,
       "message": "I added this routine only as a recorder. this function is not called from any where..",
       "parentUuid": "f7fa31de_cd35ac9d",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 33
+      },
+      "revId": "83adc4533b3946cee777d147145bff4689510834",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8eb5a537_ecab0941",
+        "filename": "vrouter_build.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-14T21:20:44Z",
+      "side": 1,
+      "message": "Why to add dead code ?",
+      "parentUuid": "6d6977dd_bc093edc",
       "range": {
         "startLine": 6,
         "startChar": 4,

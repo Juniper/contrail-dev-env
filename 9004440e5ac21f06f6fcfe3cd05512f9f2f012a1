@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e01f2eb6_207e0460",
+        "filename": "vrouter_build.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-14T21:20:44Z",
+      "side": 1,
+      "message": "so this is a dead code ?",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 27
+      },
+      "revId": "9004440e5ac21f06f6fcfe3cd05512f9f2f012a1",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "277ff7b7_716b7a98",
+        "filename": "vrouter_build.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-14T21:20:44Z",
+      "side": 1,
+      "message": "this is already taken care during contrail-dev-env build, why to add again ?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 1
+      },
+      "revId": "9004440e5ac21f06f6fcfe3cd05512f9f2f012a1",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c715a72_a50dae13",
+        "filename": "vrouter_build.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-14T21:20:44Z",
+      "side": 1,
+      "message": "why -j8 only ? make rpm-vrotuer, will make use of all cores on the system. I am trying to understand how these set of changes solve something that is not provided by existing dev-env ?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 1
+      },
+      "revId": "9004440e5ac21f06f6fcfe3cd05512f9f2f012a1",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    }
+  ]
+}
