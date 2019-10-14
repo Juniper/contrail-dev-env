@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9568e933_e0bbcec6",
+        "filename": "container/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-14T17:32:11Z",
+      "side": 1,
+      "message": "this will installed as part of \"make -f tools/packages/Makefile dep\". we don\u0027t need to install it separately.",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 16
+      },
+      "revId": "83adc4533b3946cee777d147145bff4689510834",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2dca6c0_c4019693",
+        "filename": "startup.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-14T17:32:11Z",
+      "side": 1,
+      "message": "This is assumes that this is will used only with linux systems.",
+      "range": {
+        "startLine": 117,
+        "startChar": 6,
+        "endLine": 117,
+        "endChar": 36
+      },
+      "revId": "83adc4533b3946cee777d147145bff4689510834",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "884344ed_8d4b2bec",
+        "filename": "vrouter_build.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-14T17:32:11Z",
+      "side": 1,
+      "message": "How it better than current make commands ?",
+      "revId": "83adc4533b3946cee777d147145bff4689510834",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7fa31de_cd35ac9d",
+        "filename": "vrouter_build.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-14T17:32:11Z",
+      "side": 1,
+      "message": "making use of absolute path. instead of $PWD",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 33
+      },
+      "revId": "83adc4533b3946cee777d147145bff4689510834",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ef314ef_c9331ca7",
+        "filename": "vrouter_build.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-14T17:32:11Z",
+      "side": 1,
+      "message": "Current \"make sync\" better than this as it make use of multiple core to check-out",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 13
+      },
+      "revId": "83adc4533b3946cee777d147145bff4689510834",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    }
+  ]
+}
