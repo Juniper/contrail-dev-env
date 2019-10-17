@@ -97,6 +97,8 @@ clean-rpm:
 clean: clean-deployers clean-containers clean-repo clean-rpm
 	@true
 
+# test message
+
 dbg:
 	@echo $(DE_TOP)
 	@echo $(DE_DIR)
