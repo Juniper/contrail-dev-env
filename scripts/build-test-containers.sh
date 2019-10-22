@@ -55,7 +55,7 @@ for openstack_version in ${openstack_versions//,/ } ; do
     echo Start build test container for ${openstack_version} | tee "./build-test-${openstack_version}.log"
     ./build-container.sh test \
         --base-tag ${CONTRAIL_CONTAINER_TAG} \
-        --tag ${openstack_version}-${CONTRAIL_CONTAINER_TAG} \
+        --tag ${CONTRAIL_CONTAINER_TAG} \
         --registry-server ${CONTRAIL_REGISTRY} \
         --sku ${openstack_version} \
         --contrail-repo ${CONTRAIL_REPOSITORY} \
