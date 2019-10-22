@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03a25a60_98d9e064",
+        "filename": "build_vrouter.sh",
+        "patchSetId": 15
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-22T15:57:54Z",
+      "side": 1,
+      "message": "Add more documentation for person to use it.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 123
+      },
+      "revId": "6c3dc41fc86b003c8b2256a8a06ff36d265e625f",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "507ea034_a110dbd8",
+        "filename": "build_vrouter.sh",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-22T15:57:54Z",
+      "side": 1,
+      "message": "no avoid absolute paths.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 2
+      },
+      "revId": "6c3dc41fc86b003c8b2256a8a06ff36d265e625f",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4c507d3_1ab32053",
+        "filename": "build_vrouter.sh",
+        "patchSetId": 15
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-22T15:57:54Z",
+      "side": 1,
+      "message": "yum install rh-python36 -y\ngive access to pip pacakge",
+      "range": {
+        "startLine": 13,
+        "startChar": 3,
+        "endLine": 14,
+        "endChar": 110
+      },
+      "revId": "6c3dc41fc86b003c8b2256a8a06ff36d265e625f",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee508a3a_5f7f1acf",
+        "filename": "build_vrouter.sh",
+        "patchSetId": 15
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-22T15:57:54Z",
+      "side": 1,
+      "message": "$TOP/repo sync -j ${nproc}",
+      "range": {
+        "startLine": 51,
+        "startChar": 5,
+        "endLine": 51,
+        "endChar": 18
+      },
+      "revId": "6c3dc41fc86b003c8b2256a8a06ff36d265e625f",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14605b9f_107f00f1",
+        "filename": "build_vrouter.sh",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-22T15:57:54Z",
+      "side": 1,
+      "message": "-j8 \u003d\u003e -j $(shell nproc)",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 16
+      },
+      "revId": "6c3dc41fc86b003c8b2256a8a06ff36d265e625f",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f417b6b0_51800bfa",
+        "filename": "build_vrouter.sh",
+        "patchSetId": 15
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-22T15:57:54Z",
+      "side": 1,
+      "message": "don\u0027t clean up in verify.",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 15
+      },
+      "revId": "6c3dc41fc86b003c8b2256a8a06ff36d265e625f",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    }
+  ]
+}
