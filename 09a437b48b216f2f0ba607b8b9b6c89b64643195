@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e54c97c5_0fcd3847",
+        "filename": "build_vrouter.sh",
+        "patchSetId": 17
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 79
+      },
+      "writtenOn": "2019-10-24T19:09:48Z",
+      "side": 1,
+      "message": "This repo is only available for RHEL, What about non-RHEL cases ? centos/ubuntu ?\nIf not, we are good this.",
+      "range": {
+        "startLine": 17,
+        "startChar": 23,
+        "endLine": 17,
+        "endChar": 47
+      },
+      "revId": "09a437b48b216f2f0ba607b8b9b6c89b64643195",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    }
+  ]
+}
