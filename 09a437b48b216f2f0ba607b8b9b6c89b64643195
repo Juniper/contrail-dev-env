@@ -22,6 +22,30 @@
       "revId": "09a437b48b216f2f0ba607b8b9b6c89b64643195",
       "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29efa03b_07d9f86f",
+        "filename": "build_vrouter.sh",
+        "patchSetId": 17
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5
+      },
+      "writtenOn": "2019-11-05T21:50:48Z",
+      "side": 1,
+      "message": "this was an attempt with RHEL specifically. I can rename the file as build_vrouter_rhel.sh to be explicit.",
+      "parentUuid": "e54c97c5_0fcd3847",
+      "range": {
+        "startLine": 17,
+        "startChar": 23,
+        "endLine": 17,
+        "endChar": 47
+      },
+      "revId": "09a437b48b216f2f0ba607b8b9b6c89b64643195",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
     }
   ]
 }
