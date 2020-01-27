@@ -137,12 +137,23 @@ Instead of step 5 above (which runs `scons` inside `make`), you can use `scons` 
 cd /root/contrail
 scons # ( or "scons test" etc)
 ```
-
 NOTE:
 Above example build whole TungstenFabric project with default kernel headers and those
 are headers for running kernel (`uname -r`). If you want to customize your manual build and
 use i.e newer kernel header take a look at below examples.
 
+### Method 1:
+1. install desired kernel & kernel-devel package inside the dev-env.
+``` 
+yum install kernel-yum install kernel-3.10.0-1062.9.1.el7.x86_64 kernel-devel-3.10.0-1062.9.1.el7.x86_64 
+```
+2. export KVERS variable.
+```
+export KVERS=3.10.0-1062.9.1.el7.x86_64
+```
+3. run `make rpm` as usual
+
+### Method 2:
 In case you want to compile TungstenFabric with latest or another custom kernel headers installed
 in `contrail-developer-sanbox` container, then you have to run scons with extra arguments:
 
