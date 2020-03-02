@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f01708e_d9b1f313",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 16
+      },
+      "writtenOn": "2020-03-02T17:27:51Z",
+      "side": 1,
+      "message": "is this a typo? yum install kernel-yum install kernel-3.10.0-1062.9.1.el7.x86_64 kernel-devel-3.10.0-1062.9.1.el7.x86_64",
+      "revId": "ed8f13b8b9cdc268fec7f583ac6c2280d5c6ad22",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    }
+  ]
+}
