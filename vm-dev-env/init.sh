@@ -63,7 +63,7 @@ else
   echo initializing sandbox...
   cd ${WORKDIR}/contrail
 
-  test -d ${WORKDIR}/contrail/.repo || repo init --no-clone-bundle -q -u https://github.com/Juniper/contrail-vnc
+  test -d ${WORKDIR}/contrail/.repo || repo init --no-clone-bundle -q -u https://github.com/tungstenfabric/tf-vnc
   repo sync --no-clone-bundle -q -j $(($(nproc)*2 ))
 
 fi

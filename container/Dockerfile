@@ -1,4 +1,4 @@
-FROM centos:7
+FROM centos:7.7.1908
 
 ENV USER root
 ENV HOME /root/
@@ -20,12 +20,13 @@ RUN curl -s https://storage.googleapis.com/git-repo-downloads/repo > /usr/bin/re
 &&  chmod a+x /usr/bin/repo
 
 # Inject repositories that we might need
-COPY *.repo /etc/yum.repos.d
+COPY *.repo /etc/yum.repos.d/
+COPY *.rpm /tmp/
 
 # Install basic packages
 # Turn off "nodocs" in yum to enable documentation for developers.
 RUN yum -y install epel-release \
-&&  yum -y update \
+#&&  yum -y update \
 &&  sed -i -e 's/^\(tsflags=nodocs\)/#\1/' /etc/yum.conf \
 &&  yum -y install \
     createrepo \
@@ -50,11 +51,13 @@ RUN yum -y install epel-release \
 &&  yum clean all \
 &&  rm -rf /var/cache/yum
 
+#RUN yum localinstall -y /tmp/kernel-*.rpm
+
 # Initialize sandbox, get code, install build dependencies
 # and fetch third parties
 RUN echo "Initializing repo from $BRANCH" \
-&&  repo init --no-clone-bundle -q -u https://github.com/Juniper/contrail-vnc -b $BRANCH \
-&&  repo sync --no-clone-bundle -q contrail-packages contrail-third-party \
+&&  repo init --no-clone-bundle -q -u https://github.com/tungstenfabric/tf-vnc -b $BRANCH \
+&&  repo sync --no-clone-bundle -q tf-packages tf-third-party \
 &&  make -f tools/packages/Makefile dep \
 &&  ./third_party/fetch_packages.py \
 &&  yum clean all -y \
@@ -62,7 +65,7 @@ RUN echo "Initializing repo from $BRANCH" \
 
 # DEVELOPMENT ENVIRONMENT TWEAKS
 # contrail-kubernetes and contrail-config
-RUN pip install --upgrade future tox geventhttpclient
+RUN pip install --upgrade future tox gevent==1.4.0 geventhttpclient
 
 # Adding tools to support conversion to python3
 RUN pip3 install --upgrade caniusepython3 future tox geventhttpclient
