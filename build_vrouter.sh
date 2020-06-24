@@ -52,7 +52,7 @@ function checkout () {
         chmod +x /usr/bin/repo
     fi
     cd $TOP
-    repo init --quiet -u https://github.com/Juniper/contrail-vnc.git
+    repo init --quiet -u https://github.com/tungstenfabric/tf-vnc.git
     update_manifest
     repo sync -j$(nproc)
 }

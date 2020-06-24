@@ -1,0 +1,5 @@
+[tpc-source]
+baseurl = http://ci-repo.englab.juniper.net/pulp/repos/master/tpc-source/
+enabled = 1
+gpgcheck = 0
+name = Contrail third-party dependencies
