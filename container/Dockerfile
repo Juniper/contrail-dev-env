@@ -54,19 +54,21 @@ RUN yum -y install epel-release \
 # Initialize sandbox, get code, install build dependencies
 # and fetch third parties
 RUN echo "Initializing repo from $BRANCH" \
-&&  repo init --no-clone-bundle -q -u https://github.com/Juniper/contrail-vnc -b $BRANCH \
-&&  repo sync --no-clone-bundle -q contrail-packages contrail-third-party \
+&&  repo init --repo-branch=repo-1  --no-clone-bundle -q -u https://github.com/tungstenfabric/tf-vnc -b $BRANCH \
+&&  repo sync --no-clone-bundle -q tf-packages tf-third-party \
 &&  make -f tools/packages/Makefile dep \
 &&  ./third_party/fetch_packages.py \
+&& yum install -y sudo \
 &&  yum clean all -y \
 &&  rm -rf /var/cache/yum
 
 # DEVELOPMENT ENVIRONMENT TWEAKS
 # contrail-kubernetes and contrail-config
-RUN pip install --upgrade future tox geventhttpclient
+RUN pip install 'gevent<1.5.0'
+RUN pip install --upgrade future tox 
 
 # Adding tools to support conversion to python3
-RUN pip3 install --upgrade caniusepython3 future tox geventhttpclient
+RUN pip3 install --upgrade caniusepython3 future tox 
 
 RUN echo export CONTRAIL=$CONTRAIL >> $HOME/.bashrc \
 &&  echo export LD_LIBRARY_PATH=$CONTRAIL/build/lib >> $HOME/.bashrc
