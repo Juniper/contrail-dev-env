@@ -16,7 +16,7 @@ echo adding contrail-tpc repository
 sudo tee /etc/yum.repos.d/tpc.repo << EOF
 [contrail-tpc]
 name=Third parties for Contrail
-baseurl=http://148.251.5.90/tpc/
+baseurl=http://38.108.68.79/repository/yum-tpc/
 enabled=1
 gpgcheck=0
 EOF
